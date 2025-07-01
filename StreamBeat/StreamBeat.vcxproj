@@ -169,6 +169,7 @@
     <ClInclude Include="Source\HashTable\HashTable.h" />
     <ClInclude Include="Source\Manager\FocusController.h" />
     <ClInclude Include="Source\Manager\ScreenManager.h" />
+    <ClInclude Include="Source\Manager\UserManager.h" />
     <ClInclude Include="Source\Screens\LoginScreen.h" />
     <ClInclude Include="Source\Screens\RegisterScreen.h" />
     <ClInclude Include="Source\Screens\Screen.h" />

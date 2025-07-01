@@ -164,6 +164,9 @@
     <ClInclude Include="Source\HashTable\HashTable.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Manager\UserManager.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\streambeat.ico">
