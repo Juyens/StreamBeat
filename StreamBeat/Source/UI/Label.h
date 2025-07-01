@@ -17,9 +17,16 @@ namespace sb
 		void setText(const std::string& text);
 		const std::string& getText() const;
 
+		void setTextPalette(const Palette& textPalette);
+		const Palette& getTextPalette() const;
+
+		void setTextForeground(WORD foreground);
+		void setTextBackground(WORD background);
+
 		void render() override;
 
 	private:
+		Palette textPalette_{ PalettePresets::Default };
 		std::string text_{ "Label" };
 	};
 }

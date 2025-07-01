@@ -4,28 +4,8 @@ namespace sb
 {
 	Widget::Widget() = default;
 
-	Widget::Widget(const Vector2i& position, const Vector2i& size, const Palette& palette)
-		: palette_(palette), position_(position), size_(size) {}
-
-	void Widget::setPalette(const Palette& palette)
-	{
-		palette_ = palette;
-	}
-
-	const Palette& Widget::getPalette() const
-	{
-		return palette_;
-	}
-
-	void Widget::setForeground(WORD foreground)
-	{
-		palette_.foreground = foreground;
-	}
-
-	void Widget::setBackground(WORD background)
-	{
-		palette_.background = background;
-	}
+	Widget::Widget(const Vector2i& position, const Vector2i& size)
+		: position_(position), size_(size) {}
 
 	void Widget::setPosition(const Vector2i& pos)
 	{
@@ -55,6 +35,26 @@ namespace sb
 	int Widget::getY()
 	{
 		return position_.y();
+	}
+
+	void Widget::setWidth(int width)
+	{
+		size_.setX(width);
+	}
+
+	int Widget::getWidth() const
+	{
+		return size_.x();
+	}
+
+	void Widget::setHeight(int height)
+	{
+		size_.setY(height);
+	}
+
+	int Widget::getHeight() const
+	{
+		return size_.y();
 	}
 
 	void Widget::setSize(int width, int height)

@@ -200,6 +200,7 @@
     <ClInclude Include="Source\Drawing\Drawing.h" />
     <ClInclude Include="Source\Drawing\PalettePresets.h" />
     <ClInclude Include="Source\Utils\Cursor.h" />
+    <ClInclude Include="Source\Utils\Utils.h" />
     <ClInclude Include="Source\Utils\Vector2.h" />
   </ItemGroup>
   <ItemGroup>

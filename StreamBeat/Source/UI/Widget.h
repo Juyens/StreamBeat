@@ -10,15 +10,9 @@ namespace sb
 	{
 	public:
 		Widget();
-		explicit Widget(const Vector2i& position, const Vector2i& size, const Palette& palette);
+		explicit Widget(const Vector2i& position, const Vector2i& size);
 
 		virtual ~Widget() = default;
-
-		void setPalette(const Palette& palette);
-		const Palette& getPalette() const;
-
-		void setForeground(WORD foreground);
-		void setBackground(WORD background);
 
 		virtual void setPosition(const Vector2i& pos);
 		virtual Vector2i getPosition() const;
@@ -28,6 +22,12 @@ namespace sb
 
 		virtual void setY(int y);
 		virtual int getY();
+
+		virtual void setWidth(int width);
+		virtual int getWidth() const;
+
+		virtual void setHeight(int height);
+		virtual int getHeight() const;
 
 		virtual void setSize(int width, int height);
 		virtual void setSize(const Vector2i& size);
@@ -43,7 +43,6 @@ namespace sb
 		void centerY(int areaHeight);
 
 	protected:
-		Palette palette_{ PalettePresets::Default };
 		Vector2i position_{ 0, 0 };
 		Vector2i size_{ 0, 0 };
 		bool visible_{ true };

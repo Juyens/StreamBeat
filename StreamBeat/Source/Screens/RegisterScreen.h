@@ -15,6 +15,9 @@ namespace sb
 		void onCreate() override;
 
 	private:
+		bool isValidEmail(const std::string& email);
+
+	private:
 		Label* titleLb_{ nullptr };
 
 		Label* firstNameLb_{ nullptr };

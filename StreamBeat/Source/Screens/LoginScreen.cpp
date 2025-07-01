@@ -84,7 +84,7 @@ namespace sb
 		warningLb_->setText("No se pudo iniciar sesion. Verifica tus datos");
 		warningLb_->centerX(consoleSize.x());
 		warningLb_->setY(baseY + 2);
-		warningLb_->setForeground(Color::Foreground::LightRed);
+		warningLb_->setTextForeground(Color::Foreground::LightRed);
 		warningLb_->hide();
 	}
 }

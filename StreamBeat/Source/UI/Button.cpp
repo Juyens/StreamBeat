@@ -15,9 +15,7 @@ namespace sb
 	Button::Button(const Vector2i& position, std::string label)
 		: Interactive(
 			position,
-			Vector2i(std::max(static_cast<int>(label.size()) + 4, 4), 3),
-			PalettePresets::Default
-		)
+			Vector2i(std::max(static_cast<int>(label.size()) + 4, 4), 3))
 		, label_(std::move(label)) {}
 
 	void Button::setLabel(const std::string& text)
@@ -28,7 +26,7 @@ namespace sb
 
 	void Button::render()
 	{
-		const Palette& activePalette = hasFocus() ? getFocusPalette() : getPalette();
+		const Palette& activePalette = hasFocus() ? getFocusPalette() : getBorderPalette();
 
 		const int paddingX = 2;
 		const int minWidth = 4;

@@ -13,8 +13,7 @@ namespace sb
 	}
 
 	TextBox::TextBox(const Vector2i& position)
-		: Interactive(position, Vector2i(30, 3)
-		, PalettePresets::Default) {}
+		: Interactive(position, Vector2i(30, 3)) {}
 
 	void TextBox::setText(const std::string& text)
 	{
@@ -65,7 +64,7 @@ namespace sb
 
 	void TextBox::render()
 	{
-		const Palette& activePalette = hasFocus() ? getFocusPalette() : getPalette();
+		const Palette& activePalette = hasFocus() ? getFocusPalette() : getBorderPalette();
 
 		Drawing::drawBox(position_.x(), position_.y(), size_.x(), size_.y(), BoxStyles::SingleLineBox, activePalette);
 
