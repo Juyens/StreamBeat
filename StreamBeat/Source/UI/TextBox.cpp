@@ -54,6 +54,7 @@ namespace sb
 				if (cursor_.getIndex() < static_cast<int>(text_.size()))
 				{
 					text_.erase(cursor_.getIndex(), 1);
+					cursor_.eraseAfter(static_cast<int>(text_.size()));
 				}
 				break;
 			default:

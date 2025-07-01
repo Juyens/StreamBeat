@@ -37,7 +37,8 @@ namespace sb
 
 	void Cursor::eraseAfter(int maxIndex)
 	{
-		if (index_ < maxIndex) {}
+		if (index_ >= maxIndex && index_ > 0)
+			--index_;
 	}
 
 	void Cursor::hide()
