@@ -1,6 +1,7 @@
 #include "LoginScreen.h"
 #include "ScreenNames.h"
 #include "ScreenManager.h"
+#include "UserManager.h"
 
 namespace sb
 {
@@ -43,6 +44,31 @@ namespace sb
 		loginButton_->setLabel("Ingresar");
 		loginButton_->setX(passwordBox_->getX());
 		loginButton_->setY(baseY + 14);
+
+		loginButton_->setOnEnter( [this] 
+			{
+				const std::string email = usernameBox_->getText();
+				const std::string pass = passwordBox_->getText();
+				if (UserManager::instance().login(email, pass))
+				{
+					warningLb_->hide();
+				}
+				else
+				{
+					warningLb_->show();
+				}
+			});
+
+		passwordBox_->setOnEnter([
+			this
+		] {
+				const std::string email = usernameBox_->getText();
+				const std::string pass = passwordBox_->getText();
+				if (UserManager::instance().login(email, pass))
+					warningLb_->hide();
+				else
+					warningLb_->show();
+			});
 
 		registerButton_ = addElement<Button>();
 		registerButton_->setLabel("Registrarse");
