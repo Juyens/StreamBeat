@@ -1,0 +1,173 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Include">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Application\Application.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Console\Console.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Input\KeyboardInput.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Drawing\Drawing.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\TextBox.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\Interactive.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\Widget.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\Label.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\UI\Button.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Utils\Cursor.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\LoginScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\ScreenManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\FocusController.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\RegisterScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\Application\Application.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Console\Console.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Drawing\Color.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Console\WindowHeader.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Console\WinCheck.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Console\Style.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\KeyboardInput.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\Key.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\Widget.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Vector2.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\Label.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\Interactive.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\Button.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Drawing\Drawing.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Drawing\BoxStyle.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Drawing\Palette.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Drawing\PalettePresets.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\TextBox.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Input\InputDispatcher.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Cursor.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\Screen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\LoginScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Manager\ScreenManager.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Manager\FocusController.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\ScreenNames.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\RegisterScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\UI.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Structures\List.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Structures\Node.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Structures\Queue.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Structures\Stack.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HashTable\HashEntry.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HashTable\HashFunction.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\HashTable\HashTable.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\streambeat.ico">
+      <Filter>Resource</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{647a595d-f48e-4c30-8a7f-878fe9de1d17}</ProjectGuid>
+    <RootNamespace>StreamBeat</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutDir>$(ProjectDir)bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(ProjectDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Source\Manager\FocusController.cpp" />
+    <ClCompile Include="Source\Manager\ScreenManager.cpp" />
+    <ClCompile Include="Source\Screens\LoginScreen.cpp" />
+    <ClCompile Include="Source\Application\Application.cpp" />
+    <ClCompile Include="Source\Console\Console.cpp" />
+    <ClCompile Include="Source\Input\KeyboardInput.cpp" />
+    <ClCompile Include="Source\Drawing\Drawing.cpp" />
+    <ClCompile Include="Source\Screens\RegisterScreen.cpp" />
+    <ClCompile Include="Source\UI\Button.cpp" />
+    <ClCompile Include="Source\UI\Interactive.cpp" />
+    <ClCompile Include="Source\UI\Label.cpp" />
+    <ClCompile Include="Source\UI\TextBox.cpp" />
+    <ClCompile Include="Source\UI\Widget.cpp" />
+    <ClCompile Include="Source\Utils\Cursor.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\HashTable\HashEntry.h" />
+    <ClInclude Include="Source\HashTable\HashFunction.h" />
+    <ClInclude Include="Source\HashTable\HashTable.h" />
+    <ClInclude Include="Source\Manager\FocusController.h" />
+    <ClInclude Include="Source\Manager\ScreenManager.h" />
+    <ClInclude Include="Source\Screens\LoginScreen.h" />
+    <ClInclude Include="Source\Screens\RegisterScreen.h" />
+    <ClInclude Include="Source\Screens\Screen.h" />
+    <ClInclude Include="Source\Application\Application.h" />
+    <ClInclude Include="Source\Drawing\Color.h" />
+    <ClInclude Include="Source\Console\Console.h" />
+    <ClInclude Include="Source\Input\Key.h" />
+    <ClInclude Include="Source\Input\KeyboardInput.h" />
+    <ClInclude Include="Source\Console\Style.h" />
+    <ClInclude Include="Source\Console\WinCheck.h" />
+    <ClInclude Include="Source\Console\WindowHeader.h" />
+    <ClInclude Include="Source\Input\InputDispatcher.h" />
+    <ClInclude Include="Source\Screens\ScreenNames.h" />
+    <ClInclude Include="Source\Structures\List.h" />
+    <ClInclude Include="Source\Structures\Node.h" />
+    <ClInclude Include="Source\Structures\Queue.h" />
+    <ClInclude Include="Source\Structures\Stack.h" />
+    <ClInclude Include="Source\UI\Button.h" />
+    <ClInclude Include="Source\UI\Interactive.h" />
+    <ClInclude Include="Source\UI\Label.h" />
+    <ClInclude Include="Source\UI\TextBox.h" />
+    <ClInclude Include="Source\UI\UI.h" />
+    <ClInclude Include="Source\UI\Widget.h" />
+    <ClInclude Include="Source\Drawing\BoxStyle.h" />
+    <ClInclude Include="Source\Drawing\Palette.h" />
+    <ClInclude Include="Source\Drawing\Drawing.h" />
+    <ClInclude Include="Source\Drawing\PalettePresets.h" />
+    <ClInclude Include="Source\Utils\Cursor.h" />
+    <ClInclude Include="Source\Utils\Vector2.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resource\streambeat.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
