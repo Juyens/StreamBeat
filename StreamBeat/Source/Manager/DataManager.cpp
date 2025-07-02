@@ -137,7 +137,7 @@ namespace sb
             {
                 std::string authors = line.substr(line.find(":") + 2);
                 currentCredits->setAuthorsContent(*split(authors, ','));
-                currentSong->setCredits(*currentCredits);
+                currentSong->setCredits(std::move(*currentCredits));
                 currentAlbum->addSong(currentSong);
                 songs_.push_back(currentSong);
 

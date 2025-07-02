@@ -12,7 +12,13 @@ private:
 
 public:
     Credits() = default;
-    Credits(List<std::string>& authors, const std::string& discography)
+    Credits(const List<std::string>& authors, const std::string& discography)
+        : discography_(discography)
+    {
+        setAuthorsContent(authors);
+    }
+
+    Credits(List<std::string>&& authors, const std::string& discography)
         : authors_(std::move(authors)), discography_(discography) {}
 
     ~Credits() = default;

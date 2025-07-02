@@ -5,6 +5,7 @@
 
 #include <string>
 #include <iostream>
+#include <memory>
 
 class Song
 {
@@ -13,14 +14,23 @@ private:
     std::string name_;
     std::uint32_t duration_{ 0 };
     std::uint64_t reproductions_{ 0 };
-    Credits credits_;
+    std::shared_ptr<Credits> credits_;
 
 public:
     Song() = default;
-    Song(List<std::string>& genres, const std::string& name, std::uint32_t duration,
-        std::uint64_t reproductions, Credits& credits)
+    Song(const List<std::string>& genres, const std::string& name, std::uint32_t duration,
+        std::uint64_t reproductions, Credits credits)
+        : name_(name), duration_(duration),
+        reproductions_(reproductions), credits_(std::move(credits))
+    {
+        setGenresContent(genres);
+    }
+
+    Song(List<std::string>&& genres, const std::string& name, std::uint32_t duration,
+        std::uint64_t reproductions, Credits credits)
         : genres_(std::move(genres)), name_(name), duration_(duration),
-        reproductions_(reproductions), credits_(credits) {}
+        reproductions_(reproductions), credits_(std::move(credits)) {
+    }
 
     ~Song() = default;
 
@@ -74,9 +84,9 @@ public:
         reproductions_ = reproductions;
     }
 
-    void setCredits(const Credits& credits)
+    void setCredits(Credits&& credits)
     {
-        credits_ = credits;
+        credits_ = std::move(credits);
     }
 
     Credits& getCredits()
