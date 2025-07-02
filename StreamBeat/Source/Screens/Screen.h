@@ -47,6 +47,31 @@ namespace sb
 
 		const std::string& getID() { return id_; }
 
+		virtual void resetElements()
+		{
+			for (auto& widget : widgets_) 
+			{
+				widget->reset();
+			}
+
+			for (auto& interactive : interactives_) 
+			{
+				interactive->reset();
+			}
+
+			onReset();
+		}
+
+		virtual void onReset() {}
+
+		void setActive(bool active) {
+			active_ = active;
+		}
+
+		bool isActive() const {
+			return active_;
+		}
+
 	protected:
 		template<typename T, typename... Args>
 		T* addElement(Args&&... args)
@@ -75,7 +100,7 @@ namespace sb
 		std::vector<std::unique_ptr<Widget>> widgets_;
 		std::vector<Interactive*> interactives_;
 		std::string id_;
-
+		bool active_{ false };
 		FocusController focusController_;
 	};
 }

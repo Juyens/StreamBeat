@@ -42,6 +42,8 @@ namespace sb
 		void centerX(int areaWidth);
 		void centerY(int areaHeight);
 
+		virtual void reset() {}
+
 	protected:
 		Vector2i position_{ 0, 0 };
 		Vector2i size_{ 0, 0 };

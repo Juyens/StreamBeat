@@ -22,7 +22,31 @@ namespace sb
 		std::unique_ptr<Screen>* found = screens_.find(id);
 		if (found)
 		{
+			if (found->get()->isActive())
+			{
+				found->get()->resetElements();
+			}
+
+			if (activeScreen_)
+			{
+				activeScreen_->resetElements();
+				screenHistory_.push(activeScreen_);
+				activeScreen_->setActive(false);
+			}
+
 			activeScreen_ = found->get();
+			
+			if (!activeScreen_->isActive())
+				activeScreen_->setActive(true);
+		}
+	}
+
+	void ScreenManager::goBack()
+	{
+		if (!screenHistory_.empty())
+		{
+			activeScreen_ = screenHistory_.peek();
+			screenHistory_.pop();
 		}
 	}
 
@@ -43,7 +67,6 @@ namespace sb
 
 			activeScreen_->handleInput(*ev);
 		}
-			
 	}
 
 	Screen* ScreenManager::getActiveScreen()

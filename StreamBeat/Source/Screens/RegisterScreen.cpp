@@ -184,6 +184,14 @@ namespace sb
         warningLb_->hide();
     }
 
+    void RegisterScreen::onKeyPress(Key key)
+    {
+        if (key == Key::Escape)
+        {
+            ScreenManager::instance().goBack();
+        }
+    }
+
     bool RegisterScreen::isValidEmail(const std::string& email)
     {
         const auto atPos = email.find('@');

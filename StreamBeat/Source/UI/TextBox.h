@@ -20,6 +20,8 @@ namespace sb
 		void handleInput(const InputEvent& ev) override;
 		void render() override;
 
+		void reset() override;
+
 	private:
 		void onFocus() override;
 		void onBlur() override;

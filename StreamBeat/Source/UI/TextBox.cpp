@@ -93,6 +93,12 @@ namespace sb
 		}
 	}
 
+	void TextBox::reset()
+	{
+		text_.clear();
+		cursor_.reset();
+	}
+
 	void TextBox::onFocus()
 	{
 		cursor_.show();

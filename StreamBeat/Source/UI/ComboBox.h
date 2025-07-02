@@ -156,6 +156,12 @@ namespace sb
             toString_ = std::move(fn);
         }
 
+        void reset() override
+        {
+            selectedIndex_ = -1;
+            isSelecting_ = false;
+        }
+
     protected:
         void onBlur() override
         {
