@@ -1,9 +1,12 @@
 ﻿#include "Application.h"
+
 #include "Console.h"
 #include "Style.h"
 #include "ScreenNames.h"
+
 #include "LoginScreen.h"
 #include "RegisterScreen.h"
+#include "MainScreen.h"
 
 #include <string>
 
@@ -48,6 +51,7 @@ namespace sb
 	{
 		ScreenManager::instance().registerScreen(std::make_unique<LoginScreen>());
 		ScreenManager::instance().registerScreen(std::make_unique<RegisterScreen>());
+		ScreenManager::instance().registerScreen(std::make_unique<MainScreen>());
 		ScreenManager::instance().setActive(ScreenNames::Login);
 	}
 }

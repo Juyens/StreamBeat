@@ -14,7 +14,6 @@ namespace sb
 
 	protected:
 		void onCreate() override;
-		void onKeyPress(Key key) override;
 		void onReset() override;
 
 	private:

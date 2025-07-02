@@ -65,12 +65,46 @@ namespace sb
 			if (!ev.has_value()) 
 				return;
 
-			activeScreen_->handleInput(*ev);
+			if (ev->specialKey == Key::Escape)
+			{
+				if (currentContext_ == NavigationContext::ScreenBar)
+				{
+					currentContext_ = NavigationContext::ActiveScreen;
+					screenBar_.blur();
+				}
+				else 
+				{
+					currentContext_ = NavigationContext::ScreenBar;
+					screenBar_.focus();
+				}
+				return;
+			}
+
+			switch (currentContext_)
+			{
+				case NavigationContext::ActiveScreen:
+				{
+					activeScreen_->handleInput(*ev);
+					break;
+				}
+				case NavigationContext::ScreenBar:
+				{
+					if (!isRestrictedScreen())
+						screenBar_.handlerInput(*ev);
+					break;
+				}
+			}
 		}
 	}
 
 	Screen* ScreenManager::getActiveScreen()
 	{
 		return activeScreen_;
+	}
+
+	bool ScreenManager::isRestrictedScreen() const
+	{
+		const std::string id = activeScreen_->getID();
+		return id == ScreenNames::Login || id == ScreenNames::Register;
 	}
 }

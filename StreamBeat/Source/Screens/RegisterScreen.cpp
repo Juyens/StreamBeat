@@ -214,7 +214,7 @@ namespace sb
         backButton_->setY(baseY + 25);
         backButton_->setX(lastNameBox_->getX());
 
-        backButton_->setOnEnter([] {ScreenManager::instance().goBack(); });
+        backButton_->setOnEnter([] { ScreenManager::instance().setActive(ScreenNames::Login); });
 
         warningLb_ = addElement<Label>();
         warningLb_->setText("No se pudo registrar. Verifica tus datos");
@@ -222,14 +222,6 @@ namespace sb
         warningLb_->setY(baseY + 2);
         warningLb_->setTextForeground(Color::Foreground::LightRed);
         warningLb_->hide();
-    }
-
-    void RegisterScreen::onKeyPress(Key key)
-    {
-        if (key == Key::Escape)
-        {
-            ScreenManager::instance().goBack();
-        }
     }
 
     void RegisterScreen::onReset()

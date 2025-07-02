@@ -85,9 +85,39 @@ namespace sb
             {
                 values[idx++] = token;
             }
+
             if (idx >= 6 && values[4] == email && values[5] == password)
+            {
+                currentUser_ = User(
+                    values[0], // nombre
+                    values[1], // apellido
+                    values[2], // dni
+                    values[3], // plan
+                    values[4], // email
+                    values[5], // password
+                    values[6], // genero
+                    std::stoi(values[7]) // edad
+                );
+                isLoggedIn_ = true;
                 return true;
+            }
         }
         return false;
+    }
+
+    void UserManager::logout()
+    {
+        isLoggedIn_ = false;
+        currentUser_ = User();
+    }
+
+    const User& UserManager::getCurrentUser() const
+    {
+        return currentUser_;
+    }
+
+    bool UserManager::isUserLoggedIn() const
+    {
+        return isLoggedIn_;
     }
 }

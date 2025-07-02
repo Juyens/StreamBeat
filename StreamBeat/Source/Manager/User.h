@@ -7,6 +7,35 @@ namespace sb
     class User
     {
     public:
+        User()
+            : firstName_("User"),
+            lastName_("Default"),
+            dni_("00000000"),
+            plan_("Free"),
+            email_("default@test.com"),
+            password_("StreamBeat"),
+            gender_("N/A"),
+            age_(0)
+        {}
+
+        User(const std::string& firstName,
+            const std::string& lastName,
+            const std::string& dni,
+            const std::string& plan,
+            const std::string& email,
+            const std::string& password,
+            const std::string& gender,
+            int age)
+            : firstName_(firstName),
+            lastName_(lastName),
+            dni_(dni),
+            plan_(plan),
+            email_(email),
+            password_(password),
+            gender_(gender),
+            age_(age)
+        {}
+
         const std::string& getFirstName() const { return firstName_; }
         void setFirstName(const std::string& value) { firstName_ = value; }
 

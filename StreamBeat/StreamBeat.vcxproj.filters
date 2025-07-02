@@ -60,6 +60,15 @@
     <ClCompile Include="Source\Screens\RegisterScreen.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\UserManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\MainScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\ScreenBar.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application\Application.h">
@@ -167,10 +176,28 @@
     <ClInclude Include="Source\Manager\UserManager.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Manager\User.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\MainScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\ComboBox.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Utils\Utils.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\ScreenBar.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\streambeat.ico">
       <Filter>Resource</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Data\users.csv" />
   </ItemGroup>
 </Project>

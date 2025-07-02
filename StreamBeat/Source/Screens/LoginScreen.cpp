@@ -51,7 +51,7 @@ namespace sb
 				const std::string pass = passwordBox_->getText();
 				if (UserManager::instance().login(email, pass))
 				{
-					warningLb_->hide();
+					ScreenManager::instance().setActive(ScreenNames::Main);
 				}
 				else
 				{

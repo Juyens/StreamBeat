@@ -156,7 +156,9 @@
     <ClCompile Include="Source\Console\Console.cpp" />
     <ClCompile Include="Source\Input\KeyboardInput.cpp" />
     <ClCompile Include="Source\Drawing\Drawing.cpp" />
+    <ClCompile Include="Source\Screens\MainScreen.cpp" />
     <ClCompile Include="Source\Screens\RegisterScreen.cpp" />
+    <ClCompile Include="Source\Screens\ScreenBar.cpp" />
     <ClCompile Include="Source\UI\Button.cpp" />
     <ClCompile Include="Source\UI\Interactive.cpp" />
     <ClCompile Include="Source\UI\Label.cpp" />
@@ -173,6 +175,7 @@
     <ClInclude Include="Source\Manager\User.h" />
     <ClInclude Include="Source\Manager\UserManager.h" />
     <ClInclude Include="Source\Screens\LoginScreen.h" />
+    <ClInclude Include="Source\Screens\MainScreen.h" />
     <ClInclude Include="Source\Screens\RegisterScreen.h" />
     <ClInclude Include="Source\Screens\Screen.h" />
     <ClInclude Include="Source\Application\Application.h" />
@@ -184,6 +187,7 @@
     <ClInclude Include="Source\Console\WinCheck.h" />
     <ClInclude Include="Source\Console\WindowHeader.h" />
     <ClInclude Include="Source\Input\InputDispatcher.h" />
+    <ClInclude Include="Source\Screens\ScreenBar.h" />
     <ClInclude Include="Source\Screens\ScreenNames.h" />
     <ClInclude Include="Source\Structures\List.h" />
     <ClInclude Include="Source\Structures\Node.h" />
