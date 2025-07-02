@@ -21,6 +21,25 @@ public:
     Credits(List<std::string>&& authors, const std::string& discography)
         : authors_(std::move(authors)), discography_(discography) {}
 
+    Credits(const Credits& other)
+        : discography_(other.discography_)
+    {
+        setAuthorsContent(other.authors_);
+    }
+
+    Credits& operator=(const Credits& other)
+    {
+        if (this != &other)
+        {
+            discography_ = other.discography_;
+            setAuthorsContent(other.authors_);
+        }
+        return *this;
+    }
+
+    Credits(Credits&&) noexcept = default;
+    Credits& operator=(Credits&&) noexcept = default;
+
     ~Credits() = default;
 
     List<std::string>& getAuthors()
