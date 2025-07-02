@@ -87,4 +87,9 @@ namespace sb
 		warningLb_->setTextForeground(Color::Foreground::LightRed);
 		warningLb_->hide();
 	}
+
+	void LoginScreen::onReset()
+	{
+		warningLb_->hide();
+	}
 }

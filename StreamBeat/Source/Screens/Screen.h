@@ -62,8 +62,6 @@ namespace sb
 			onReset();
 		}
 
-		virtual void onReset() {}
-
 		void setActive(bool active) {
 			active_ = active;
 		}
@@ -95,6 +93,8 @@ namespace sb
 			focusController_.setInteractives(interactives_);
 			focusController_.focusFirst();
 		}
+
+		virtual void onReset() {}
 
 	protected:
 		std::vector<std::unique_ptr<Widget>> widgets_;

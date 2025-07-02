@@ -13,6 +13,7 @@ namespace sb
 
 	protected:
 		void onCreate() override;
+		void onReset() override;
 
 	private:
 		Label* titleLb_{ nullptr };

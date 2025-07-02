@@ -15,9 +15,11 @@ namespace sb
 	protected:
 		void onCreate() override;
 		void onKeyPress(Key key) override;
+		void onReset() override;
 
 	private:
 		bool isValidEmail(const std::string& email);
+		bool isValidDni(const std::string& dni);
 
 	private:
 		Label* titleLb_{ nullptr };
@@ -40,6 +42,7 @@ namespace sb
 		TextBox* ageBox_{ nullptr };
 
 		Button* registerButton_{ nullptr };
+		Button* backButton_{ nullptr };
 
 		ComboBox<std::string>* genderComboBox_{ nullptr };
 		ComboBox<std::string>* planComboBox_{ nullptr };

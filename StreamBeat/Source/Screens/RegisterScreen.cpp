@@ -4,6 +4,8 @@
 #include "UserManager.h"
 #include "Utils.h"
 
+#include <algorithm>
+
 namespace sb
 {
 	RegisterScreen::RegisterScreen()
@@ -128,38 +130,72 @@ namespace sb
         ageLb_->setX(ageBox_->getX() + 1);
         ageLb_->setY(ageBox_->getY() - 1);
 
-        // Register Button
         registerButton_ = addElement<Button>();
         registerButton_->setLabel("Registrarse");
-        registerButton_->centerX(consoleSize.x());
         registerButton_->setY(baseY + 25);
+        registerButton_->setX(firstNameBox_->getX() + firstNameBox_->getWidth() - registerButton_->getWidth());
 
         registerButton_->setOnEnter([this] {
-            User user{};
-            user.setFirstName(firstNameBox_->getText());
-            user.setLastName(lastNameBox_->getText());
-            user.setDni(dniBox_->getText());
-            user.setPlan(planComboBox_->getSelectedItem() ? *planComboBox_->getSelectedItem() : "");
-            user.setEmail(emailBox_->getText());
-            user.setPassword(passwordBox_->getText());
-            user.setGender(genderComboBox_->getSelectedItem() ? *genderComboBox_->getSelectedItem() : "");
+            warningLb_->hide();
 
-            try 
+            const std::string firstName = firstNameBox_->getText();
+            const std::string lastName = lastNameBox_->getText();
+            const std::string dni = dniBox_->getText();
+            const std::string email = emailBox_->getText();
+            const std::string password = passwordBox_->getText();
+            const std::string plan = planComboBox_->getSelectedItem() ? *planComboBox_->getSelectedItem() : "";
+            const std::string gender = genderComboBox_->getSelectedItem() ? *genderComboBox_->getSelectedItem() : "";
+            const std::string ageStr = ageBox_->getText();
+
+            if (firstName.empty() || lastName.empty() || dni.empty() || email.empty() ||
+                password.empty() || plan.empty() || gender.empty() || ageStr.empty()) 
             {
-                user.setAge(std::stoi(ageBox_->getText()));
-            }
-            catch (...) 
-            {
-                user.setAge(0);
+                warningLb_->setText("Todos los campos son obligatorios.");
+                warningLb_->centerX(Console::getViewportSize().x());
+                warningLb_->show();
+                return;
             }
 
-            if (!isValidEmail(user.getEmail())) 
+            if (dni.size() != 8 || !std::all_of(dni.begin(), dni.end(), ::isdigit)) 
+            {
+                warningLb_->setText("El DNI debe tener exactamente 8 digitos numericos.");
+                warningLb_->centerX(Console::getViewportSize().x());
+                warningLb_->show();
+                return;
+            }
+
+            if (!isValidEmail(email)) 
             {
                 warningLb_->setText("El correo ingresado no es valido. Verifica el formato (ej: usuario@dominio.com)");
                 warningLb_->centerX(Console::getViewportSize().x());
                 warningLb_->show();
                 return;
             }
+
+            int age = 0;
+            try 
+            {
+                age = std::stoi(ageStr);
+                if (age <= 0)
+                    throw std::invalid_argument("Edad invalida");
+            }
+            catch (...) 
+            {
+                warningLb_->setText("La edad debe ser un numero valido mayor que cero.");
+                warningLb_->centerX(Console::getViewportSize().x());
+                warningLb_->show();
+                return;
+            }
+
+            User user{};
+            user.setFirstName(firstName);
+            user.setLastName(lastName);
+            user.setDni(dni);
+            user.setPlan(plan);
+            user.setEmail(email);
+            user.setPassword(password);
+            user.setGender(gender);
+            user.setAge(age);
 
             if (UserManager::instance().registerUser(user)) 
             {
@@ -171,11 +207,15 @@ namespace sb
                 warningLb_->centerX(Console::getViewportSize().x());
                 warningLb_->show();
             }
-
-            warningLb_->show();
             });
 
-        // Warning 
+        backButton_ = addElement<Button>();
+        backButton_->setLabel("Volver");
+        backButton_->setY(baseY + 25);
+        backButton_->setX(lastNameBox_->getX());
+
+        backButton_->setOnEnter([] {ScreenManager::instance().goBack(); });
+
         warningLb_ = addElement<Label>();
         warningLb_->setText("No se pudo registrar. Verifica tus datos");
         warningLb_->centerX(consoleSize.x());
@@ -192,6 +232,11 @@ namespace sb
         }
     }
 
+    void RegisterScreen::onReset()
+    {
+        warningLb_->hide();
+    }
+
     bool RegisterScreen::isValidEmail(const std::string& email)
     {
         const auto atPos = email.find('@');
@@ -205,5 +250,10 @@ namespace sb
             dotPos < email.size() - 1 &&
             email.find(' ') == std::string::npos &&
             email.find('@', atPos + 1) == std::string::npos;
+    }
+
+    bool RegisterScreen::isValidDni(const std::string& dni)
+    {
+        return dni.size() == 8 && std::all_of(dni.begin(), dni.end(), ::isdigit);
     }
 }
