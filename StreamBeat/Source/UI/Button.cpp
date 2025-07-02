@@ -24,7 +24,16 @@ namespace sb
 
 	void Button::render()
 	{
-		const Palette& activePalette = hasFocus() ? getFocusPalette() : getBorderPalette();
+		Palette activePalette = getBorderPalette();
+
+		if (hasActive() && hasFocus())
+		{
+			activePalette = getFocusPalette();
+		}
+		else if (!hasActive() && hasFocus())
+		{
+			activePalette = getInactivePalette();
+		}
 
 		const int paddingX = 2;
 		const int minWidth = 4;

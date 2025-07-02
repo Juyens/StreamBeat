@@ -29,6 +29,26 @@ namespace sb
 		focusPalette_.background = background;
 	}
 
+	void Interactive::setInactivePalette(const Palette& palette)
+	{
+		inactivePalette_ = palette;
+	}
+
+	const Palette& Interactive::getInactivePalette() const
+	{
+		return inactivePalette_;
+	}
+
+	void Interactive::setInactiveForeground(WORD foreground)
+	{
+		inactivePalette_.foreground = foreground;
+	}
+
+	void Interactive::setInactiveBackground(WORD background)
+	{
+		inactivePalette_.background = background;
+	}
+
 	void Interactive::setOnEnter(std::function<void()> callback)
 	{
 		onEnter_ = std::move(callback);
@@ -73,5 +93,20 @@ namespace sb
 			hasFocus_ = false;
 			onBlur();
 		}
+	}
+
+	void Interactive::activate()
+	{
+		active_ = true;
+	}
+
+	void Interactive::deactivate()
+	{
+		active_ = false;
+	}
+
+	bool Interactive::hasActive() const
+	{
+		return active_;
 	}
 }

@@ -14,6 +14,7 @@ namespace sb
 		constexpr WORD DarkMagenta = FOREGROUND_RED | FOREGROUND_BLUE;
 		constexpr WORD DarkYellow = FOREGROUND_RED | FOREGROUND_GREEN;
 		constexpr WORD Gray = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		constexpr WORD DarkGray = 8;
 
 		constexpr WORD Bright = FOREGROUND_INTENSITY;
 
@@ -36,6 +37,7 @@ namespace sb
 		constexpr WORD DarkMagenta = BACKGROUND_RED | BACKGROUND_BLUE;
 		constexpr WORD DarkYellow = BACKGROUND_RED | BACKGROUND_GREEN;
 		constexpr WORD Gray = BACKGROUND_RED | BACKGROUND_GREEN | BACKGROUND_BLUE;
+		constexpr WORD DarkGray = 8 << 4;
 
 		constexpr WORD Bright = BACKGROUND_INTENSITY;
 

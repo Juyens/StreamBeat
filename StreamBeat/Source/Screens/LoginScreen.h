@@ -16,13 +16,16 @@ namespace sb
 		void onReset() override;
 
 	private:
+		void login();
+
+	private:
 		Label* titleLb_{ nullptr };
 
-		Label* usernameLb_{ nullptr };
+		Label* emailLb_{ nullptr };
 		Label* passwordLb_{ nullptr };
 		Label* warningLb_{ nullptr };
 
-		TextBox* usernameBox_{ nullptr };
+		TextBox* emailBox_{ nullptr };
 		TextBox* passwordBox_{ nullptr };
 
 		Button* loginButton_{ nullptr };

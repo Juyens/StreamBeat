@@ -27,6 +27,7 @@ namespace sb
 
 		void render();
 		void handleInput();
+		void setupScreenBar();
 
 		Screen* getActiveScreen();
 

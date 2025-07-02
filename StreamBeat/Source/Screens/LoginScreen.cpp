@@ -22,22 +22,24 @@ namespace sb
 		titleLb_->centerX(consoleSize.x());
 		titleLb_->setY(baseY);
 
-		usernameBox_ = addElement<TextBox>();
-		usernameBox_->centerX(consoleSize.x());
-		usernameBox_->setY(baseY + 5);
+		emailBox_ = addElement<TextBox>();
+		emailBox_->centerX(consoleSize.x());
+		emailBox_->setY(baseY + 5);
 
-		usernameLb_ = addElement<Label>();
-		usernameLb_->setText("Username:");
-		usernameLb_->setX(usernameBox_->getX() + 1);
-		usernameLb_->setY(baseY + 4);
+		emailLb_ = addElement<Label>();
+		emailLb_->setText("Username:");
+		emailLb_->setX(emailBox_->getX() + 1);
+		emailLb_->setY(baseY + 4);
 
 		passwordBox_ = addElement<TextBox>();
 		passwordBox_->centerX(consoleSize.x());
 		passwordBox_->setY(baseY + 10);
 
+		passwordBox_->setOnEnter([this] { login(); });
+
 		passwordLb_ = addElement<Label>();
 		passwordLb_->setText("Password:");
-		passwordLb_->setX(usernameBox_->getX() + 1);
+		passwordLb_->setX(emailBox_->getX() + 1);
 		passwordLb_->setY(baseY + 9);
 
 		loginButton_ = addElement<Button>();
@@ -47,7 +49,7 @@ namespace sb
 
 		loginButton_->setOnEnter( [this] 
 			{
-				const std::string email = usernameBox_->getText();
+				const std::string email = emailBox_->getText();
 				const std::string pass = passwordBox_->getText();
 				if (UserManager::instance().login(email, pass))
 				{
@@ -59,26 +61,14 @@ namespace sb
 				}
 			});
 
-		passwordBox_->setOnEnter([
-			this
-		] {
-				const std::string email = usernameBox_->getText();
-				const std::string pass = passwordBox_->getText();
-				if (UserManager::instance().login(email, pass))
-					warningLb_->hide();
-				else
-					warningLb_->show();
-			});
+		passwordBox_->setOnEnter([this] { login(); });
 
 		registerButton_ = addElement<Button>();
 		registerButton_->setText("Registrarse");
 		registerButton_->setX(passwordBox_->getX() + 15);
 		registerButton_->setY(baseY + 14);
 
-		registerButton_->setOnEnter(
-			[] {
-				ScreenManager::instance().setActive(ScreenNames::Register);
-			});
+		registerButton_->setOnEnter([] { ScreenManager::instance().setActive(ScreenNames::Register); });
 
 		warningLb_ = addElement<Label>();
 		warningLb_->setText("No se pudo iniciar sesion. Verifica tus datos");
@@ -91,5 +81,20 @@ namespace sb
 	void LoginScreen::onReset()
 	{
 		warningLb_->hide();
+	}
+
+	void LoginScreen::login()
+	{
+		const std::string email = emailBox_->getText();
+		const std::string pass = passwordBox_->getText();
+		if (UserManager::instance().login(email, pass))
+		{
+			ScreenManager::instance().setActive(ScreenNames::Main);
+			ScreenManager::instance().setupScreenBar();
+		}
+		else
+		{
+			warningLb_->show();
+		}
 	}
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Node.h"
+#include "Iterator.h"
 
 #include <functional>
 #include <stdexcept>
@@ -56,6 +57,9 @@ public:
 
 	uint size() const;
 	bool empty() const;
+
+	Iterator<T> begin() { return Iterator<T>(head_); }
+	Iterator<T> end() { return Iterator<T>(nullptr); }
 
 private:
 	Compare compare_{ nullptr };

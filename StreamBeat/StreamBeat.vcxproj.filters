@@ -24,9 +24,6 @@
     <ClCompile Include="Source\Console\Console.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Input\KeyboardInput.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Drawing\Drawing.cpp">
       <Filter>Source</Filter>
     </ClCompile>
@@ -45,7 +42,7 @@
     <ClCompile Include="Source\UI\Button.cpp">
       <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Utils\Cursor.cpp">
+    <ClCompile Include="Source\UI\Cursor.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="Source\Screens\LoginScreen.cpp">
@@ -89,10 +86,7 @@
     <ClInclude Include="Source\Console\Style.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Input\KeyboardInput.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Input\Key.h">
+    <ClInclude Include="Source\Console\Key.h">
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Source\UI\Widget.h">
@@ -125,10 +119,7 @@
     <ClInclude Include="Source\UI\TextBox.h">
       <Filter>Include</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Input\InputDispatcher.h">
-      <Filter>Include</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Utils\Cursor.h">
+    <ClInclude Include="Source\UI\Cursor.h">
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Source\Screens\Screen.h">
@@ -189,6 +180,9 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Source\Screens\ScreenBar.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Structures\Iterator.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

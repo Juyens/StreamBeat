@@ -64,7 +64,16 @@ namespace sb
 
 	void TextBox::render()
 	{
-		const Palette& activePalette = hasFocus() ? getFocusPalette() : getBorderPalette();
+		Palette activePalette = getBorderPalette();
+
+		if (hasActive() && hasFocus())
+		{
+			activePalette = getFocusPalette();
+		}
+		else if (!hasActive() && hasFocus())
+		{
+			activePalette = getInactivePalette();
+		}
 
 		Drawing::drawBox(position_.x(), position_.y(), size_.x(), size_.y(), BoxStyles::SingleLineBox, activePalette);
 

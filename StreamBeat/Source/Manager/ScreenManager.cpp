@@ -54,6 +54,9 @@ namespace sb
 	{
 		if (activeScreen_)
 			activeScreen_->render();
+
+		if (!isRestrictedScreen())
+			screenBar_.render();
 	}
 
 	void ScreenManager::handleInput()
@@ -64,20 +67,27 @@ namespace sb
 
 			if (!ev.has_value()) 
 				return;
-
-			if (ev->specialKey == Key::Escape)
+			
+			if (ev->specialKey == Key::Tab && !isRestrictedScreen())
 			{
 				if (currentContext_ == NavigationContext::ScreenBar)
 				{
 					currentContext_ = NavigationContext::ActiveScreen;
 					screenBar_.blur();
+					activeScreen_->resume();
 				}
-				else 
+				else
 				{
 					currentContext_ = NavigationContext::ScreenBar;
 					screenBar_.focus();
+					activeScreen_->suspend();
 				}
-				return;
+			}
+
+			if (screenBar_.getTargetScreen() != ScreenNames::None)
+			{
+				setActive(screenBar_.getTargetScreen());
+				screenBar_.clearTargetScreen();
 			}
 
 			switch (currentContext_)
@@ -90,11 +100,16 @@ namespace sb
 				case NavigationContext::ScreenBar:
 				{
 					if (!isRestrictedScreen())
-						screenBar_.handlerInput(*ev);
+						screenBar_.handleNavigation(*ev);
 					break;
 				}
 			}
 		}
+	}
+
+	void ScreenManager::setupScreenBar()
+	{
+		screenBar_.initialize(ScreenNames::Main);
 	}
 
 	Screen* ScreenManager::getActiveScreen()

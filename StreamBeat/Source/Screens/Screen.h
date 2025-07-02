@@ -4,6 +4,7 @@
 #include "Interactive.h"
 #include "FocusController.h"
 #include "Console.h"
+#include "List.h"
 
 #include <vector>
 #include <memory>
@@ -62,12 +63,26 @@ namespace sb
 			onReset();
 		}
 
-		void setActive(bool active) {
+		void setActive(bool active)
+		{
 			active_ = active;
 		}
 
-		bool isActive() const {
+		bool isActive() const
+		{
 			return active_;
+		}
+
+		void suspend()
+		{
+			if (focusController_.getCurrent())
+				focusController_.getCurrent()->deactivate();
+		}
+
+		void resume()
+		{
+			if (focusController_.getCurrent())
+				focusController_.getCurrent()->activate();
 		}
 
 	protected:
@@ -97,8 +112,8 @@ namespace sb
 		virtual void onReset() {}
 
 	protected:
-		std::vector<std::unique_ptr<Widget>> widgets_;
-		std::vector<Interactive*> interactives_;
+		List<std::unique_ptr<Widget>> widgets_;
+		List<Interactive*> interactives_;
 		std::string id_;
 		bool active_{ false };
 		FocusController focusController_;

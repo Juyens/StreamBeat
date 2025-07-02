@@ -119,7 +119,7 @@ namespace sb
 
         void render() override
         {
-            const Palette& activePalette = hasFocus() ? getFocusPalette() : getBorderPalette();
+            const Palette& activePalette = !hasActive() ? getInactivePalette() : hasFocus() ? getFocusPalette() : getBorderPalette();
 
             Drawing::drawBox(position_.x(), position_.y(), size_.x(), size_.y(),
                 BoxStyles::SingleLineBox, activePalette);
@@ -173,7 +173,6 @@ namespace sb
         List<T> items_{};
         int selectedIndex_{ -1 };
         bool isSelecting_{ false };
-
         std::function<std::string(const T&)> toString_ = [] (const T&) {
             return "<item>";
             };

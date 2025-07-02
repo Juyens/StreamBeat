@@ -1,12 +1,13 @@
 #include "FocusController.h"
+
 #include <cmath>
 #include <limits>
 
 namespace sb 
 {
-	void FocusController::setInteractives(const std::vector<Interactive*>& interactives)
+	void FocusController::setInteractives(List<Interactive*>& interactives)
 	{
-		interactives_ = interactives;
+		interactives_ = std::move(interactives);
 		current_ = nullptr;
 	}
 
@@ -34,7 +35,7 @@ namespace sb
 		}
 	}
 
-	sb::Interactive* FocusController::getCurrent() const
+	Interactive* FocusController::getCurrent() const
 	{
 		return current_;
 	}

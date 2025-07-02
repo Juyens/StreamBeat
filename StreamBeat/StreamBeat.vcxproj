@@ -154,7 +154,6 @@
     <ClCompile Include="Source\Screens\LoginScreen.cpp" />
     <ClCompile Include="Source\Application\Application.cpp" />
     <ClCompile Include="Source\Console\Console.cpp" />
-    <ClCompile Include="Source\Input\KeyboardInput.cpp" />
     <ClCompile Include="Source\Drawing\Drawing.cpp" />
     <ClCompile Include="Source\Screens\MainScreen.cpp" />
     <ClCompile Include="Source\Screens\RegisterScreen.cpp" />
@@ -164,7 +163,7 @@
     <ClCompile Include="Source\UI\Label.cpp" />
     <ClCompile Include="Source\UI\TextBox.cpp" />
     <ClCompile Include="Source\UI\Widget.cpp" />
-    <ClCompile Include="Source\Utils\Cursor.cpp" />
+    <ClCompile Include="Source\UI\Cursor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\HashTable\HashEntry.h" />
@@ -181,14 +180,13 @@
     <ClInclude Include="Source\Application\Application.h" />
     <ClInclude Include="Source\Drawing\Color.h" />
     <ClInclude Include="Source\Console\Console.h" />
-    <ClInclude Include="Source\Input\Key.h" />
-    <ClInclude Include="Source\Input\KeyboardInput.h" />
+    <ClInclude Include="Source\Console\Key.h" />
     <ClInclude Include="Source\Console\Style.h" />
     <ClInclude Include="Source\Console\WinCheck.h" />
     <ClInclude Include="Source\Console\WindowHeader.h" />
-    <ClInclude Include="Source\Input\InputDispatcher.h" />
     <ClInclude Include="Source\Screens\ScreenBar.h" />
     <ClInclude Include="Source\Screens\ScreenNames.h" />
+    <ClInclude Include="Source\Structures\Iterator.h" />
     <ClInclude Include="Source\Structures\List.h" />
     <ClInclude Include="Source\Structures\Node.h" />
     <ClInclude Include="Source\Structures\Queue.h" />
@@ -204,7 +202,7 @@
     <ClInclude Include="Source\Drawing\Palette.h" />
     <ClInclude Include="Source\Drawing\Drawing.h" />
     <ClInclude Include="Source\Drawing\PalettePresets.h" />
-    <ClInclude Include="Source\Utils\Cursor.h" />
+    <ClInclude Include="Source\UI\Cursor.h" />
     <ClInclude Include="Source\Utils\Utils.h" />
     <ClInclude Include="Source\Utils\Vector2.h" />
   </ItemGroup>

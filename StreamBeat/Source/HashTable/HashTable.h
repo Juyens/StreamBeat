@@ -146,6 +146,9 @@ inline V* HashTable<K, V, Hash>::find(const K& key)
 template <typename K, typename V, typename Hash>
 inline V& HashTable<K, V, Hash>::operator[](const K& key)
 {
+	static_assert(std::is_default_constructible<V>::value,
+		"operator[] requires V to be default-constructible");
+
 	V* found = find(key);
 	if (found)
 		return *found;
