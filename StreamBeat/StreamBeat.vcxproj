@@ -93,7 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +139,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Source\Manager\DataManager.cpp" />
     <ClCompile Include="Source\Manager\FocusController.cpp" />
     <ClCompile Include="Source\Manager\ScreenManager.cpp" />
     <ClCompile Include="Source\Manager\UserManager.cpp" />
@@ -217,6 +218,7 @@
     <Image Include="Resource\streambeat.ico" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Data\MusicCatalog.data" />
     <None Include="Data\users.csv" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

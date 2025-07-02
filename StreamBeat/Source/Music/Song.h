@@ -13,11 +13,11 @@ private:
     std::string name_;
     std::uint32_t duration_;
     std::uint64_t reproductions_;
-    Credits& credits_;
+    Credits credits_;
 
 public:
     Song(List<std::string>& genres, const std::string& name, std::uint32_t duration,
-        std::uint64_t reproductions, Credits& credits)
+        std::uint64_t reproductions, const Credits& credits)
         : genres_(genres), name_(name), duration_(duration),
         reproductions_(reproductions), credits_(credits) {}
 
@@ -27,6 +27,21 @@ public:
     {
         return genres_;
     }
+
+    void setGenresContent(const List<std::string>& genres)
+    {
+        genres_.clear();
+        for (uint i = 0; i < genres.size(); ++i)
+        {
+            genres_.push_back(genres[i]);
+        }
+    }
+
+    void clearGenres()
+    {
+        genres_.clear();
+    }
+
 
     std::string getName() const
     {
@@ -58,9 +73,14 @@ public:
         reproductions_ = reproductions;
     }
 
+    void setCredits(Credits& credits)
+    {
+        credits_ = credits;
+    }
+
     Credits& getCredits()
     {
-        return credits_;
+        return *credits_;
     }
 
     void addGenre(const std::string& genre)

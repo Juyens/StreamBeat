@@ -66,6 +66,9 @@
     <ClCompile Include="Source\Screens\ScreenBar.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\DataManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application\Application.h">
@@ -214,5 +217,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Data\users.csv" />
+    <None Include="Data\MusicCatalog.data" />
   </ItemGroup>
 </Project>
