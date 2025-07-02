@@ -69,6 +69,24 @@
     <ClCompile Include="Source\Manager\DataManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Screens\MusicScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\ExploreScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\ProfileScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\LibraryScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\HistoryScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Screens\SearchScreen.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application\Application.h">
@@ -207,6 +225,24 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Source\Manager\DataManager.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\MusicScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\ExploreScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\ProfileScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\LibraryScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\HistoryScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Screens\SearchScreen.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

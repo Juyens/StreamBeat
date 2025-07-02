@@ -11,4 +11,7 @@ public:
 
 	HashEntry(const K& key, V&& value)
 		: key(key), value(std::move(value)) {}
+
+	HashEntry(const K& key, const V& value)
+		: key(key), value(value) {}
 };

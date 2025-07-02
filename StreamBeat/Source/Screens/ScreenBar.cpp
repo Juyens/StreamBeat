@@ -4,7 +4,7 @@
 
 namespace sb
 {
-	void ScreenBar::initialize(const std::string id)
+	void ScreenBar::initialize(const std::string& id)
 	{
 		onCreate();
 
@@ -30,7 +30,7 @@ namespace sb
 		if (current_->wantsExclusiveInput())
 			return;
 
-		Interactive* next = findClosestHorizontal(*ev.specialKey);
+		ScreenButton* next = findClosestHorizontal(*ev.specialKey);
 		if (next && next != current_)
 		{
 			current_->setFocus(false);
@@ -40,10 +40,7 @@ namespace sb
 
 		if (*ev.specialKey == Key::Enter)
 		{
-			if (auto* screenButton = dynamic_cast<ScreenButton*>(current_))
-			{
-				targetScreen_ = screenButton->getTargetScreen();
-			}
+			targetScreen_ = current_->getTargetScreen();
 		}
 	}
 
@@ -55,26 +52,26 @@ namespace sb
 
 		if (UserManager::instance().getCurrentUser().getPlan() == "Artista")
 		{
-			music_ = addElement<ScreenButton>(ScreenNames::Music);
+			music_ = addElement(ScreenNames::Music);
 			music_->setText("Mi Musica");
 		}
 
-		main_ = addElement<ScreenButton>(ScreenNames::Main);
+		main_ = addElement(ScreenNames::Main);
 		main_->setText("Inicio");
 
-		explore_ = addElement<ScreenButton>(ScreenNames::Explore);
+		explore_ = addElement(ScreenNames::Explore);
 		explore_->setText("Explorar");
 
-		profile_ = addElement<ScreenButton>(ScreenNames::Profile);
+		profile_ = addElement(ScreenNames::Profile);
 		profile_->setText("Perfil");
 
-		library_ = addElement<ScreenButton>(ScreenNames::Library);
+		library_ = addElement(ScreenNames::Library);
 		library_->setText("Biblioteca");
 
-		history_ = addElement<ScreenButton>(ScreenNames::History);
+		history_ = addElement(ScreenNames::History);
 		history_->setText("Historial");
 
-		search_ = addElement<ScreenButton>(ScreenNames::Search);
+		search_ = addElement(ScreenNames::Search);
 		search_->setText("Buscar");
 
 		const int totalWidth = ((music_) ? music_->getWidth() : 0) + main_->getWidth() + explore_->getWidth() 
@@ -93,7 +90,7 @@ namespace sb
 		}
 	}
 
-	Interactive* ScreenBar::findClosestHorizontal(Key key)
+	ScreenButton* ScreenBar::findClosestHorizontal(Key key)
 	{
 		if (!current_) return nullptr;
 
@@ -108,7 +105,7 @@ namespace sb
 		const int currRight = currLeft + currentSize.x() - 1;
 		const int currBottom = currTop + currentSize.y() - 1;
 
-		Interactive* closest = nullptr;
+		ScreenButton* closest = nullptr;
 		double minDistance = std::numeric_limits<double>::max();
 
 		for (const auto& target : interactives_)

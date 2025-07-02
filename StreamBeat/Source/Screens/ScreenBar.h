@@ -27,7 +27,7 @@ namespace sb
 	class ScreenBar
 	{
 	public:
-		void initialize(const std::string id);
+		void initialize(const std::string& id);
 		void render();
 		void handleNavigation(const InputEvent& ev);
 		void focus();
@@ -38,25 +38,22 @@ namespace sb
 
 	private:
 		void onCreate();
-		Interactive* findClosestHorizontal(Key key);
+		ScreenButton* findClosestHorizontal(Key key);
 
-		template<typename T, typename... Args>
-		T* addElement(const std::string& key, Args&&... args)
+		ScreenButton* addElement(const std::string& key)
 		{
-			static_assert(std::is_base_of<Interactive, T>::value, "T must inherit from Widget");
-
-			auto element = std::make_unique<T>(std::forward<Args>(args)...);
-			T* raw = element.get();
-
+			auto element = std::make_unique<ScreenButton>();
+			ScreenButton* raw = element.get();
+			raw->setTargetScreen(key);
 			interactives_.push_back(std::move(element));
-			screenMap_.insert(key, static_cast<Interactive*>(raw));
+			screenMap_.insert(key, raw);
 			return raw;
 		}
 
 	private:
 		List<std::unique_ptr<ScreenButton>> interactives_;
-		HashTable<std::string, Interactive*> screenMap_;
-		Interactive* current_ = nullptr;
+		HashTable<std::string, ScreenButton*> screenMap_;
+		ScreenButton* current_ = nullptr;
 		bool hasFocus_{ false };
 		std::string targetScreen_ = ScreenNames::None;
 		ScreenButton* music_{ nullptr };

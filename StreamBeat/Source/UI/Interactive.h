@@ -6,6 +6,8 @@
 #include "PalettePresets.h"
 #include "Console.h"
 
+#include <functional>
+
 namespace sb
 {
 	class Interactive : public Widget

@@ -47,19 +47,7 @@ namespace sb
 		loginButton_->setX(passwordBox_->getX());
 		loginButton_->setY(baseY + 14);
 
-		loginButton_->setOnEnter( [this] 
-			{
-				const std::string email = emailBox_->getText();
-				const std::string pass = passwordBox_->getText();
-				if (UserManager::instance().login(email, pass))
-				{
-					ScreenManager::instance().setActive(ScreenNames::Main);
-				}
-				else
-				{
-					warningLb_->show();
-				}
-			});
+		loginButton_->setOnEnter([this] { login(); });
 
 		passwordBox_->setOnEnter([this] { login(); });
 

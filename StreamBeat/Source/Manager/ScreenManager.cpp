@@ -84,12 +84,6 @@ namespace sb
 				}
 			}
 
-			if (screenBar_.getTargetScreen() != ScreenNames::None)
-			{
-				setActive(screenBar_.getTargetScreen());
-				screenBar_.clearTargetScreen();
-			}
-
 			switch (currentContext_)
 			{
 				case NavigationContext::ActiveScreen:
@@ -103,6 +97,11 @@ namespace sb
 						screenBar_.handleNavigation(*ev);
 					break;
 				}
+			}
+
+			if (ev->specialKey == Key::Enter && currentContext_ == NavigationContext::ScreenBar)
+			{
+				setActive(screenBar_.getTargetScreen());
 			}
 		}
 	}

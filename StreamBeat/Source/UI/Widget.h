@@ -44,7 +44,7 @@ namespace sb
 		virtual void reset() {}
 
 		void setTextPalette(const Palette& textPalette);
-		const Palette& getTextPalette() const;
+		Palette getTextPalette() const;
 
 		void setTextForeground(WORD foreground);
 		void setTextBackground(WORD background);

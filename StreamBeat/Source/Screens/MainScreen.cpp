@@ -19,11 +19,9 @@ namespace sb
 		const int baseY = 1;
 
 		titleLb_ = addElement<Label>();
-		titleLb_->setText("[ StreamBeat - Main]");
+		titleLb_->setText("[ StreamBeat - Main ]");
 		titleLb_->centerX(consoleSize.x());
 		titleLb_->setY(baseY);
-
-
 	}
 
 	void MainScreen::onKeyPress(Key key)

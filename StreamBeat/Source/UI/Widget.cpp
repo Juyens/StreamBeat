@@ -99,7 +99,7 @@ namespace sb
 		textPalette_ = textPalette;
 	}
 
-	const Palette& Widget::getTextPalette() const
+	Palette Widget::getTextPalette() const
 	{
 		return textPalette_.background;
 	}
