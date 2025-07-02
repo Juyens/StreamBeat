@@ -67,7 +67,7 @@ namespace sb
 	std::optional<Key> KeyboardInput::getPressedKey()
 	{
 		static constexpr Key keys[] = {
-			Key::Esc, Key::Enter, Key::Space, Key::Backspace,
+			Key::Escape, Key::Enter, Key::Space, Key::Backspace,
 			Key::Up, Key::Down, Key::Left, Key::Right,
 			Key::A, Key::B, Key::C, Key::D, Key::E, Key::F,
 			Key::G, Key::H, Key::I, Key::J, Key::K, Key::L,

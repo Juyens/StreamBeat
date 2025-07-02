@@ -9,7 +9,7 @@ namespace sb
 {
 	enum class Key : int
 	{
-		Esc = VK_ESCAPE,
+		Escape = VK_ESCAPE,
 		Enter = VK_RETURN,
 		Space = VK_SPACE,
 		Backspace = VK_BACK,

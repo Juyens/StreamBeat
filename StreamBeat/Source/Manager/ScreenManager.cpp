@@ -35,7 +35,15 @@ namespace sb
 	void ScreenManager::handleInput()
 	{
 		if (activeScreen_)
-			activeScreen_->handleInput();
+		{
+			auto ev = Console::readInputEvent();
+
+			if (!ev.has_value()) 
+				return;
+
+			activeScreen_->handleInput(*ev);
+		}
+			
 	}
 
 	Screen* ScreenManager::getActiveScreen()

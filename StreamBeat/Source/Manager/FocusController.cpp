@@ -22,6 +22,9 @@ namespace sb
 	{
 		if (!current_) return;
 
+		if (current_->wantsExclusiveInput())
+			return;
+
 		Interactive* next = findClosestInDirection(key);
 		if (next && next != current_) 
 		{

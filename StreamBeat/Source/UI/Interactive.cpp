@@ -69,6 +69,16 @@ namespace sb
 		return hasFocus_;
 	}
 
+	void Interactive::setMonopolizeFocus(bool enable)
+	{
+		monopolizeFocus_ = enable;
+	}
+
+	bool Interactive::wantsExclusiveInput() const
+	{
+		return monopolizeFocus_;
+	}
+
 	void Interactive::focus()
 	{
 		if (!hasFocus_)

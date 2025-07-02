@@ -59,10 +59,14 @@ namespace sb
         dniBox_->setX(startXDniPlan);
         dniBox_->setY(yDniPlan);
 
-        planBox_ = addElement<TextBox>();
-        planBox_->setSize({ fieldWidth, fieldHeight });
-        planBox_->setX(startXDniPlan + fieldWidth + spacing);
-        planBox_->setY(yDniPlan);
+        planComboBox_ = addElement<ComboBox<std::string>>();
+        planComboBox_->setX(startXDniPlan + fieldWidth + spacing);
+        planComboBox_->setY(yDniPlan);
+        planComboBox_->addItem("Free");
+        planComboBox_->addItem("Premium");
+        planComboBox_->addItem("Estudiante");
+        planComboBox_->addItem("Artista");
+        planComboBox_->setItemToString([] (const std::string& s) { return s; });
 
         dniLb_ = addElement<Label>();
         dniLb_->setText("DNI:");
@@ -71,8 +75,8 @@ namespace sb
 
         planLb_ = addElement<Label>();
         planLb_->setText("Plan:");
-        planLb_->setX(planBox_->getX() + 1);
-        planLb_->setY(planBox_->getY() - 1);
+        planLb_->setX(planComboBox_->getX() + 1);
+        planLb_->setY(planComboBox_->getY() - 1);
 
         // Email & Password
         const int yEmailPass = baseY + 15;
@@ -102,10 +106,12 @@ namespace sb
         const int yGenderAge = baseY + 20;
         const int startXGenderAge = utils::centeredX(consoleSize.x(), fieldWidth * 2 + spacing);
 
-        genderBox_ = addElement<TextBox>();
-        genderBox_->setSize({ fieldWidth, fieldHeight });
-        genderBox_->setX(startXGenderAge);
-        genderBox_->setY(yGenderAge);
+        genderComboBox_ = addElement<ComboBox<std::string>>();
+        genderComboBox_->setX(startXGenderAge);
+        genderComboBox_->setY(yGenderAge);
+        genderComboBox_->addItem("Masculino");
+        genderComboBox_->addItem("Femenino");
+        genderComboBox_->setItemToString([] (const std::string& s) { return s; });
 
         ageBox_ = addElement<TextBox>();
         ageBox_->setSize({ fieldWidth, fieldHeight });
@@ -114,8 +120,8 @@ namespace sb
 
         genderLb_ = addElement<Label>();
         genderLb_->setText("Genero:");
-        genderLb_->setX(genderBox_->getX() + 1);
-        genderLb_->setY(genderBox_->getY() - 1);
+        genderLb_->setX(genderComboBox_->getX() + 1);
+        genderLb_->setY(genderComboBox_->getY() - 1);
 
         ageLb_ = addElement<Label>();
         ageLb_->setText("Edad:");
@@ -133,10 +139,10 @@ namespace sb
             user.setFirstName(firstNameBox_->getText());
             user.setLastName(lastNameBox_->getText());
             user.setDni(dniBox_->getText());
-            user.setPlan(planBox_->getText());
+            user.setPlan(planComboBox_->getSelectedItem() ? *planComboBox_->getSelectedItem() : "");
             user.setEmail(emailBox_->getText());
             user.setPassword(passwordBox_->getText());
-            user.setGender(genderBox_->getText());
+            user.setGender(genderComboBox_->getSelectedItem() ? *genderComboBox_->getSelectedItem() : "");
 
             try 
             {

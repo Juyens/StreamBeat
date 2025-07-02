@@ -222,7 +222,7 @@ namespace sb
 			case VK_RETURN:    return InputEvent{ std::nullopt, Key::Enter };
 			case VK_BACK:      return InputEvent{ std::nullopt, Key::Backspace };
 			case VK_DELETE:    return InputEvent{ std::nullopt, Key::Delete };
-			case VK_ESCAPE:    return InputEvent{ std::nullopt, Key::Esc };
+			case VK_ESCAPE:    return InputEvent{ std::nullopt, Key::Escape };
 			case VK_LEFT:      return InputEvent{ std::nullopt, Key::Left };
 			case VK_RIGHT:     return InputEvent{ std::nullopt, Key::Right };
 			case VK_UP:        return InputEvent{ std::nullopt, Key::Up };

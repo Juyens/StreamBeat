@@ -3,6 +3,7 @@
 #include "Screen.h"
 #include "UI.h"
 #include "Console.h"
+#include "ComboBox.h"
 
 namespace sb
 {
@@ -33,12 +34,13 @@ namespace sb
 		TextBox* firstNameBox_{ nullptr };
 		TextBox* lastNameBox_{ nullptr };
 		TextBox* dniBox_{ nullptr };
-		TextBox* planBox_{ nullptr };
 		TextBox* emailBox_{ nullptr };
 		TextBox* passwordBox_{ nullptr };
-		TextBox* genderBox_{ nullptr };
 		TextBox* ageBox_{ nullptr };
 
 		Button* registerButton_{ nullptr };
+
+		ComboBox<std::string>* genderComboBox_{ nullptr };
+		ComboBox<std::string>* planComboBox_{ nullptr };
 	};
 }

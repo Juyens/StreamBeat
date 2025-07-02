@@ -32,6 +32,9 @@ namespace sb
 		void setFocus(bool isFocus);
 		bool hasFocus() const;
 
+		void setMonopolizeFocus(bool enable);
+		bool wantsExclusiveInput() const;
+
 		void focus();
 		void blur();
 
@@ -46,6 +49,7 @@ namespace sb
 		Palette borderPalette_{ PalettePresets::Default };
 		Palette focusPalette_{ PalettePresets::Focus };
 		bool hasFocus_{ false };
+		bool monopolizeFocus_{ false };
 		std::function<void()> onEnter_;
 	};
 }

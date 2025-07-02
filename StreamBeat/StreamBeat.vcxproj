@@ -190,6 +190,7 @@
     <ClInclude Include="Source\Structures\Queue.h" />
     <ClInclude Include="Source\Structures\Stack.h" />
     <ClInclude Include="Source\UI\Button.h" />
+    <ClInclude Include="Source\UI\ComboBox.h" />
     <ClInclude Include="Source\UI\Interactive.h" />
     <ClInclude Include="Source\UI\Label.h" />
     <ClInclude Include="Source\UI\TextBox.h" />

@@ -28,25 +28,21 @@ namespace sb
 
 		virtual void onKeyPress(Key key) {}
 
-		virtual void handleInput()
+		virtual void handleInput(const InputEvent& ev)
 		{
-			auto ev = Console::readInputEvent();
-			if (!ev.has_value()) return;
-
-			if (ev->specialKey.has_value()) 
+			if (ev.specialKey.has_value()) 
 			{
-				Key key = *ev->specialKey;
+				Key key = *ev.specialKey;
 				if (key == Key::Up || key == Key::Down || key == Key::Left || key == Key::Right) 
 				{
 					focusController_.handleNavigation(key);
-					return;
 				}
 
 				onKeyPress(key);
 			}
 
 			if (auto* current = focusController_.getCurrent())
-				current->handleInput(*ev);
+				current->handleInput(ev);
 		}
 
 		const std::string& getID() { return id_; }
