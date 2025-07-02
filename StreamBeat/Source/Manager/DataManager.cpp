@@ -86,7 +86,7 @@ namespace sb
             }
 
             std::string nameArtist = line.substr(line.find(":") + 2);
-            currentArtist = std::make_shared<Artist>(artists_);
+            currentArtist = std::make_shared<Artist>();
             currentArtist->setName(nameArtist);
         }
         else if (tabLevel == 1)
@@ -97,16 +97,16 @@ namespace sb
             }
 
             std::string nameAlbum = line.substr(line.find(":") + 2);
-            currentAlbum = std::make_shared<Album>(songs_);
+            currentAlbum = std::make_shared<Album>();
             currentAlbum->setName(nameAlbum);
         }
         else if (tabLevel == 2)
         {
             if (!currentSong)
-                currentSong = std::make_shared<Song>(songs_);
+                currentSong = std::make_shared<Song>();
 
             if (!currentCredits)
-                currentCredits = std::make_shared<Credits>(currentSong->getGenres());
+                currentCredits = std::make_shared<Credits>();
 
             if (line.find("Song") != std::string::npos)
             {
@@ -137,7 +137,7 @@ namespace sb
             {
                 std::string authors = line.substr(line.find(":") + 2);
                 currentCredits->setAuthorsContent(*split(authors, ','));
-                currentSong->setCredits(currentCredits);
+                currentSong->setCredits(*currentCredits);
                 currentAlbum->addSong(currentSong);
                 songs_.push_back(currentSong);
 

@@ -9,16 +9,17 @@
 class Song
 {
 private:
-    List<std::string>& genres_;
+    List<std::string> genres_;
     std::string name_;
-    std::uint32_t duration_;
-    std::uint64_t reproductions_;
+    std::uint32_t duration_{ 0 };
+    std::uint64_t reproductions_{ 0 };
     Credits credits_;
 
 public:
+    Song() = default;
     Song(List<std::string>& genres, const std::string& name, std::uint32_t duration,
-        std::uint64_t reproductions, const Credits& credits)
-        : genres_(genres), name_(name), duration_(duration),
+        std::uint64_t reproductions, Credits& credits)
+        : genres_(std::move(genres)), name_(name), duration_(duration),
         reproductions_(reproductions), credits_(credits) {}
 
     ~Song() = default;
@@ -73,14 +74,14 @@ public:
         reproductions_ = reproductions;
     }
 
-    void setCredits(Credits& credits)
+    void setCredits(const Credits& credits)
     {
         credits_ = credits;
     }
 
     Credits& getCredits()
     {
-        return *credits_;
+        return credits_;
     }
 
     void addGenre(const std::string& genre)

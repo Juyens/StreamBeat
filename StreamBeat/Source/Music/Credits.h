@@ -11,6 +11,7 @@ private:
     std::string discography_;
 
 public:
+    Credits() = default;
     Credits(List<std::string>& authors, const std::string& discography)
         : authors_(std::move(authors)), discography_(discography) {}
 

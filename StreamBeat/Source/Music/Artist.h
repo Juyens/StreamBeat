@@ -9,11 +9,12 @@ class Artist
 {
 private:
     std::string name_;
-    List<std::shared_ptr<Album>>& albums_;
+    List<std::shared_ptr<Album>> albums_;
 
 public:
-    Artist(const std::string& name, List<std::shared_ptr<Album>>& albums)
-        : name_(name), albums_(albums) {}
+    Artist() = default;
+    explicit Artist(const std::string& name)
+        : name_(name) {}
 
     ~Artist() = default;
 
