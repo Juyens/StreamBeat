@@ -245,6 +245,9 @@
     <ClInclude Include="Source\Screens\SearchScreen.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Drawing\Art.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\streambeat.ico">

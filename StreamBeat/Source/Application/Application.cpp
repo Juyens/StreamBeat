@@ -55,6 +55,9 @@ namespace sb
 
 	void Application::initializeScreens()
 	{
+		DataManager::instance().loadDataFromFile();
+		// -------------------------------------------- //
+
 		ScreenManager::instance().registerScreen(std::make_unique<LoginScreen>());
 		ScreenManager::instance().registerScreen(std::make_unique<RegisterScreen>());
 		ScreenManager::instance().registerScreen(std::make_unique<MusicScreen>());
@@ -64,6 +67,9 @@ namespace sb
 		ScreenManager::instance().registerScreen(std::make_unique<LibraryScreen>());
 		ScreenManager::instance().registerScreen(std::make_unique<HistoryScreen>());
 		ScreenManager::instance().registerScreen(std::make_unique<SearchScreen>());
+
+		// -------------------------------------------- //
+
 		ScreenManager::instance().setActive(ScreenNames::Login);
 	}
 }

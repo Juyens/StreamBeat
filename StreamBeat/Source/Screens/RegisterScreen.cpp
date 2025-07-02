@@ -30,7 +30,7 @@ namespace sb
         titleLb_->setY(baseY);
 
         const int yName = baseY + 5;
-        const int startXName = utils::centeredX(consoleSize.x(), fieldWidth * 2 + spacing);
+        const int startXName = utils::centered(consoleSize.x(), fieldWidth * 2 + spacing);
 
         firstNameBox_ = addElement<TextBox>();
         firstNameBox_->setSize({ fieldWidth, fieldHeight });
@@ -54,7 +54,7 @@ namespace sb
 
         // DNI & Plan
         const int yDniPlan = baseY + 10;
-        const int startXDniPlan = utils::centeredX(consoleSize.x(), fieldWidth * 2 + spacing);
+        const int startXDniPlan = utils::centered(consoleSize.x(), fieldWidth * 2 + spacing);
 
         dniBox_ = addElement<TextBox>();
         dniBox_->setSize({ fieldWidth, fieldHeight });
@@ -82,7 +82,7 @@ namespace sb
 
         // Email & Password
         const int yEmailPass = baseY + 15;
-        const int startXEmailPass = utils::centeredX(consoleSize.x(), fieldWidth * 2 + spacing);
+        const int startXEmailPass = utils::centered(consoleSize.x(), fieldWidth * 2 + spacing);
 
         emailBox_ = addElement<TextBox>();
         emailBox_->setSize({ fieldWidth, fieldHeight });
@@ -106,7 +106,7 @@ namespace sb
 
         // Gender & Age
         const int yGenderAge = baseY + 20;
-        const int startXGenderAge = utils::centeredX(consoleSize.x(), fieldWidth * 2 + spacing);
+        const int startXGenderAge = utils::centered(consoleSize.x(), fieldWidth * 2 + spacing);
 
         genderComboBox_ = addElement<ComboBox<std::string>>();
         genderComboBox_->setX(startXGenderAge);

@@ -25,6 +25,8 @@ namespace sb
 				if (widget->isVisible())
 					widget->render();
 			}
+
+			onRender();
 		}
 
 		virtual void onKeyPress(Key key) {}
@@ -60,8 +62,12 @@ namespace sb
 				interactive->reset();
 			}
 
+			focusController_.focusFirst();
+
 			onReset();
 		}
+
+		virtual void onRender() {};
 
 		void setActive(bool active)
 		{

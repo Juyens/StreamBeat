@@ -99,9 +99,9 @@ namespace sb
 		textPalette_ = textPalette;
 	}
 
-	Palette Widget::getTextPalette() const
+	const Palette& Widget::getTextPalette() const
 	{
-		return textPalette_.background;
+		return textPalette_;
 	}
 
 	void Widget::setTextForeground(WORD foreground)

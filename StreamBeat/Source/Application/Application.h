@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ScreenManager.h"
+#include "DataManager.h"
 
 #include <iostream>
 #include <stdexcept>

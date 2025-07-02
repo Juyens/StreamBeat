@@ -173,6 +173,7 @@
     <ClCompile Include="Source\UI\Cursor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Drawing\Art.h" />
     <ClInclude Include="Source\HashTable\HashEntry.h" />
     <ClInclude Include="Source\HashTable\HashFunction.h" />
     <ClInclude Include="Source\HashTable\HashTable.h" />

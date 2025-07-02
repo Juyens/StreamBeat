@@ -2,7 +2,7 @@
 
 namespace sb::utils
 {
-    inline int centeredX(int totalWidth, int contentWidth) 
+    inline int centered(int totalWidth, int contentWidth) 
     {
         if (contentWidth > totalWidth) 
             return 0;

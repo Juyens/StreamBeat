@@ -6,6 +6,12 @@ namespace sb
 {
 	void ScreenBar::initialize(const std::string& id)
 	{
+		if (!interactives_.empty())
+			interactives_.clear();
+
+		if (!screenMap_.empty())
+			screenMap_.clear();
+
 		onCreate();
 
 		auto found = screenMap_.find(id);
@@ -75,9 +81,9 @@ namespace sb
 		search_->setText("Buscar");
 
 		const int totalWidth = ((music_) ? music_->getWidth() : 0) + main_->getWidth() + explore_->getWidth() 
-			+ profile_->getWidth() + library_->getWidth() + history_->getWidth() + search_->getWidth() + paddingX * 2;
+			+ profile_->getWidth() + library_->getWidth() + history_->getWidth() + search_->getWidth() + paddingX * static_cast<int>(interactives_.size());
 
-		const int baseX = utils::centeredX(consoleSize.x(), totalWidth);
+		const int baseX = utils::centered(consoleSize.x(), totalWidth);
 
 		interactives_[0]->setX(baseX);
 		interactives_[0]->setY(baseY);

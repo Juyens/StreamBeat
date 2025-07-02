@@ -13,7 +13,11 @@ namespace sb
 
 	void FocusController::focusFirst() 
 	{
-		if (!interactives_.empty()) {
+		if (!interactives_.empty()) 
+		{
+			if (current_)
+				current_->blur();
+
 			current_ = interactives_.front();
 			current_->setFocus(true);
 		}

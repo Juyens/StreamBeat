@@ -12,11 +12,13 @@ namespace sb
 		MainScreen();
 
 	protected:
+		void onRender() override;
 		void onCreate() override;
 		void onKeyPress(Key key) override;
 		void onReset() override;
 
 	private:
 		Label* titleLb_{ nullptr };
+		Button* logoutButton_{ nullptr };
 	};
 }

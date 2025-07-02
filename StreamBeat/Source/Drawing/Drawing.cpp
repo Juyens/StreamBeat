@@ -61,4 +61,12 @@ namespace sb
 			Console::writeAt(x + width - 1, y + i, std::string(1, style.vertical), palette.foreground, palette.background);
 		}
 	}
+
+	void Drawing::drawArt(int x, int y, const std::vector<std::string>& art, const Palette& palette)
+	{
+		for (size_t i = 0; i < art.size(); ++i)
+		{
+			Console::writeAt(x, y + i, art[i], palette.foreground, palette.background);
+		}
+	}
 }
