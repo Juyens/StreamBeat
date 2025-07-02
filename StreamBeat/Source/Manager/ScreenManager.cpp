@@ -101,7 +101,11 @@ namespace sb
 
 			if (ev->specialKey == Key::Enter && currentContext_ == NavigationContext::ScreenBar)
 			{
-				setActive(screenBar_.getTargetScreen());
+				if (activeScreen_->getID() != screenBar_.getTargetScreen())
+				{
+					setActive(screenBar_.getTargetScreen());
+					activeScreen_->suspend();
+				}
 			}
 		}
 	}

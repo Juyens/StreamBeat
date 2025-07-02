@@ -18,5 +18,9 @@ namespace sb
 
 	private:
 		Label* titleLb_{ nullptr };
+		
+		Button* searchArtistBt_{ nullptr };
+		Button* searchAlbumBt_{ nullptr };
+		Button* searchSongBt_{ nullptr };
 	};
 }

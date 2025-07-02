@@ -93,7 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +139,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -212,6 +212,8 @@
     <ClInclude Include="Source\Structures\Node.h" />
     <ClInclude Include="Source\Structures\Queue.h" />
     <ClInclude Include="Source\Structures\Stack.h" />
+    <ClInclude Include="Source\Tree\AVLTree.h" />
+    <ClInclude Include="Source\Tree\NodoAVL.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\ComboBox.h" />
     <ClInclude Include="Source\UI\Interactive.h" />

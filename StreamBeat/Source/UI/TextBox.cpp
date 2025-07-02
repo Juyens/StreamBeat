@@ -106,6 +106,7 @@ namespace sb
 	{
 		text_.clear();
 		cursor_.reset();
+		activate();
 	}
 
 	void TextBox::onFocus()

@@ -19,6 +19,8 @@ namespace sb
 		void render() override;
 		void handleInput(const InputEvent& ev) override;
 
+		void reset() override;
+
 	private:
 		void updateSize();
 

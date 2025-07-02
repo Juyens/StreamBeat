@@ -73,6 +73,11 @@ namespace sb
 		}
 	}
 
+	void Button::reset()
+	{
+		activate();
+	}
+
 	void Button::updateSize()
 	{
 		if (isBorderVisible_)
