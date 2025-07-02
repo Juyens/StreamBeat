@@ -12,7 +12,7 @@ namespace sb
 	{
 	public:
 		TextBox();
-		explicit TextBox(const Vector2i& position);
+		explicit TextBox(const Vector2i& position, const Vector2i& size = {30, 1});
 
 		void setText(const std::string& text);
 		const std::string& getText() const;

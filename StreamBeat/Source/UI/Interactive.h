@@ -13,13 +13,7 @@ namespace sb
 	public:
 		Interactive();
 		Interactive(const Vector2i& position, const Vector2i& size,
-			bool focused = false, const Palette& focusPalette = PalettePresets::Focus);
-
-		void setBorderPalette(const Palette& palette);
-		const Palette& getBorderPalette() const;
-
-		void setBorderForeground(WORD foreground);
-		void setBorderBackground(WORD background);
+			bool focused = false);
 
 		void setFocusPalette(const Palette& palette);
 		const Palette& getFocusPalette() const;
@@ -46,7 +40,6 @@ namespace sb
 		virtual void onBlur() {}
 
 	protected:
-		Palette borderPalette_{ PalettePresets::Default };
 		Palette focusPalette_{ PalettePresets::Focus };
 		bool hasFocus_{ false };
 		bool monopolizeFocus_{ false };

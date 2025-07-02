@@ -19,13 +19,13 @@ namespace sb
     {
         const auto consoleSize = Console::getViewportSize();
 
-        constexpr int baseY = 8;
+        constexpr int baseY = 7;
         constexpr int fieldWidth = 30;
         constexpr int fieldHeight = 3;
         constexpr int spacing = 5;
 
         titleLb_ = addElement<Label>();
-        titleLb_->setText("< StreamBeat - Register >");
+        titleLb_->setText("[ StreamBeat - Register ]");
         titleLb_->centerX(consoleSize.x());
         titleLb_->setY(baseY);
 
@@ -131,7 +131,7 @@ namespace sb
         ageLb_->setY(ageBox_->getY() - 1);
 
         registerButton_ = addElement<Button>();
-        registerButton_->setLabel("Registrarse");
+        registerButton_->setText("Registrarse");
         registerButton_->setY(baseY + 25);
         registerButton_->setX(firstNameBox_->getX() + firstNameBox_->getWidth() - registerButton_->getWidth());
 
@@ -210,7 +210,7 @@ namespace sb
             });
 
         backButton_ = addElement<Button>();
-        backButton_->setLabel("Volver");
+        backButton_->setText("Volver");
         backButton_->setY(baseY + 25);
         backButton_->setX(lastNameBox_->getX());
 

@@ -11,9 +11,10 @@ namespace sb
 	{
 	public:
 		Button();
-		explicit Button(const Vector2i& position, std::string label);
+		explicit Button(const Vector2i& position, std::string text);
 
-		void setLabel(const std::string& text);
+		void setText(const std::string& text);
+		void setBorderVisible(bool visible);
 
 		void render() override;
 		void handleInput(const InputEvent& ev) override;
@@ -22,6 +23,7 @@ namespace sb
 		void updateSize();
 
 	private:
-		std::string label_{ "Button" };
+		std::string text_{ "Button" };
+		bool isBorderVisible_{ true };
 	};
 }

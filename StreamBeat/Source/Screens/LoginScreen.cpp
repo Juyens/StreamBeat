@@ -18,7 +18,7 @@ namespace sb
 		const int baseY = 10;
 
 		titleLb_ = addElement<Label>();
-		titleLb_->setText("< StreamBeat - Login >");
+		titleLb_->setText("[ StreamBeat - Login ]");
 		titleLb_->centerX(consoleSize.x());
 		titleLb_->setY(baseY);
 
@@ -41,7 +41,7 @@ namespace sb
 		passwordLb_->setY(baseY + 9);
 
 		loginButton_ = addElement<Button>();
-		loginButton_->setLabel("Ingresar");
+		loginButton_->setText("Ingresar");
 		loginButton_->setX(passwordBox_->getX());
 		loginButton_->setY(baseY + 14);
 
@@ -71,7 +71,7 @@ namespace sb
 			});
 
 		registerButton_ = addElement<Button>();
-		registerButton_->setLabel("Registrarse");
+		registerButton_->setText("Registrarse");
 		registerButton_->setX(passwordBox_->getX() + 15);
 		registerButton_->setY(baseY + 14);
 

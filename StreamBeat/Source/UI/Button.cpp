@@ -12,15 +12,13 @@ namespace sb
 		updateSize();
 	}
 
-	Button::Button(const Vector2i& position, std::string label)
-		: Interactive(
-			position,
-			Vector2i(std::max(static_cast<int>(label.size()) + 4, 4), 3))
-		, label_(std::move(label)) {}
+	Button::Button(const Vector2i& position, std::string text)
+		: Interactive(position, { std::max(static_cast<int>(text.size()) + 4, 4), 3 })
+		, text_(std::move(text)) {}
 
-	void Button::setLabel(const std::string& text)
+	void Button::setText(const std::string& text)
 	{
-		label_ = text;
+		text_ = text;
 		updateSize();
 	}
 
@@ -31,14 +29,22 @@ namespace sb
 		const int paddingX = 2;
 		const int minWidth = 4;
 		const int height = 3;
-		const int width = std::max(static_cast<int>(label_.size()) + paddingX * 2, minWidth);
 
-		Drawing::drawBox(getPosition().x(), getPosition().y(), width, height, BoxStyles::SingleLineBox, activePalette);
+		const int contentWidth = static_cast<int>(text_.size()) + paddingX * 2;
+		const int width = std::max(contentWidth, minWidth);
 
-		const int textX = getPosition().x() + (width - static_cast<int>(label_.size())) / 2;
-		const int textY = getPosition().y() + height / 2;
+		const int boxX = getPosition().x();
+		const int boxY = getPosition().y();
 
-		Drawing::drawText(textX, textY, label_, activePalette);
+		if (isBorderVisible_)
+		{
+			Drawing::drawBox(boxX, boxY, width, height, BoxStyles::SingleLineBox, activePalette);
+		}
+
+		const int textX = boxX + (isBorderVisible_ ? (width - static_cast<int>(text_.size())) / 2 : 0);
+		const int textY = boxY + (isBorderVisible_ ? height / 2 : 0);
+
+		Drawing::drawText(textX, textY, text_, activePalette);
 	}
 
 	void Button::handleInput(const InputEvent& ev)
@@ -60,10 +66,17 @@ namespace sb
 
 	void Button::updateSize()
 	{
-		const int paddingX = 2;
-		const int minWidth = 4;
-		const int height = 3;
-		const int width = std::max(static_cast<int>(label_.size()) + paddingX * 2, minWidth);
-		setSize(width, height);
+		if (isBorderVisible_)
+		{
+			const int paddingX = 2;
+			const int minWidth = 4;
+			const int height = 3;
+			const int width = std::max(static_cast<int>(text_.size()) + paddingX * 2, minWidth);
+			setSize({ width, height });
+		}
+		else
+		{
+			setSize({ static_cast<int>(text_.length()), 1 });
+		}
 	}
 }

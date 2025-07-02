@@ -57,11 +57,6 @@ namespace sb
 		return size_.y();
 	}
 
-	void Widget::setSize(int width, int height)
-	{
-		size_.set(width, height);
-	}
-
 	void Widget::setSize(const Vector2i& size)
 	{
 		size_ = size;
@@ -97,5 +92,45 @@ namespace sb
 	{
 		int y = (areaHeight - size_.y()) / 2;
 		position_.setY(y);
+	}
+	
+	void Widget::setTextPalette(const Palette& textPalette)
+	{
+		textPalette_ = textPalette;
+	}
+
+	const Palette& Widget::getTextPalette() const
+	{
+		return textPalette_.background;
+	}
+
+	void Widget::setTextForeground(WORD foreground)
+	{
+		textPalette_.foreground = foreground;
+	}
+
+	void Widget::setTextBackground(WORD background)
+	{
+		textPalette_.background = background;
+	}
+
+	void Widget::setBorderPalette(const Palette& palette)
+	{
+		borderPalette_ = palette;
+	}
+
+	const Palette& Widget::getBorderPalette() const
+	{
+		return borderPalette_;
+	}
+
+	void Widget::setBorderForeground(WORD foreground)
+	{
+		borderPalette_.foreground = foreground;
+	}
+
+	void Widget::setBorderBackground(WORD background)
+	{
+		borderPalette_.background = background;
 	}
 }

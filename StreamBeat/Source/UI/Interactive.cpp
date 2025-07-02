@@ -5,31 +5,9 @@ namespace sb
 	Interactive::Interactive()
 		: Widget() {}
 
-	Interactive::Interactive(const Vector2i& position, const Vector2i& size,
-		bool focused, const Palette& borderPalette)
+	Interactive::Interactive(const Vector2i& position, const Vector2i& size, bool focused)
 		: Widget(position, size)
-		, hasFocus_(focused) 
-		, borderPalette_(borderPalette) {}
-
-	void Interactive::setBorderPalette(const Palette& palette)
-	{
-		borderPalette_ = palette;
-	}
-
-	const Palette& Interactive::getBorderPalette() const
-	{
-		return borderPalette_;
-	}
-
-	void Interactive::setBorderForeground(WORD foreground)
-	{
-		borderPalette_.foreground = foreground;
-	}
-
-	void Interactive::setBorderBackground(WORD background)
-	{
-		borderPalette_.background = background;
-	}
+		, hasFocus_(focused) {}
 
 	void Interactive::setFocusPalette(const Palette& palette)
 	{

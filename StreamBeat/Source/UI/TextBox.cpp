@@ -9,11 +9,11 @@ namespace sb
 	TextBox::TextBox()
 		: Interactive()
 	{
-		setSize(30, 3);
+		setSize({ 30, 3 });
 	}
 
-	TextBox::TextBox(const Vector2i& position)
-		: Interactive(position, Vector2i(30, 3)) {}
+	TextBox::TextBox(const Vector2i& position, const Vector2i& size)
+		: Interactive(position, size) {}
 
 	void TextBox::setText(const std::string& text)
 	{

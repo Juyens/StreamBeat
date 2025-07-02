@@ -6,7 +6,7 @@ namespace sb
 	Label::Label() = default;
 
 	Label::Label(const Vector2i& position, const std::string& text)
-		: Widget(position, Vector2i(static_cast<int>(text.length()), 1))
+		: Widget(position, { static_cast<int>(text.length()), 1 })
 		, text_(text) {}
 
 	void Label::setText(const std::string& text)
@@ -15,33 +15,48 @@ namespace sb
 		size_ = { static_cast<int>(text.length()), 1 };
 	}
 
-	const std::string& Label::getText() const
+	void Label::setBorderVisible(bool visible)
 	{
-		return text_;
-	}
-
-	void Label::setTextPalette(const Palette& textPalette)
-	{
-		textPalette_ = textPalette;
-	}
-
-	const Palette& Label::getTextPalette() const
-	{
-		return textPalette_.background;
-	}
-
-	void Label::setTextForeground(WORD foreground)
-	{
-		textPalette_.foreground = foreground;
-	}
-
-	void Label::setTextBackground(WORD background)
-	{
-		textPalette_.background = background;
+		isBorderVisible_ = visible;
+		updateSize();
 	}
 
 	void Label::render()
 	{
-		Drawing::drawText(position_.x(), position_.y(), text_, textPalette_);
+		const int paddingX = 2;
+		const int minWidth = 4;
+		const int height = 3;
+
+		const int contentWidth = static_cast<int>(text_.size()) + paddingX * 2;
+		const int width = std::max(contentWidth, minWidth);
+
+		const int boxX = getPosition().x();
+		const int boxY = getPosition().y();
+
+		if (isBorderVisible_)
+		{
+			Drawing::drawBox(boxX, boxY, width, height, BoxStyles::UnderscoreLineBox, borderPalette_);
+		}
+
+		const int textX = boxX + (isBorderVisible_ ? (width - static_cast<int>(text_.size())) / 2 : 0);
+		const int textY = boxY + (isBorderVisible_ ? height / 2 : 0);
+
+		Drawing::drawText(textX, textY, text_, textPalette_);
+	}
+
+	void Label::updateSize()
+	{
+		if (isBorderVisible_)
+		{
+			const int paddingX = 2;
+			const int minWidth = 4;
+			const int height = 3;
+			const int width = std::max(static_cast<int>(text_.size()) + paddingX * 2, minWidth);
+			setSize({ width, height });
+		}
+		else
+		{
+			setSize({ static_cast<int>(text_.length()), 1 });
+		}
 	}
 }

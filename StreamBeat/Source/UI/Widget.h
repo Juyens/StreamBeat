@@ -29,7 +29,6 @@ namespace sb
 		virtual void setHeight(int height);
 		virtual int getHeight() const;
 
-		virtual void setSize(int width, int height);
 		virtual void setSize(const Vector2i& size);
 		virtual Vector2i getSize() const;
 
@@ -44,9 +43,23 @@ namespace sb
 
 		virtual void reset() {}
 
+		void setTextPalette(const Palette& textPalette);
+		const Palette& getTextPalette() const;
+
+		void setTextForeground(WORD foreground);
+		void setTextBackground(WORD background);
+
+		void setBorderPalette(const Palette& palette);
+		const Palette& getBorderPalette() const;
+
+		void setBorderForeground(WORD foreground);
+		void setBorderBackground(WORD background);
+
 	protected:
 		Vector2i position_{ 0, 0 };
 		Vector2i size_{ 0, 0 };
 		bool visible_{ true };
+		Palette borderPalette_{ PalettePresets::Default };
+		Palette textPalette_{ PalettePresets::Default };
 	};
 }

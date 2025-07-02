@@ -15,18 +15,14 @@ namespace sb
 		explicit Label(const Vector2i& position, const std::string& text);
 
 		void setText(const std::string& text);
-		const std::string& getText() const;
-
-		void setTextPalette(const Palette& textPalette);
-		const Palette& getTextPalette() const;
-
-		void setTextForeground(WORD foreground);
-		void setTextBackground(WORD background);
-
+		void setBorderVisible(bool visible);
 		void render() override;
 
 	private:
-		Palette textPalette_{ PalettePresets::Default };
+		void updateSize();
+
+	private:
 		std::string text_{ "Label" };
+		bool isBorderVisible_{ false };
 	};
 }
