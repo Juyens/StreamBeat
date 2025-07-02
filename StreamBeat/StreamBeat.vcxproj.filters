@@ -185,6 +185,27 @@
     <ClInclude Include="Source\Structures\Iterator.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Music\Album.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Music\Artist.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Music\Credits.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Music\Library.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Music\Playlist.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Music\Song.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Manager\DataManager.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\streambeat.ico">

@@ -169,10 +169,17 @@
     <ClInclude Include="Source\HashTable\HashEntry.h" />
     <ClInclude Include="Source\HashTable\HashFunction.h" />
     <ClInclude Include="Source\HashTable\HashTable.h" />
+    <ClInclude Include="Source\Manager\DataManager.h" />
     <ClInclude Include="Source\Manager\FocusController.h" />
     <ClInclude Include="Source\Manager\ScreenManager.h" />
     <ClInclude Include="Source\Manager\User.h" />
     <ClInclude Include="Source\Manager\UserManager.h" />
+    <ClInclude Include="Source\Music\Album.h" />
+    <ClInclude Include="Source\Music\Artist.h" />
+    <ClInclude Include="Source\Music\Credits.h" />
+    <ClInclude Include="Source\Music\Library.h" />
+    <ClInclude Include="Source\Music\Playlist.h" />
+    <ClInclude Include="Source\Music\Song.h" />
     <ClInclude Include="Source\Screens\LoginScreen.h" />
     <ClInclude Include="Source\Screens\MainScreen.h" />
     <ClInclude Include="Source\Screens\RegisterScreen.h" />
