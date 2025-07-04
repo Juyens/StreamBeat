@@ -64,15 +64,20 @@ namespace sb
 
 	void TextBox::render()
 	{
+		if (!isVisible())
+			return;
+
 		Palette activePalette = getBorderPalette();
 
 		if (hasActive() && hasFocus())
 		{
 			activePalette = getFocusPalette();
+			cursor_.activate();
 		}
 		else if (!hasActive() && hasFocus())
 		{
 			activePalette = getInactivePalette();
+			cursor_.deactivate();
 		}
 
 		Drawing::drawBox(position_.x(), position_.y(), size_.x(), size_.y(), BoxStyles::SingleLineBox, activePalette);

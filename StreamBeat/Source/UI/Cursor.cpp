@@ -53,6 +53,12 @@ namespace sb
 
 	void Cursor::updateBlink()
 	{
+		if (!active_)
+		{
+			visible_ = false;
+			return;
+		}
+
 		auto now = std::chrono::steady_clock::now();
 		if (now - lastBlink_ >= blinkInterval_)
 		{
@@ -92,5 +98,15 @@ namespace sb
 			scrollOffset_ = index_;
 		else if (index_ >= scrollOffset_ + visibleWidth)
 			scrollOffset_ = index_ - visibleWidth + 1;
+	}
+
+	void Cursor::activate()
+	{
+		active_ = true;
+	}
+
+	void Cursor::deactivate()
+	{
+		active_ = false;
 	}
 }

@@ -24,6 +24,9 @@ namespace sb
 
 	void Button::render()
 	{
+		if (!isVisible())
+			return;
+
 		Palette activePalette = getBorderPalette();
 
 		if (hasActive() && hasFocus())

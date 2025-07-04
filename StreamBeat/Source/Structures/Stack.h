@@ -22,7 +22,7 @@ public:
 	void push(U&& value);
 
 	void pop();
-	const T& peek() const;
+	T& top() const;
 
 	bool empty() const;
 	uint size() const;
@@ -84,7 +84,7 @@ inline void Stack<T>::pop()
 }
 
 template<class T>
-inline const T& Stack<T>::peek() const
+inline T& Stack<T>::top() const
 {
 	if (empty())
 		throw std::runtime_error("Stack is empty");

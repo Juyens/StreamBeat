@@ -254,6 +254,12 @@
     <ClInclude Include="Source\Tree\AVLTree.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\SubScreen\SubSearchScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\UI\TableView.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\streambeat.ico">

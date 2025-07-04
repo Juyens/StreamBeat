@@ -31,22 +31,20 @@ namespace sb
 
 	void ScreenBar::handleNavigation(const InputEvent& ev)
 	{
-		if (!current_) return;
-
-		if (current_->wantsExclusiveInput())
-			return;
-
-		ScreenButton* next = findClosestHorizontal(*ev.specialKey);
-		if (next && next != current_)
+		if (ev.specialKey.has_value())
 		{
-			current_->setFocus(false);
-			current_ = next;
-			current_->setFocus(true);
-		}
+			ScreenButton* next = findClosestHorizontal(*ev.specialKey);
+			if (next && next != current_)
+			{
+				current_->setFocus(false);
+				current_ = next;
+				current_->setFocus(true);
+			}
 
-		if (*ev.specialKey == Key::Enter)
-		{
-			targetScreen_ = current_->getTargetScreen();
+			if (*ev.specialKey == Key::Enter)
+			{
+				targetScreen_ = current_->getTargetScreen();
+			}
 		}
 	}
 

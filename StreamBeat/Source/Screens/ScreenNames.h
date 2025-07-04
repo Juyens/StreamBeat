@@ -13,4 +13,5 @@ namespace sb::ScreenNames
 	inline constexpr const char* Library = "library";
 	inline constexpr const char* History = "history";
 	inline constexpr const char* Search = "search";
+	inline constexpr const char* Temporary = "temporary";
 }

@@ -56,7 +56,7 @@ namespace sb
 		registerButton_->setX(passwordBox_->getX() + 15);
 		registerButton_->setY(baseY + 14);
 
-		registerButton_->setOnEnter([] { ScreenManager::instance().setActive(ScreenNames::Register); });
+		registerButton_->setOnEnter([] { ScreenManager::instance().navigateToRoot(ScreenNames::Register); });
 
 		warningLb_ = addElement<Label>();
 		warningLb_->setText("No se pudo iniciar sesion. Verifica tus datos");
@@ -77,7 +77,7 @@ namespace sb
 		const std::string pass = passwordBox_->getText();
 		if (UserManager::instance().login(email, pass))
 		{
-			ScreenManager::instance().setActive(ScreenNames::Main);
+			ScreenManager::instance().navigateToRoot(ScreenNames::Main);
 			ScreenManager::instance().setupScreenBar();
 		}
 		else

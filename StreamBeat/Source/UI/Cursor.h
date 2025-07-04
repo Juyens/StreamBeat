@@ -30,11 +30,15 @@ namespace sb
 
 		void clampScroll(int visibleWidth);
 
+		void activate();
+		void deactivate();
+
 	private:
 		int index_ = 0;
 		int scrollOffset_ = 0;
 
-		bool visible_ = true;
+		bool active_{ true };
+		bool visible_{ true };
 		std::chrono::steady_clock::time_point lastBlink_ = std::chrono::steady_clock::now();
 
 		static constexpr std::chrono::milliseconds blinkInterval_{ 450 };

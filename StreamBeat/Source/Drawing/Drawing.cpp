@@ -66,7 +66,7 @@ namespace sb
 	{
 		for (size_t i = 0; i < art.size(); ++i)
 		{
-			Console::writeAt(x, y + i, art[i], palette.foreground, palette.background);
+			Console::writeAt(x, y + static_cast<int>(i), art[i], palette.foreground, palette.background);
 		}
 	}
 }

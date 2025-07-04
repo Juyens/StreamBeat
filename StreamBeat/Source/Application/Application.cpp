@@ -27,6 +27,7 @@ namespace sb
 	void Application::update()
 	{
 		ScreenManager::instance().handleInput();
+		ScreenManager::instance().update();
 	}
 
 	void Application::render()
@@ -70,6 +71,6 @@ namespace sb
 
 		// -------------------------------------------- //
 
-		ScreenManager::instance().setActive(ScreenNames::Login);
+		ScreenManager::instance().navigateToRoot(ScreenNames::Login);
 	}
 }

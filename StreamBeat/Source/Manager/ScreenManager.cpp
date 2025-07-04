@@ -8,6 +8,13 @@ namespace sb
 		return instance;
 	}
 
+	void ScreenManager::pushSubScreen(std::unique_ptr<Screen> screen)
+	{
+		screenHistory_.push(screen.get());
+		tempScreens_.push_back(std::move(screen));
+		activeScreen_ = screenHistory_.top();
+	}
+
 	void ScreenManager::registerScreen(std::unique_ptr<Screen> screen)
 	{
 		const std::string& id = screen->getID();
@@ -17,27 +24,23 @@ namespace sb
 		}
 	}
 
-	void ScreenManager::setActive(const std::string& id)
+	void ScreenManager::navigateToRoot(const std::string& id)
 	{
 		std::unique_ptr<Screen>* found = screens_.find(id);
 		if (found)
 		{
-			if (found->get()->isActive())
-			{
-				found->get()->resetElements();
-			}
-
-			if (activeScreen_)
+			if (activeScreen_ && activeScreen_->getID() != ScreenNames::Temporary)
 			{
 				activeScreen_->resetElements();
-				screenHistory_.push(activeScreen_);
 				activeScreen_->setActive(false);
 			}
 
-			activeScreen_ = found->get();
-			
-			if (!activeScreen_->isActive())
-				activeScreen_->setActive(true);
+			tempScreens_.clear();
+			screenHistory_.clear();
+
+			screenHistory_.push(found->get());
+			activeScreen_ = screenHistory_.top();
+			activeScreen_->setActive(true);
 		}
 	}
 
@@ -45,8 +48,11 @@ namespace sb
 	{
 		if (!screenHistory_.empty())
 		{
-			activeScreen_ = screenHistory_.peek();
+			if (activeScreen_->getID() != ScreenNames::Temporary)
+				return;
+
 			screenHistory_.pop();
+			activeScreen_ = screenHistory_.empty() ? nullptr : screenHistory_.top();
 		}
 	}
 
@@ -57,6 +63,12 @@ namespace sb
 
 		if (!isRestrictedScreen())
 			screenBar_.render();
+	}
+
+	void ScreenManager::update()
+	{
+		if (activeScreen_)
+			activeScreen_->update();
 	}
 
 	void ScreenManager::handleInput()
@@ -103,7 +115,7 @@ namespace sb
 			{
 				if (activeScreen_->getID() != screenBar_.getTargetScreen())
 				{
-					setActive(screenBar_.getTargetScreen());
+					navigateToRoot(screenBar_.getTargetScreen());
 					activeScreen_->suspend();
 				}
 			}

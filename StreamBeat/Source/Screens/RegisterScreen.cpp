@@ -199,7 +199,7 @@ namespace sb
 
             if (UserManager::instance().registerUser(user)) 
             {
-                ScreenManager::instance().setActive(ScreenNames::Login);
+                ScreenManager::instance().navigateToRoot(ScreenNames::Login);
             }
             else 
             {
@@ -214,7 +214,7 @@ namespace sb
         backButton_->setY(baseY + 25);
         backButton_->setX(lastNameBox_->getX());
 
-        backButton_->setOnEnter([] { ScreenManager::instance().setActive(ScreenNames::Login); });
+        backButton_->setOnEnter([] { ScreenManager::instance().navigateToRoot(ScreenNames::Login); });
 
         warningLb_ = addElement<Label>();
         warningLb_->setText("No se pudo registrar. Verifica tus datos");
@@ -227,6 +227,14 @@ namespace sb
     void RegisterScreen::onReset()
     {
         warningLb_->hide();
+    }
+
+    void RegisterScreen::onKeyPress(Key key)
+    {
+        if (key == Key::Escape)
+        {
+            ScreenManager::instance().navigateToRoot(ScreenNames::Login);
+        }
     }
 
     bool RegisterScreen::isValidEmail(const std::string& email)

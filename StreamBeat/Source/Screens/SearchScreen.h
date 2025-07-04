@@ -4,6 +4,8 @@
 #include "UI.h"
 #include "Console.h"
 
+#include <memory>
+
 namespace sb
 {
 	class SearchScreen : public Screen

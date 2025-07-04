@@ -33,7 +33,7 @@ namespace sb
 		logoutButton_->setText("Cerrar sesion");
 		logoutButton_->centerX(consoleSize.x());
 		logoutButton_->setY(baseY + 25);
-		logoutButton_->setOnEnter([] { UserManager::instance().logout(); ScreenManager::instance().setActive(ScreenNames::Login); });
+		logoutButton_->setOnEnter([] { UserManager::instance().logout(); ScreenManager::instance().navigateToRoot(ScreenNames::Login); });
 	}
 
 	void MainScreen::onKeyPress(Key key)

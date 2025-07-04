@@ -29,14 +29,15 @@ namespace sb
 			onRender();
 		}
 
+		virtual void update() {}
 		virtual void onKeyPress(Key key) {}
 
 		virtual void handleInput(const InputEvent& ev)
 		{
-			if (ev.specialKey.has_value()) 
+			if (ev.specialKey.has_value())
 			{
 				Key key = *ev.specialKey;
-				if (key == Key::Up || key == Key::Down || key == Key::Left || key == Key::Right) 
+				if (key == Key::Up || key == Key::Down || key == Key::Left || key == Key::Right)
 				{
 					focusController_.handleNavigation(key);
 				}
@@ -52,12 +53,12 @@ namespace sb
 
 		virtual void resetElements()
 		{
-			for (auto& widget : widgets_) 
+			for (auto& widget : widgets_)
 			{
 				widget->reset();
 			}
 
-			for (auto& interactive : interactives_) 
+			for (auto& interactive : interactives_)
 			{
 				interactive->reset();
 			}
@@ -107,7 +108,7 @@ namespace sb
 			return raw;
 		}
 
-		virtual void onCreate() = 0;
+		virtual void onCreate() {};
 
 		void initializeFocus()
 		{

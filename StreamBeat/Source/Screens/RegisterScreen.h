@@ -15,6 +15,7 @@ namespace sb
 	protected:
 		void onCreate() override;
 		void onReset() override;
+		void onKeyPress(Key key) override;
 
 	private:
 		bool isValidEmail(const std::string& email);

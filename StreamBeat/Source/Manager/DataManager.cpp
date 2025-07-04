@@ -83,6 +83,7 @@ namespace sb
             {
                 currentArtist->addAlbum(currentAlbum);
                 artists_.push_back(currentArtist);
+                artistIndex_.insert(currentArtist->getName());
             }
 
             std::string nameArtist = line.substr(line.find(":") + 2);
@@ -94,6 +95,8 @@ namespace sb
             if (previous == 2 && currentArtist && currentAlbum)
             {
                 currentArtist->addAlbum(currentAlbum);
+                albums_.push_back(currentAlbum);
+                albumIndex_.insert(currentAlbum->getName());
             }
 
             std::string nameAlbum = line.substr(line.find(":") + 2);
@@ -140,6 +143,7 @@ namespace sb
                 currentSong->setCredits(std::move(*currentCredits));
                 currentAlbum->addSong(currentSong);
                 songs_.push_back(currentSong);
+                songIndex_.insert(currentSong->getName());
 
                 currentSong = nullptr;
                 currentCredits = nullptr;
