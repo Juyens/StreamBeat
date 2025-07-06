@@ -14,7 +14,7 @@
 
 namespace sb
 {
-	constexpr int itemWidth_ = 50;
+	constexpr int itemWidth_ = 75;
 
 	template <typename T>
 	class TableView : public Interactive
@@ -27,6 +27,17 @@ namespace sb
 			gridSize_{ columns, rows }
 		{
 			setMonopolizeFocus(false);
+		}
+
+		void updateSize()
+		{
+			setSize({ gridSize_.x() * itemWidth_ + 2, gridSize_.y() + 2 });
+		}
+
+		void setGridSize(const Vector2i& gridSize)
+		{
+			gridSize_ = gridSize;
+			updateSize();
 		}
 
 		void setItems(List<std::shared_ptr<T>>& items)
@@ -104,7 +115,7 @@ namespace sb
 					}
 					else
 					{
-						int index = getSelectedGlobalIndex();
+						uint index = static_cast<uint>(getSelectedGlobalIndex());
 						if (index < names_.size() && index < items_.size())
 						{
 							const std::string& name = names_[index];
@@ -137,11 +148,11 @@ namespace sb
 						{
 						case Key::Up: if (row > 0) --row; break;
 						case Key::Down:
-							if (row + 1 < rows && getSelectedGlobalIndex() + 1 < names_.size()) ++row;
+							if (row + 1 < rows && getSelectedGlobalIndex() + 1 < static_cast<int>(names_.size())) ++row;
 							break;
 						case Key::Left: if (col > 0) --col; break;
 						case Key::Right:
-							if (col + 1 < cols && getSelectedGlobalIndex() + rows < names_.size()) ++col;
+							if (col + 1 < cols && getSelectedGlobalIndex() + rows < static_cast<int>(names_.size())) ++col;
 							break;
 						default: break;
 						}

@@ -5,6 +5,8 @@
 #include "Album.h"
 #include "Artist.h"
 #include "AVLTree.h"
+#include "HashTable.h"
+#include "BSTree.h"
 
 #include <fstream>
 #include <sstream>
@@ -14,108 +16,120 @@
 
 namespace sb
 {
-    class DataManager
-    {
-    public:
-        static DataManager& instance();
+	class DataManager
+	{
+	public:
+		static DataManager& instance();
 
-        DataManager(const DataManager&) = delete;
-        DataManager& operator=(const DataManager&) = delete;
+		DataManager(const DataManager&) = delete;
+		DataManager& operator=(const DataManager&) = delete;
 
-        List<std::shared_ptr<Song>>& getSongs();
-        List<std::shared_ptr<Album>>& getAlbums();
-        List<std::shared_ptr<Artist>>& getArtists();
+		List<std::shared_ptr<Song>>& getSongs();
+		List<std::shared_ptr<Album>>& getAlbums();
+		List<std::shared_ptr<Artist>>& getArtists();
 
-        void addSong(const std::shared_ptr<Song>& song);
-        void addAlbum(const std::shared_ptr<Album>& album);
-        void addArtist(const std::shared_ptr<Artist>& artist);
+		void addSong(const std::shared_ptr<Song>& song);
+		void addAlbum(const std::shared_ptr<Album>& album);
+		void addArtist(const std::shared_ptr<Artist>& artist);
 
-        void loadDataFromFile();
+		void loadDataFromFile();
 
-		template<typename T>
+		template <typename T>
 		List<std::shared_ptr<T>> findByNameContains(const std::string& namePart) const
 		{
-			const List<std::shared_ptr<T>>* list = nullptr;
-
-			if constexpr (std::is_same_v<T, Artist>)
-				list = &artists_;
-			else if constexpr (std::is_same_v<T, Album>)
-				list = &albums_;
-			else if constexpr (std::is_same_v<T, Song>)
-				list = &songs_;
-			else
-				throw std::logic_error("Tipo no soportado en findByNameContains");
-
 			std::string query = namePart;
 			std::transform(query.begin(), query.end(), query.begin(), ::tolower);
 
 			List<std::shared_ptr<T>> result;
-
-			if (namePart.empty())
+			if (query.empty())
 				return result;
 
-			for (uint i = 0; i < list->size(); ++i)
-			{
-				const auto& item = (*list)[i];
-				std::string itemName = item->getName();
+			const BSTree<std::shared_ptr<T>, CompareByName<T>>* tree = nullptr;
 
-				std::transform(itemName.begin(), itemName.end(), itemName.begin(), ::tolower);
+			if constexpr (std::is_same_v<T, Artist>)
+				tree = &artistPartialIndex_;
+			else if constexpr (std::is_same_v<T, Album>)
+				tree = &albumPartialIndex_;
+			else if constexpr (std::is_same_v<T, Song>)
+				tree = &songPartialIndex_;
+			else
+				throw std::logic_error("Tipo no soportado");
 
-				if (itemName.find(query) != std::string::npos)
+			tree->inOrderTraversal([&] (const std::shared_ptr<T>& item)
 				{
-					result.push_back(item);
-				}
-			}
+					std::string lowered = item->getName();
+					std::transform(lowered.begin(), lowered.end(), lowered.begin(), ::tolower);
+
+					if (lowered.find(query) != std::string::npos)
+					{
+						result.push_back(item);
+					}
+				});
+
 			return result;
 		}
 
 		template<typename T>
-		std::shared_ptr<T> getByNameExact(const std::string& name, const AVLTree<std::string>& index) const
+		std::shared_ptr<T> getByNameExact(const std::string& name) const
 		{
-			if (!index.contains(name))
-				return nullptr;
-
-			const List<std::shared_ptr<T>>* list = nullptr;
+			const HashTable<std::string, std::shared_ptr<T>>* table = nullptr;
 
 			if constexpr (std::is_same_v<T, Artist>)
-				list = &artists_;
+				table = &artistByName_;
 			else if constexpr (std::is_same_v<T, Album>)
-				list = &albums_;
+				table = &albumByName_;
 			else if constexpr (std::is_same_v<T, Song>)
-				list = &songs_;
+				table = &songByName_;
 			else
 				throw std::logic_error("Tipo no soportado en getByNameExact");
 
-			for (uint i = 0; i < list->size(); ++i)
-			{
-				if ((*list)[i]->getName() == name)
-					return (*list)[i];
-			}
-
-			return nullptr;
+			auto ptr = table->find(name);
+			return ptr ? *ptr : nullptr;
 		}
 
-    private:
-        DataManager() = default;
-        ~DataManager() = default;
+		std::shared_ptr<Song> getSongByName(const std::string& name);
+		std::shared_ptr<Album> getAlbumByName(const std::string& name);
+		std::shared_ptr<Artist> getArtistByName(const std::string& name);
 
-        void recursiveData(std::ifstream& file, int previousLevel,
-            std::shared_ptr<Artist>& currentArtist,
-            std::shared_ptr<Album>& currentAlbum,
-            std::shared_ptr<Song>& currentSong,
-            std::shared_ptr<Credits>& currentCredits);
+		std::shared_ptr<Album> getAlbumForSong(const std::string& songName);
+		std::shared_ptr<Artist> getArtistForSong(const std::string& songName);
 
-        int countTabs(const std::string& line);
-        std::shared_ptr<List<std::string>> split(const std::string& input, char delimiter);
+		List<std::shared_ptr<Song>> getSongsByGenre(const std::string& genre);
 
-        std::string fileName_ = "Data/MusicCatalog.data";
+		std::shared_ptr<Song> getMostPlayedSong();
 
-        List<std::shared_ptr<Song>> songs_;
-        List<std::shared_ptr<Album>> albums_;
-        List<std::shared_ptr<Artist>> artists_;
+		List<std::shared_ptr<Song>> getSongsByArtist(const std::string& artistName);
+		List<std::shared_ptr<Song>> getSongsByDuration(uint minSeconds, uint maxSeconds);
 
-        AVLTree<std::string> artistIndex_;
-        AVLTree<std::string> albumIndex_;
-        AVLTree<std::string> songIndex_;
-    };
+	private:
+		DataManager() = default;
+		~DataManager() = default;
+
+		void storeCurrentAlbum(std::shared_ptr<Artist>& currentArtist, std::shared_ptr<Album>& currentAlbum);
+		void storeCurrentArtist(std::shared_ptr<Artist>& currentArtist);
+
+		int countTabs(const std::string& line);
+		std::shared_ptr<List<std::string>> split(const std::string& input, char delimiter);
+
+		std::string fileName_ = "Data/MusicCatalog.data";
+
+		List<std::shared_ptr<Song>> songs_;
+		List<std::shared_ptr<Album>> albums_;
+		List<std::shared_ptr<Artist>> artists_;
+
+		AVLTree<std::string> artistIndex_;
+		AVLTree<std::string> albumIndex_;
+		AVLTree<std::string> songIndex_;
+
+		BSTree<std::shared_ptr<Artist>, CompareByName<Artist>> artistPartialIndex_;
+		BSTree<std::shared_ptr<Album>, CompareByName<Album>> albumPartialIndex_;
+		BSTree<std::shared_ptr<Song>, CompareByName<Song>> songPartialIndex_;
+
+		HashTable<std::string, std::shared_ptr<Artist>> artistByName_;
+		HashTable<std::string, std::shared_ptr<Album>> albumByName_;
+		HashTable<std::string, std::shared_ptr<Song>> songByName_;
+
+		HashTable<std::string, std::string> songToAlbum_;
+		HashTable<std::string, std::string> albumToArtist_;
+	};
 }

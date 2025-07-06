@@ -57,8 +57,22 @@ namespace sb
 			searchBox_->setY(baseY);
 
 			tablaView_ = addElement<TableView<T>>();
+			tablaView_->setGridSize({ 2, 25 });
 			tablaView_->centerX(consoleSize.x());
-			tablaView_->setY(baseY + 5);
+			tablaView_->setY(baseY + 4);
+
+			previousPageBt_ = addElement<Button>();
+			previousPageBt_->setText("Previous Page");
+			previousPageBt_->setY(baseY + 32);
+			previousPageBt_->setOnEnter([this] { tablaView_->previousPage(); });
+
+			nextPageBt_ = addElement<Button>();
+			nextPageBt_->setText("Next Page");
+			nextPageBt_->setY(baseY + 32);
+			nextPageBt_->setOnEnter([this] { tablaView_->nextPage(); });
+
+			previousPageBt_->setX(utils::centered(consoleSize.x(), nextPageBt_->getWidth() + previousPageBt_->getWidth() + 5));
+			nextPageBt_->setX(previousPageBt_->getX() + previousPageBt_->getWidth() + 5);
 		}
 
 		void onKeyPress(Key key) override
@@ -86,5 +100,7 @@ namespace sb
 		Label* titleLb_{ nullptr };
 		TextBox* searchBox_{ nullptr };
 		TableView<T> *tablaView_{ nullptr };
+		Button* nextPageBt_{ nullptr };
+		Button* previousPageBt_{ nullptr };
 	};
 }

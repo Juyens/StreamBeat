@@ -260,6 +260,15 @@
     <ClInclude Include="Source\UI\TableView.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Tree\BSNode.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tree\BSTree.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Tree\Compare.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\streambeat.ico">

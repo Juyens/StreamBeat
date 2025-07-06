@@ -44,113 +44,231 @@ namespace sb
         if (!file.is_open())
             return;
 
+        std::string line;
         std::shared_ptr<Artist> currentArtist = nullptr;
         std::shared_ptr<Album> currentAlbum = nullptr;
         std::shared_ptr<Song> currentSong = nullptr;
         std::shared_ptr<Credits> currentCredits = nullptr;
 
-        recursiveData(file, 0, currentArtist, currentAlbum, currentSong, currentCredits);
+        int previousLevel = -1;
+
+        while (std::getline(file, line))
+        {
+            if (line.empty()) continue;
+
+            int tabLevel = countTabs(line);
+
+            if (tabLevel == 0)
+            {
+                if (previousLevel == 2)
+                    storeCurrentAlbum(currentArtist, currentAlbum);
+                storeCurrentArtist(currentArtist);
+
+                std::string nameArtist = line.substr(line.find(":") + 2);
+                currentArtist = std::make_shared<Artist>();
+                currentArtist->setName(nameArtist);
+            }
+            else if (tabLevel == 1)
+            {
+                if (previousLevel == 2)
+                    storeCurrentAlbum(currentArtist, currentAlbum);
+
+                std::string nameAlbum = line.substr(line.find(":") + 2);
+                currentAlbum = std::make_shared<Album>();
+                currentAlbum->setName(nameAlbum);
+            }
+            else if (tabLevel == 2)
+            {
+                if (!currentSong)
+                    currentSong = std::make_shared<Song>();
+                if (!currentCredits)
+                    currentCredits = std::make_shared<Credits>();
+
+                const std::string key = line.substr(0, line.find(":"));
+                const std::string value = line.substr(line.find(":") + 2);
+
+                if (key.find("Song") != std::string::npos)
+                {
+                    currentSong->setName(value);
+                }
+                else if (key.find("Genres") != std::string::npos)
+                {
+                    currentSong->setGenresContent(*split(value, ','));
+                }
+                else if (key.find("Duration") != std::string::npos)
+                {
+                    currentSong->setDuration(std::stoul(value));
+                }
+                else if (key.find("Reproductions") != std::string::npos)
+                {
+                    currentSong->setReproductions(std::stoull(value));
+                }
+                else if (key.find("Discography") != std::string::npos)
+                {
+                    currentCredits->setDiscography(value);
+                }
+                else if (key.find("Authors") != std::string::npos)
+                {
+                    currentCredits->setAuthorsContent(*split(value, ','));
+                    currentSong->setCredits(std::move(*currentCredits));
+
+                    currentAlbum->addSong(currentSong);
+                    songs_.push_back(currentSong);
+                    songIndex_.insert(currentSong->getName());
+
+                    songByName_.insert(currentSong->getName(), currentSong);
+                    songToAlbum_.insert(currentSong->getName(), currentAlbum->getName());
+                    songPartialIndex_.insert(currentSong);
+
+                    currentSong = nullptr;
+                    currentCredits = nullptr;
+                }
+            }
+
+            previousLevel = tabLevel;
+        }
+
+        storeCurrentAlbum(currentArtist, currentAlbum);
+        storeCurrentArtist(currentArtist);
     }
 
-    void DataManager::recursiveData(std::ifstream& file, int previous,
-        std::shared_ptr<Artist>& currentArtist,
-        std::shared_ptr<Album>& currentAlbum,
-        std::shared_ptr<Song>& currentSong,
-        std::shared_ptr<Credits>& currentCredits)
+
+    std::shared_ptr<Song> DataManager::getSongByName(const std::string& name)
     {
-        std::string line;
-        if (!getline(file, line))
+        auto ptr = songByName_.find(name);
+        return ptr ? *ptr : nullptr;
+    }
+
+    std::shared_ptr<Album> DataManager::getAlbumByName(const std::string& name)
+    {
+        auto ptr = albumByName_.find(name);
+        return ptr ? *ptr : nullptr;
+    }
+
+    std::shared_ptr<Artist> DataManager::getArtistByName(const std::string& name)
+    {
+        auto ptr = artistByName_.find(name);
+        return ptr ? *ptr : nullptr;
+    }
+
+    std::shared_ptr<Album> DataManager::getAlbumForSong(const std::string& songName)
+    {
+        auto albumNamePtr = songToAlbum_.find(songName);
+        if (!albumNamePtr) return nullptr;
+
+        return getAlbumByName(*albumNamePtr);
+    }
+
+    std::shared_ptr<Artist> DataManager::getArtistForSong(const std::string& songName)
+    {
+        auto albumNamePtr = songToAlbum_.find(songName);
+        if (!albumNamePtr) return nullptr;
+
+        auto artistNamePtr = albumToArtist_.find(*albumNamePtr);
+        if (!artistNamePtr) return nullptr;
+
+        return getArtistByName(*artistNamePtr);
+    }
+
+    List<std::shared_ptr<Song>> DataManager::getSongsByGenre(const std::string& genre)
+    {
+        List<std::shared_ptr<Song>> result;
+        std::string query = genre;
+        std::transform(query.begin(), query.end(), query.begin(), ::tolower);
+
+        for (uint i = 0; i < songs_.size(); ++i)
         {
-            if (previous == 2 && currentArtist && currentAlbum)
+            const auto& song = songs_[i];
+            const auto& genres = song->getGenres();
+            for (uint j = 0; j < genres.size(); ++j)
             {
-                currentArtist->addAlbum(currentAlbum);
-                artists_.push_back(currentArtist);
-            }
-            return;
-        }
-
-        if (line.empty())
-        {
-            recursiveData(file, previous, currentArtist, currentAlbum, currentSong, currentCredits);
-            return;
-        }
-
-        int tabLevel = countTabs(line);
-
-        if (tabLevel == 0)
-        {
-            if (previous == 2 && currentArtist && currentAlbum)
-            {
-                currentArtist->addAlbum(currentAlbum);
-                artists_.push_back(currentArtist);
-                artistIndex_.insert(currentArtist->getName());
-            }
-
-            std::string nameArtist = line.substr(line.find(":") + 2);
-            currentArtist = std::make_shared<Artist>();
-            currentArtist->setName(nameArtist);
-        }
-        else if (tabLevel == 1)
-        {
-            if (previous == 2 && currentArtist && currentAlbum)
-            {
-                currentArtist->addAlbum(currentAlbum);
-                albums_.push_back(currentAlbum);
-                albumIndex_.insert(currentAlbum->getName());
-            }
-
-            std::string nameAlbum = line.substr(line.find(":") + 2);
-            currentAlbum = std::make_shared<Album>();
-            currentAlbum->setName(nameAlbum);
-        }
-        else if (tabLevel == 2)
-        {
-            if (!currentSong)
-                currentSong = std::make_shared<Song>();
-
-            if (!currentCredits)
-                currentCredits = std::make_shared<Credits>();
-
-            if (line.find("Song") != std::string::npos)
-            {
-                std::string nameSong = line.substr(line.find(":") + 2);
-                currentSong->setName(nameSong);
-            }
-            else if (line.find("Genres") != std::string::npos)
-            {
-                std::string genres = line.substr(line.find(":") + 2);
-                currentSong->setGenresContent(*split(genres, ','));
-            }
-            else if (line.find("Duration") != std::string::npos)
-            {
-                std::uint32_t duration = std::stoi(line.substr(line.find(":") + 2));
-                currentSong->setDuration(duration);
-            }
-            else if (line.find("Reproductions") != std::string::npos)
-            {
-                std::uint64_t reproductions = std::stoll(line.substr(line.find(":") + 2));
-                currentSong->setReproductions(reproductions);
-            }
-            else if (line.find("Discography") != std::string::npos)
-            {
-                std::string discography = line.substr(line.find(":") + 2);
-                currentCredits->setDiscography(discography);
-            }
-            else if (line.find("Authors") != std::string::npos)
-            {
-                std::string authors = line.substr(line.find(":") + 2);
-                currentCredits->setAuthorsContent(*split(authors, ','));
-                currentSong->setCredits(std::move(*currentCredits));
-                currentAlbum->addSong(currentSong);
-                songs_.push_back(currentSong);
-                songIndex_.insert(currentSong->getName());
-
-                currentSong = nullptr;
-                currentCredits = nullptr;
+                std::string lowered = genres[j];
+                std::transform(lowered.begin(), lowered.end(), lowered.begin(), ::tolower);
+                if (lowered == query)
+                {
+                    result.push_back(song);
+                    break;
+                }
             }
         }
+        return result;
+    }
 
-        recursiveData(file, tabLevel, currentArtist, currentAlbum, currentSong, currentCredits);
+    std::shared_ptr<Song> DataManager::getMostPlayedSong()
+    {
+        if (songs_.empty()) return nullptr;
+
+        std::shared_ptr<Song> mostPlayed = songs_[0];
+        for (uint i = 1; i < songs_.size(); ++i)
+        {
+            if (songs_[i]->getReproductions() > mostPlayed->getReproductions())
+                mostPlayed = songs_[i];
+        }
+        return mostPlayed;
+    }
+
+    List<std::shared_ptr<Song>> DataManager::getSongsByArtist(const std::string& artistName)
+    {
+        auto artist = getArtistByName(artistName);
+        List<std::shared_ptr<Song>> result;
+
+        if (!artist) return result;
+
+        const auto& albums = artist->getAlbums();
+        for (uint i = 0; i < albums.size(); ++i)
+        {
+            const auto& songs = albums[i]->getSongs();
+            for (uint j = 0; j < songs.size(); ++j)
+                result.push_back(songs[j]);
+        }
+
+        return result;
+    }
+
+    List<std::shared_ptr<Song>> DataManager::getSongsByDuration(uint minSeconds, uint maxSeconds)
+    {
+        List<std::shared_ptr<Song>> result;
+
+        for (uint i = 0; i < songs_.size(); ++i)
+        {
+            uint duration = songs_[i]->getDuration();
+            if (duration >= minSeconds && duration <= maxSeconds)
+            {
+                result.push_back(songs_[i]);
+            }
+        }
+
+        return result;
+    }
+
+    void DataManager::storeCurrentAlbum(std::shared_ptr<Artist>& currentArtist, std::shared_ptr<Album>& currentAlbum)
+    {
+        if (currentArtist && currentAlbum)
+        {
+            currentArtist->addAlbum(currentAlbum);
+            albums_.push_back(currentAlbum);
+            albumIndex_.insert(currentAlbum->getName());
+
+            albumByName_.insert(currentAlbum->getName(), currentAlbum);
+            albumToArtist_.insert(currentAlbum->getName(), currentArtist->getName());
+            albumPartialIndex_.insert(currentAlbum);
+
+            currentAlbum = nullptr;
+        }
+    }
+
+    void DataManager::storeCurrentArtist(std::shared_ptr<Artist>& currentArtist)
+    {
+        if (currentArtist)
+        {
+            artists_.push_back(currentArtist);
+            artistIndex_.insert(currentArtist->getName());
+
+            artistByName_.insert(currentArtist->getName(), currentArtist);
+            artistPartialIndex_.insert(currentArtist);
+
+            currentArtist = nullptr;
+        }
     }
 
     int DataManager::countTabs(const std::string& line)

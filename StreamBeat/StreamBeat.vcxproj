@@ -214,6 +214,9 @@
     <ClInclude Include="Source\Structures\Stack.h" />
     <ClInclude Include="Source\SubScreen\SubSearchScreen.h" />
     <ClInclude Include="Source\Tree\AVLTree.h" />
+    <ClInclude Include="Source\Tree\BSNode.h" />
+    <ClInclude Include="Source\Tree\BSTree.h" />
+    <ClInclude Include="Source\Tree\Compare.h" />
     <ClInclude Include="Source\Tree\NodoAVL.h" />
     <ClInclude Include="Source\UI\Button.h" />
     <ClInclude Include="Source\UI\ComboBox.h" />
