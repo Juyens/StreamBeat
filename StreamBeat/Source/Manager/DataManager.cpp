@@ -114,7 +114,6 @@ namespace sb
 
                     currentAlbum->addSong(currentSong);
                     songs_.push_back(currentSong);
-                    songIndex_.insert(currentSong->getName());
 
                     songByName_.insert(currentSong->getName(), currentSong);
                     songToAlbum_.insert(currentSong->getName(), currentAlbum->getName());
@@ -207,6 +206,23 @@ namespace sb
         return mostPlayed;
     }
 
+    List<std::shared_ptr<Album>> DataManager::getAlbumsByArtist(const std::string& artistName)
+    {
+        auto artist = getArtistByName(artistName);
+        List<std::shared_ptr<Album>> result;
+
+        if (!artist)
+            return result;
+
+        const auto& albums = artist->getAlbums();
+        for (uint i = 0; i < albums.size(); ++i)
+        {
+            result.push_back(albums[i]);
+        }
+
+        return result;
+    }
+
     List<std::shared_ptr<Song>> DataManager::getSongsByArtist(const std::string& artistName)
     {
         auto artist = getArtistByName(artistName);
@@ -221,6 +237,21 @@ namespace sb
             for (uint j = 0; j < songs.size(); ++j)
                 result.push_back(songs[j]);
         }
+
+        return result;
+    }
+
+    List<std::shared_ptr<Song>> DataManager::getSongsByAlbum(const std::string& albumName)
+    {
+        List<std::shared_ptr<Song>> result;
+
+        auto album = getAlbumByName(albumName);
+        if (!album)
+            return result;
+
+        const auto& songs = album->getSongs();
+        for (uint i = 0; i < songs.size(); ++i)
+            result.push_back(songs[i]);
 
         return result;
     }
@@ -241,13 +272,39 @@ namespace sb
         return result;
     }
 
+    void DataManager::loadAsync()
+    {
+        if (isLoading_)
+            return;
+
+        isLoading_ = true;
+        loadFinished_ = false;
+
+        loadThread_ = std::thread([this] ()
+            {
+                this->loadDataFromFile();
+                isLoading_ = false;
+                loadFinished_ = true;
+            });
+        loadThread_.detach();
+    }
+
+    bool DataManager::isLoadInProgress() const
+    {
+        return isLoading_;
+    }
+
+    bool DataManager::isLoadCompleted() const
+    {
+        return loadFinished_;
+    }
+
     void DataManager::storeCurrentAlbum(std::shared_ptr<Artist>& currentArtist, std::shared_ptr<Album>& currentAlbum)
     {
         if (currentArtist && currentAlbum)
         {
             currentArtist->addAlbum(currentAlbum);
             albums_.push_back(currentAlbum);
-            albumIndex_.insert(currentAlbum->getName());
 
             albumByName_.insert(currentAlbum->getName(), currentAlbum);
             albumToArtist_.insert(currentAlbum->getName(), currentArtist->getName());
@@ -262,7 +319,6 @@ namespace sb
         if (currentArtist)
         {
             artists_.push_back(currentArtist);
-            artistIndex_.insert(currentArtist->getName());
 
             artistByName_.insert(currentArtist->getName(), currentArtist);
             artistPartialIndex_.insert(currentArtist);

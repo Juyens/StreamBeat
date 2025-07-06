@@ -269,6 +269,24 @@
     <ClInclude Include="Source\Tree\Compare.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Graph\Graph.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SubScreen\SubScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SubScreen\SubSongScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SubScreen\SubAlbumScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SubScreen\SubArtistScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SubScreen\SubListScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\streambeat.ico">

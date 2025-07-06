@@ -111,6 +111,11 @@ namespace sb
         currentUser_ = User();
     }
 
+    Library& UserManager::getCurrentLibrary()
+    {
+        return currentLibrary_;
+    }
+
     const User& UserManager::getCurrentUser() const
     {
         return currentUser_;

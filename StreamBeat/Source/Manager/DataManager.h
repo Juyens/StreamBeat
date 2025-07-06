@@ -4,7 +4,6 @@
 #include "Song.h"
 #include "Album.h"
 #include "Artist.h"
-#include "AVLTree.h"
 #include "HashTable.h"
 #include "BSTree.h"
 
@@ -13,6 +12,8 @@
 #include <memory>
 #include <string>
 #include <algorithm>
+#include <thread>
+#include <atomic>
 
 namespace sb
 {
@@ -31,8 +32,6 @@ namespace sb
 		void addSong(const std::shared_ptr<Song>& song);
 		void addAlbum(const std::shared_ptr<Album>& album);
 		void addArtist(const std::shared_ptr<Artist>& artist);
-
-		void loadDataFromFile();
 
 		template <typename T>
 		List<std::shared_ptr<T>> findByNameContains(const std::string& namePart) const
@@ -98,8 +97,22 @@ namespace sb
 
 		std::shared_ptr<Song> getMostPlayedSong();
 
+		List<std::shared_ptr<Album>> getAlbumsByArtist(const std::string& artistName);
+
 		List<std::shared_ptr<Song>> getSongsByArtist(const std::string& artistName);
+		List<std::shared_ptr<Song>> getSongsByAlbum(const std::string& albumName);
 		List<std::shared_ptr<Song>> getSongsByDuration(uint minSeconds, uint maxSeconds);
+
+		void loadAsync();
+		bool isLoadInProgress() const;
+		bool isLoadCompleted() const;
+
+	private:
+		std::thread loadThread_;
+		std::atomic<bool> isLoading_{ false };
+		std::atomic<bool> loadFinished_{ false };
+
+		void loadDataFromFile();
 
 	private:
 		DataManager() = default;
@@ -116,10 +129,6 @@ namespace sb
 		List<std::shared_ptr<Song>> songs_;
 		List<std::shared_ptr<Album>> albums_;
 		List<std::shared_ptr<Artist>> artists_;
-
-		AVLTree<std::string> artistIndex_;
-		AVLTree<std::string> albumIndex_;
-		AVLTree<std::string> songIndex_;
 
 		BSTree<std::shared_ptr<Artist>, CompareByName<Artist>> artistPartialIndex_;
 		BSTree<std::shared_ptr<Album>, CompareByName<Album>> albumPartialIndex_;

@@ -1,21 +1,24 @@
 #pragma once
 
-#include "Screen.h"
+#include "SubScreen.h"
 #include "DataManager.h"
 #include "UI.h"
 #include "Console.h"
 #include "ScreenNames.h"
 #include "ScreenManager.h"
 #include "TableView.h"
+#include "SubArtistScreen.h"
+#include "SubAlbumScreen.h"
+#include "SubSongScreen.h"
 
 namespace sb
 {
 	template<class T>
-	class SubSearchScreen : public Screen
+	class SubSearchScreen : public SubScreen
 	{
 	public:
-		SubSearchScreen(const std::string& context)
-			: Screen(ScreenNames::Temporary), context_(context)
+		SubSearchScreen(const std::string& title)
+			: title_(title)
 		{
 			onCreate();
 			initializeFocus();
@@ -23,20 +26,23 @@ namespace sb
 
 		void update() override
 		{
-			if (prevSearch != searchBox_->getText())
+			if (DataManager::instance().isLoadCompleted())
 			{
-				auto items = DataManager::instance().findByNameContains<T>(searchBox_->getText());
-
-				if (!items.empty())
+				if (prevSearch != searchBox_->getText())
 				{
-					tablaView_->setItems(items);
-				}
-				else
-				{
-					tablaView_->clear();
-				}
+					auto items = DataManager::instance().findByNameContains<T>(searchBox_->getText());
 
-				prevSearch = searchBox_->getText();
+					if (!items.empty())
+					{
+						tablaView_->setItems(items);
+					}
+					else
+					{
+						tablaView_->clear();
+					}
+
+					prevSearch = searchBox_->getText();
+				}
 			}
 		}
 
@@ -47,7 +53,7 @@ namespace sb
 			const int baseY = 3;
 
 			titleLb_ = addElement<Label>();
-			titleLb_->setText("[ StreamBeat - Search - " + context_ + " ]");
+			titleLb_->setText("[ StreamBeat - Search - " + title_ + " ]");
 			titleLb_->centerX(consoleSize.x());
 			titleLb_->setY(1);
 			
@@ -60,6 +66,17 @@ namespace sb
 			tablaView_->setGridSize({ 2, 25 });
 			tablaView_->centerX(consoleSize.x());
 			tablaView_->setY(baseY + 4);
+			tablaView_->setItemAction([] (std::shared_ptr<T> target)
+				{
+					if constexpr (std::is_same_v<T, Artist>)
+						ScreenManager::instance().pushSubScreen(std::make_unique<SubArtistScreen>(target));
+					else if constexpr (std::is_same_v<T, Album>)
+						ScreenManager::instance().pushSubScreen(std::make_unique<SubAlbumScreen>(target));
+					else if constexpr (std::is_same_v<T, Song>)
+						ScreenManager::instance().pushSubScreen(std::make_unique<SubSongScreen>(target));
+					else
+						throw std::logic_error("Tipo no soportado");
+				});
 
 			previousPageBt_ = addElement<Button>();
 			previousPageBt_->setText("Previous Page");
@@ -95,9 +112,8 @@ namespace sb
 		}
 
 	private:
-		std::string context_;
+		std::string title_;
 		std::string prevSearch;
-		Label* titleLb_{ nullptr };
 		TextBox* searchBox_{ nullptr };
 		TableView<T> *tablaView_{ nullptr };
 		Button* nextPageBt_{ nullptr };

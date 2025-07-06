@@ -1,6 +1,7 @@
 #pragma once
 
 #include "User.h"
+#include "Library.h"
 
 namespace sb
 {
@@ -13,6 +14,7 @@ namespace sb
         bool login(const std::string& email, const std::string& password);
         void logout();
 
+        Library& getCurrentLibrary();
         const User& getCurrentUser() const;
         bool isUserLoggedIn() const;
 
@@ -22,5 +24,6 @@ namespace sb
         static std::string getFilePath();
         bool isLoggedIn_{ false };
         User currentUser_;
+        Library currentLibrary_;
     };
 }

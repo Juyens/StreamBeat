@@ -28,7 +28,7 @@ namespace sb
 		searchArtistBt_->centerX(consoleSize.x());
 		searchArtistBt_->setY(baseY + 5);
 
-		searchArtistBt_->setOnEnter([] 
+		searchArtistBt_->setOnEnter([]
 			{
 				ScreenManager::instance().pushSubScreen(std::make_unique<SubSearchScreen<Artist>>("Artist"));
 			});

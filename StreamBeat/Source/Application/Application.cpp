@@ -56,7 +56,7 @@ namespace sb
 
 	void Application::initializeScreens()
 	{
-		DataManager::instance().loadDataFromFile();
+		DataManager::instance().loadAsync();
 		// -------------------------------------------- //
 
 		ScreenManager::instance().registerScreen(std::make_unique<LoginScreen>());

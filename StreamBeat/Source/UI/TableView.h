@@ -29,6 +29,11 @@ namespace sb
 			setMonopolizeFocus(false);
 		}
 
+		void setItemAction(Action action)
+		{
+			itemAction_ = std::move(action);
+		}
+
 		void updateSize()
 		{
 			setSize({ gridSize_.x() * itemWidth_ + 2, gridSize_.y() + 2 });
@@ -52,11 +57,6 @@ namespace sb
 
 			selectedIndex_ = 0;
 			pageIndex_ = 0;
-		}
-
-		void bindAction(const std::string& label, Action action)
-		{
-			actions_.insert(label, std::move(action));
 		}
 
 		void render() override
@@ -116,13 +116,8 @@ namespace sb
 					else
 					{
 						uint index = static_cast<uint>(getSelectedGlobalIndex());
-						if (index < names_.size() && index < items_.size())
-						{
-							const std::string& name = names_[index];
-							auto* action = actions_.find(name);
-							if (action)
-								(*action)(items_[index]);
-						}
+						if (itemAction_ && index < items_.size())
+							itemAction_(items_[index]);
 					}
 					return;
 				}
@@ -193,7 +188,6 @@ namespace sb
 		{
 			items_.clear();
 			names_.clear();
-			actions_.clear();
 			pageIndex_ = 0;
 			selectedIndex_ = 0;
 			isSelecting_ = false;
@@ -224,9 +218,8 @@ namespace sb
 		int pageIndex_{ 0 };
 		int selectedIndex_{ 0 };
 		bool isSelecting_{ false };
-
 		List<std::shared_ptr<T>> items_;
 		List<std::string> names_;
-		HashTable<std::string, Action> actions_;
+		Action itemAction_;
 	};
 }
