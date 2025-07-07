@@ -10,9 +10,6 @@ namespace sb
 
     void SongManager::play(std::shared_ptr<Album> album)
     {
-        if (playQueue_.empty())
-            return;
-
         playQueue_.clear();
 
         auto& songs = album->getSongs();
@@ -28,9 +25,6 @@ namespace sb
 
     void SongManager::play(std::shared_ptr<Playlist> playlist)
     {
-        if (playQueue_.empty())
-            return;
-
         playQueue_.clear();
 
         auto& songs = playlist->getSongs();
@@ -46,9 +40,6 @@ namespace sb
 
     void SongManager::play(std::shared_ptr<Song> song)
     {
-        if (playQueue_.empty())
-            return;
-
         playQueue_.clear();
         playQueue_.enqueue(song);
         currentSong_ = song;
@@ -64,9 +55,6 @@ namespace sb
 
     void SongManager::enqueue(std::shared_ptr<Song> song)
     {
-        if (playQueue_.empty())
-            return;
-
         playQueue_.enqueue(song);
     }
 

@@ -49,7 +49,7 @@ namespace sb
 
 			listSongsBt_ = addElement<Button>();
 			listSongsBt_->setText("Listar canciones");
-			listSongsBt_->setOnEnter([this] {;
+			listSongsBt_->setOnEnter([this] {
 				ScreenManager::instance().pushSubScreen(
 					std::make_unique<SubListScreen<Song>>("[ " + playlist_->getName() + " >> Songs ]", playlist_->getSongs(), [] (std::shared_ptr<Song> target) {
 						ScreenManager::instance().pushSubScreen(std::make_unique<SubSongScreen>(target));
