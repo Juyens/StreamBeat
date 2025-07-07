@@ -11,10 +11,13 @@ namespace sb
 
     void RecommendationManager::buildGraph()
     {
-        if (graphBuilt_)
+        auto& songs = DataManager::instance().getSongs();
+
+        if (graphBuilt_ && graph_.getVertices().size() == songs.size())
             return;
 
-        auto& songs = DataManager::instance().getSongs();
+        graph_ = Graph<std::string, int>();
+
         for (uint i = 0; i < songs.size(); ++i)
         {
             graph_.addVertex(songs[i]->getName());

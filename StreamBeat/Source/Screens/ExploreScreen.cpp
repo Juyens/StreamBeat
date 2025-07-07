@@ -25,7 +25,8 @@ namespace sb
 		tableView_->centerX(consoleSize.x());
 		tableView_->setY(baseY + 2);
 
-		refreshRecommendations();
+		if (DataManager::instance().isLoadCompleted())
+			refreshRecommendations();
 	}
 
 	void ExploreScreen::onKeyPress(Key key)
@@ -35,7 +36,8 @@ namespace sb
 
 	void ExploreScreen::onReset()
 	{
-		refreshRecommendations();
+		if (DataManager::instance().isLoadCompleted())
+			refreshRecommendations();
 	}
 
 	void ExploreScreen::update()
