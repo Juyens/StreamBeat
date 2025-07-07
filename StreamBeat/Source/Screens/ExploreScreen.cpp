@@ -19,10 +19,6 @@ namespace sb
 		titleLb_->setText("[ StreamBeat - Explore ]");
 		titleLb_->centerX(consoleSize.x());
 		titleLb_->setY(baseY);
-		titleLb_ = addElement<Label>();
-		titleLb_->setText("[ StreamBeat - Explore ]");
-		titleLb_->centerX(consoleSize.x());
-		titleLb_->setY(baseY);
 
 		tableView_ = addElement<TableView<Song>>();
 		tableView_->setGridSize({ 2, 20 });
@@ -40,6 +36,20 @@ namespace sb
 	void ExploreScreen::onReset()
 	{
 		refreshRecommendations();
+	}
+
+	void ExploreScreen::update()
+	{
+		if (!DataManager::instance().isLoadCompleted())
+			return;
+
+		auto& history = SongManager::instance().getHistory();
+		if (!recommendationsLoaded_ || history.size() != prevHistorySize_)
+		{
+			refreshRecommendations();
+			recommendationsLoaded_ = true;
+			prevHistorySize_ = history.size();
+		}
 	}
 
 	void ExploreScreen::refreshRecommendations()

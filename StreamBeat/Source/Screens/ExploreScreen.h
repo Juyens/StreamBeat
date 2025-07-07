@@ -5,6 +5,8 @@
 #include "Console.h"
 #include "TableView.h"
 #include "RecommendationManager.h"
+#include "DataManager.h"
+#include "SongManager.h"
 
 namespace sb
 {
@@ -17,10 +19,13 @@ namespace sb
 		void onCreate() override;
 		void onKeyPress(Key key) override;
 		void onReset() override;
+		void update() override;
 
 	private:
 		Label* titleLb_{ nullptr };
 		TableView<Song>* tableView_{ nullptr };
 		void refreshRecommendations();
+		bool recommendationsLoaded_{ false };
+		uint prevHistorySize_{ 0 };
 	};
 }
