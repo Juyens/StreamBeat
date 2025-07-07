@@ -56,6 +56,9 @@ namespace sb
 
     void SongManager::show()
     {
+        if (playQueue_.empty())
+            return;
+
         Drawing::drawText(0, 44, playQueue_.peek()->getName());
     }
 

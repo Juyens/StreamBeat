@@ -35,7 +35,7 @@ namespace sb
 	{
 		Console::clearBuffer();
 		ScreenManager::instance().render();
-		
+		SongManager::instance().show();
 		Console::present();
 	}
 
