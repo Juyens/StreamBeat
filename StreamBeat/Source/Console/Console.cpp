@@ -228,6 +228,7 @@ namespace sb
 			case VK_UP:        return InputEvent{ std::nullopt, Key::Up };
 			case VK_DOWN:      return InputEvent{ std::nullopt, Key::Down };
 			case VK_TAB:	   return InputEvent{ std::nullopt, Key::Tab };
+			case VK_F2:        return InputEvent{ std::nullopt, Key::F2 };
 			}
 		}
 

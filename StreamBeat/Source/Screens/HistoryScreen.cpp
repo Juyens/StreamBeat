@@ -52,22 +52,23 @@ namespace sb
     {
         auto& history = SongManager::instance().getHistory();
 
-        Stack<std::shared_ptr<Song>> temp;
-        List<std::shared_ptr<Song>> items;
+        std::vector<std::shared_ptr<Song>> songs;
 
         while (!history.empty())
         {
-            auto song = history.top();
-            temp.push(song);
+            songs.push_back(history.top());
             history.pop();
         }
 
-        while (!temp.empty())
+        for (auto it = songs.rbegin(); it != songs.rend(); ++it)
         {
-            auto song = temp.top();
-            history.push(song);
-            items.push_front(song);
-            temp.pop();
+            history.push(*it);
+        }
+
+        List<std::shared_ptr<Song>> items;
+        for (const auto& song : songs)
+        {
+            items.push_back(song);
         }
 
         prevHistorySize_ = history.size();

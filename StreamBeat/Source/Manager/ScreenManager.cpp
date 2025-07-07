@@ -1,4 +1,5 @@
 #include "ScreenManager.h"
+#include "SongManager.h"
 
 namespace sb
 {
@@ -78,8 +79,13 @@ namespace sb
 		{
 			auto ev = Console::readInputEvent();
 
-			if (!ev.has_value()) 
+			if (!ev.has_value())
 				return;
+
+			if (ev->specialKey == Key::F2)
+			{
+				SongManager::instance().next();
+			}
 			
 			if (ev->specialKey == Key::Tab && !isRestrictedScreen())
 			{

@@ -16,5 +16,6 @@ namespace sb
 		Down = VK_DOWN,
 		Left = VK_LEFT,
 		Right = VK_RIGHT,
+		F2 = VK_F2,
 	};
 }

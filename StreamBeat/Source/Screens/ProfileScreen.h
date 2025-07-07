@@ -18,5 +18,9 @@ namespace sb
 
 	private:
 		Label* titleLb_{ nullptr };
+		Button* viewInfo{ nullptr };
+		Button* changePass{ nullptr };
+		Button* changeUser{ nullptr };
+		Button* changePlan{ nullptr };
 	};
 }
