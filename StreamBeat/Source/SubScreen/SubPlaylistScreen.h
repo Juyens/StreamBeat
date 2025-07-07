@@ -9,6 +9,7 @@
 #include "UserManager.h"
 #include "Utils.h"
 #include "SubListScreen.h"
+#include "SongManager.h"
 
 #include <memory>
 
@@ -44,6 +45,7 @@ namespace sb
 			playBt_->setText("Reproducir");
 			playBt_->centerX(consoleSize.x());
 			playBt_->setY(baseY + 5);
+			playBt_->setOnEnter([this] { SongManager::instance().play(playlist_); });
 
 			listSongsBt_ = addElement<Button>();
 			listSongsBt_->setText("Listar canciones");

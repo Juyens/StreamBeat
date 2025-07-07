@@ -7,6 +7,7 @@
 #include "ScreenManager.h"
 #include "SubInfoScreen.h"
 #include "UserManager.h"
+#include "SongManager.h"
 
 #include <memory>
 
@@ -42,6 +43,7 @@ namespace sb
 			playBt_->setText("Reproducir");
 			playBt_->centerX(consoleSize.x());
 			playBt_->setY(baseY + 5);
+			playBt_->setOnEnter([this] {SongManager::instance().play(song_); });
 
 			addLibraryBt_ = addElement<Button>();
 			addLibraryBt_->setText("Agregar a la Biblioteca");
