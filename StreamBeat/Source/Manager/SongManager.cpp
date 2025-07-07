@@ -74,7 +74,7 @@ namespace sb
     }
 
     Queue<std::shared_ptr<Song>>& SongManager::getPlayQueue()
-    {
+    {   
         return playQueue_;
     }
 }

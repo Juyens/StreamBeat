@@ -3,6 +3,8 @@
 #include "Screen.h"
 #include "UI.h"
 #include "Console.h"
+#include "TableView.h"
+#include "Song.h"
 
 namespace sb
 {
@@ -10,6 +12,7 @@ namespace sb
 	{
 	public:
 		HistoryScreen();
+		void update() override;
 
 	protected:
 		void onCreate() override;
@@ -18,5 +21,8 @@ namespace sb
 
 	private:
 		Label* titleLb_{ nullptr };
+		TableView<Song>* tableView_{ nullptr };
+		uint prevHistorySize_{ 0 };
+		void refreshHistory();
 	};
 }
