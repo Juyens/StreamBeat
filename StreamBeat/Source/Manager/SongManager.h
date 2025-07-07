@@ -5,6 +5,7 @@
 #include "Song.h"
 #include "Album.h"
 #include "Playlist.h"
+#include "Drawing.h"
 
 #include <memory>
 
@@ -29,6 +30,7 @@ namespace sb
         void play(std::shared_ptr<Album> album);
         void play(std::shared_ptr<Playlist> playlist);
         void play(std::shared_ptr<Song> song);
+        void show();
 
         void enqueue(std::shared_ptr<Song> song);
         void next();

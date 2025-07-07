@@ -13,6 +13,7 @@
 #include "LibraryScreen.h"
 #include "HistoryScreen.h"
 #include "SearchScreen.h"
+#include "SongManager.h"
 
 #include <string>
 
@@ -34,6 +35,7 @@ namespace sb
 	{
 		Console::clearBuffer();
 		ScreenManager::instance().render();
+		
 		Console::present();
 	}
 

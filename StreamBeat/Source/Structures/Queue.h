@@ -2,6 +2,8 @@
 
 #include "Node.h"
 
+#include <stdexcept>
+
 template<class T>
 class Queue
 {

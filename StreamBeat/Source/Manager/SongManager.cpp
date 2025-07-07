@@ -1,5 +1,4 @@
 #include "SongManager.h"
-#include "Console.h"
 
 namespace sb
 {
@@ -11,11 +10,15 @@ namespace sb
 
     void SongManager::play(std::shared_ptr<Album> album)
     {
+        if (playQueue_.empty())
+            return;
+
         playQueue_.clear();
 
-        for (uint i = 0; i < album->getSongs()->size(); ++i)
+        auto& songs = album->getSongs();
+        for (uint i = 0; i < songs.size(); ++i)
         {
-            auto song = album->getSongs()->getAtPosition(i);
+            auto song = songs[i];
             playQueue_.enqueue(song);
         }
 
@@ -25,11 +28,15 @@ namespace sb
 
     void SongManager::play(std::shared_ptr<Playlist> playlist)
     {
+        if (playQueue_.empty())
+            return;
+
         playQueue_.clear();
 
-        for (uint i = 0; i < playlist->getSongs()->size(); ++i)
+        auto& songs = playlist->getSongs();
+        for (uint i = 0; i < songs.size(); ++i)
         {
-            auto song = playlist->getSongs()->getAtPosition(i);
+            auto song = songs[i];
             playQueue_.enqueue(song);
         }
 
@@ -39,13 +46,24 @@ namespace sb
 
     void SongManager::play(std::shared_ptr<Song> song)
     {
+        if (playQueue_.empty())
+            return;
+
         playQueue_.clear();
         playQueue_.enqueue(song);
         currentSong_ = song;
     }
-        
+
+    void SongManager::show()
+    {
+        Drawing::drawText(0, 44, playQueue_.peek()->getName());
+    }
+
     void SongManager::enqueue(std::shared_ptr<Song> song)
     {
+        if (playQueue_.empty())
+            return;
+
         playQueue_.enqueue(song);
     }
 
