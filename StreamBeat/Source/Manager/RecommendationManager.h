@@ -21,9 +21,6 @@ namespace sb
 
     private:
         RecommendationManager() = default;
-        void buildGraph();
-
         Graph<std::string, int> graph_;
-        bool graphBuilt_{ false };
     };
 }

@@ -1,5 +1,7 @@
 #include "RecommendationManager.h"
 #include <algorithm>
+#include <unordered_set>
+#include <unordered_map>
 
 namespace sb
 {
@@ -9,88 +11,80 @@ namespace sb
         return instance;
     }
 
-    void RecommendationManager::buildGraph()
-    {
-        auto& songs = DataManager::instance().getSongs();
-
-        if (graphBuilt_ && graph_.getVertices().size() == songs.size())
-            return;
-
-        graph_ = Graph<std::string, int>();
-
-        for (uint i = 0; i < songs.size(); ++i)
-        {
-            graph_.addVertex(songs[i]->getName());
-        }
-
-        for (uint i = 0; i < songs.size(); ++i)
-        {
-            auto& genresA = songs[i]->getGenres();
-            for (uint j = i + 1; j < songs.size(); ++j)
-            {
-                auto& genresB = songs[j]->getGenres();
-                int weight = 0;
-                for (uint a = 0; a < genresA.size(); ++a)
-                {
-                    for (uint b = 0; b < genresB.size(); ++b)
-                    {
-                        if (genresA[a] == genresB[b])
-                            ++weight;
-                    }
-                }
-                if (weight > 0)
-                {
-                    graph_.addEdge(songs[i]->getName(), songs[j]->getName(), weight);
-                    graph_.addEdge(songs[j]->getName(), songs[i]->getName(), weight);
-                }
-            }
-        }
-
-        graphBuilt_ = true;
-    }
-
     List<std::shared_ptr<Song>> RecommendationManager::getRecommendations(size_t count)
     {
-        buildGraph();
-
-        std::unordered_map<std::string, int> scores;
-        std::vector<std::shared_ptr<Song>> seeds;
+        List<std::shared_ptr<Song>> result;
+        std::vector<std::shared_ptr<Song>> historySongs;
 
         auto& history = SongManager::instance().getHistory();
         while (!history.empty())
         {
-            seeds.push_back(history.top());
+            historySongs.push_back(history.top());
             history.pop();
         }
-        for (auto it = seeds.rbegin(); it != seeds.rend(); ++it)
+        for (auto it = historySongs.rbegin(); it != historySongs.rend(); ++it)
         {
             history.push(*it);
         }
 
-        for (const auto& seed : seeds)
+        if (historySongs.empty())
+            return result;
+
+        Graph<std::string, int> graph;
+        std::unordered_set<std::string> vertices;
+        std::unordered_set<std::string> seedNames;
+        std::unordered_map<std::string, std::unordered_map<std::string, int>> weights;
+
+        for (const auto& song : historySongs)
         {
-            graph_.forEachEdge(seed->getName(), [&] (const std::string& to, const int& weight)
+            const auto& name = song->getName();
+            if (vertices.insert(name).second)
+                graph.addVertex(name);
+            seedNames.insert(name);
+        }
+
+        for (const auto& seed : historySongs)
+        {
+            auto& genres = seed->getGenres();
+            for (uint i = 0; i < genres.size(); ++i)
+            {
+                auto songsByGenre = DataManager::instance().getSongsByGenre(genres[i]);
+                for (uint j = 0; j < songsByGenre.size(); ++j)
                 {
-                    bool isSeed = false;
-                    for (const auto& s : seeds)
-                    {
-                        if (s->getName() == to)
-                        {
-                            isSeed = true;
-                            break;
-                        }
-                    }
-                    if (!isSeed)
-                        scores[to] += weight;
+                    auto candidate = songsByGenre[j];
+                    const auto& toName = candidate->getName();
+                    const auto& fromName = seed->getName();
+
+                    if (toName == fromName)
+                        continue;
+
+                    if (vertices.insert(toName).second)
+                        graph.addVertex(toName);
+
+                    ++weights[fromName][toName];
+                }
+            }
+        }
+
+        for (const auto& [from, dests] : weights)
+            for (const auto& [to, w] : dests)
+                graph.addEdge(from, to, w);
+
+        std::unordered_map<std::string, int> score;
+
+        for (const auto& seed : historySongs)
+        {
+            graph.forEachEdge(seed->getName(), [&] (const std::string& to, const int& weight) {
+                if (seedNames.count(to) == 0)
+                    score[to] += weight;
                 });
         }
 
-        std::vector<std::pair<std::string, int>> sorted(scores.begin(), scores.end());
+        std::vector<std::pair<std::string, int>> sorted(score.begin(), score.end());
         std::sort(sorted.begin(), sorted.end(), [] (auto& a, auto& b) { return a.second > b.second; });
 
-        List<std::shared_ptr<Song>> result;
         size_t added = 0;
-        for (const auto& [name, w] : sorted)
+        for (const auto& [name, s] : sorted)
         {
             auto song = DataManager::instance().getSongByName(name);
             if (song)
