@@ -1,0 +1,71 @@
+#include "SongManager.h"
+#include "Console.h"
+
+namespace sb
+{
+    SongManager& SongManager::instance()
+    {
+        static SongManager instance;
+        return instance;
+    }
+
+    void SongManager::play(std::shared_ptr<Album> album)
+    {
+        playQueue_.clear();
+
+        for (uint i = 0; i < album->getSongs()->size(); ++i)
+        {
+            auto song = album->getSongs()->getAtPosition(i);
+            playQueue_.enqueue(song);
+        }
+
+        if (!playQueue_.empty())
+            currentSong_ = playQueue_.peek();
+    }
+
+    void SongManager::play(std::shared_ptr<Playlist> playlist)
+    {
+        playQueue_.clear();
+
+        for (uint i = 0; i < playlist->getSongs()->size(); ++i)
+        {
+            auto song = playlist->getSongs()->getAtPosition(i);
+            playQueue_.enqueue(song);
+        }
+
+        if (!playQueue_.empty())
+            currentSong_ = playQueue_.peek();
+    }
+
+    void SongManager::play(std::shared_ptr<Song> song)
+    {
+        playQueue_.clear();
+        playQueue_.enqueue(song);
+        currentSong_ = song;
+    }
+        
+    void SongManager::enqueue(std::shared_ptr<Song> song)
+    {
+        playQueue_.enqueue(song);
+    }
+
+    void SongManager::next()
+    {
+        if (!playQueue_.empty() && currentSong_)
+        {
+            history_.push(currentSong_);
+            playQueue_.dequeue();
+            currentSong_ = playQueue_.empty() ? nullptr : playQueue_.peek();
+        }
+    }
+
+    Stack<std::shared_ptr<Song>>& SongManager::getHistory()
+    {
+        return history_;
+    }
+
+    Queue<std::shared_ptr<Song>>& SongManager::getPlayQueue()
+    {
+        return playQueue_;
+    }
+}

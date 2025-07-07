@@ -8,6 +8,7 @@
 #include "SubListScreen.h"
 #include "SubAlbumScreen.h"
 #include "SubSongScreen.h"
+#include "UserManager.h"
 
 #include <memory>
 
@@ -46,7 +47,7 @@ namespace sb
 			listAlbumsBt_->setOnEnter([this] {
 				auto albums = DataManager::instance().getAlbumsByArtist(artist_->getName());
 				ScreenManager::instance().pushSubScreen(
-					std::make_unique<SubListScren<Album>>("[ " + artist_->getName() + " >> Albums ]", albums, [] (std::shared_ptr<Album> target) {
+					std::make_unique<SubListScreen<Album>>("[ " + artist_->getName() + " >> Albums ]", albums, [] (std::shared_ptr<Album> target) {
 						ScreenManager::instance().pushSubScreen(std::make_unique<SubAlbumScreen>(target));
 						}));
 				});
@@ -58,7 +59,7 @@ namespace sb
 			listSongsBt_->setOnEnter([this] {
 				auto songs = DataManager::instance().getSongsByArtist(artist_->getName());
 				ScreenManager::instance().pushSubScreen(
-					std::make_unique<SubListScren<Song>>("[ " + artist_->getName() + " >> Songs ]", songs, [] (std::shared_ptr<Song> target) {
+					std::make_unique<SubListScreen<Song>>("[ " + artist_->getName() + " >> Songs ]", songs, [] (std::shared_ptr<Song> target) {
 						ScreenManager::instance().pushSubScreen(std::make_unique<SubSongScreen>(target));
 						}));
 				});
@@ -67,6 +68,10 @@ namespace sb
 			addLibraryBt_->setText("Agregar a la Biblioteca");
 			addLibraryBt_->centerX(consoleSize.x());
 			addLibraryBt_->setY(baseY + 15);
+			addLibraryBt_->setOnEnter([this] {
+				UserManager::instance().getCurrentLibrary().add(artist_);
+				ScreenManager::instance().goBack();
+				});
 
 			backBt_ = addElement<Button>();
 			backBt_->setText("Volver");

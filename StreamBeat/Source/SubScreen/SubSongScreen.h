@@ -5,6 +5,8 @@
 #include "Console.h"
 #include "Song.h"
 #include "ScreenManager.h"
+#include "SubInfoScreen.h"
+#include "UserManager.h"
 
 #include <memory>
 
@@ -45,11 +47,18 @@ namespace sb
 			addLibraryBt_->setText("Agregar a la Biblioteca");
 			addLibraryBt_->centerX(consoleSize.x());
 			addLibraryBt_->setY(baseY + 10);
+			addLibraryBt_->setOnEnter([this] {
+				UserManager::instance().getCurrentLibrary().add(song_);
+				ScreenManager::instance().goBack();
+				});
 
 			viewInfoBt_ = addElement<Button>();
 			viewInfoBt_->setText("Mostrar Informacion");
 			viewInfoBt_->centerX(consoleSize.x());
 			viewInfoBt_->setY(baseY + 15);
+			viewInfoBt_->setOnEnter([this] {
+				ScreenManager::instance().pushSubScreen(std::make_unique<SubInfoScreen>(song_));
+				});
 
 			backBt_ = addElement<Button>();
 			backBt_->setText("Volver");

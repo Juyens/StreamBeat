@@ -53,6 +53,7 @@ namespace sb
 
 			screenHistory_.pop();
 			activeScreen_ = screenHistory_.empty() ? nullptr : screenHistory_.top();
+			activeScreen_->resetElements();
 		}
 	}
 

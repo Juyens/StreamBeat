@@ -151,7 +151,9 @@
     <ClCompile Include="Source\Manager\DataManager.cpp" />
     <ClCompile Include="Source\Manager\FocusController.cpp" />
     <ClCompile Include="Source\Manager\ScreenManager.cpp" />
+    <ClCompile Include="Source\Manager\SongManager.cpp" />
     <ClCompile Include="Source\Manager\UserManager.cpp" />
+    <ClCompile Include="Source\Music\Libray.cpp" />
     <ClCompile Include="Source\Screens\ExploreScreen.cpp" />
     <ClCompile Include="Source\Screens\HistoryScreen.cpp" />
     <ClCompile Include="Source\Screens\LibraryScreen.cpp" />
@@ -181,6 +183,7 @@
     <ClInclude Include="Source\Manager\DataManager.h" />
     <ClInclude Include="Source\Manager\FocusController.h" />
     <ClInclude Include="Source\Manager\ScreenManager.h" />
+    <ClInclude Include="Source\Manager\SongManager.h" />
     <ClInclude Include="Source\Manager\User.h" />
     <ClInclude Include="Source\Manager\UserManager.h" />
     <ClInclude Include="Source\Music\Album.h" />
@@ -215,7 +218,9 @@
     <ClInclude Include="Source\Structures\Stack.h" />
     <ClInclude Include="Source\SubScreen\SubAlbumScreen.h" />
     <ClInclude Include="Source\SubScreen\SubArtistScreen.h" />
+    <ClInclude Include="Source\SubScreen\SubInfoScreen.h" />
     <ClInclude Include="Source\SubScreen\SubListScreen.h" />
+    <ClInclude Include="Source\SubScreen\SubPlaylistScreen.h" />
     <ClInclude Include="Source\SubScreen\SubScreen.h" />
     <ClInclude Include="Source\SubScreen\SubSearchScreen.h" />
     <ClInclude Include="Source\SubScreen\SubSongScreen.h" />

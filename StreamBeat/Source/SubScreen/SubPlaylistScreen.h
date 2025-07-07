@@ -8,16 +8,17 @@
 #include "SubSongScreen.h"
 #include "UserManager.h"
 #include "Utils.h"
+#include "SubListScreen.h"
 
 #include <memory>
 
 namespace sb
 {
-	class SubAlbumScreen : public SubScreen
+	class SubPlaylistScreen : public SubScreen
 	{
 	public:
-		SubAlbumScreen(std::shared_ptr<Album> album)
-			: album_(std::move(album))
+		SubPlaylistScreen(std::shared_ptr<Playlist> album)
+			: playlist_(std::move(album))
 		{
 			onCreate();
 			initializeFocus();
@@ -25,7 +26,7 @@ namespace sb
 
 		void update() override
 		{
-			
+
 		}
 
 	protected:
@@ -35,7 +36,7 @@ namespace sb
 			const int baseY = 4;
 
 			titleLb_ = addElement<Label>();
-			titleLb_->setText("[ StreamBeat - Album >> " + album_->getName() + " ]");
+			titleLb_->setText("[ StreamBeat - Playlist >> " + playlist_->getName() + " ]");
 			titleLb_->centerX(consoleSize.x());
 			titleLb_->setY(1);
 
@@ -46,23 +47,22 @@ namespace sb
 
 			listSongsBt_ = addElement<Button>();
 			listSongsBt_->setText("Listar canciones");
-			listSongsBt_->setOnEnter([this] {
-				auto songs = DataManager::instance().getSongsByAlbum(album_ ->getName());
+			listSongsBt_->setOnEnter([this] {;
 				ScreenManager::instance().pushSubScreen(
-					std::make_unique<SubListScreen<Song>>("[ " + album_->getName() + " >> Songs ]", songs, [] (std::shared_ptr<Song> target) {
+					std::make_unique<SubListScreen<Song>>("[ " + playlist_->getName() + " >> Songs ]", playlist_->getSongs(), [] (std::shared_ptr<Song> target) {
 						ScreenManager::instance().pushSubScreen(std::make_unique<SubSongScreen>(target));
 						}));
 				});
 			listSongsBt_->centerX(consoleSize.x());
 			listSongsBt_->setY(baseY + 10);
 
-			addLibraryBt_ = addElement<Button>();
-			addLibraryBt_->setText("Agregar a la Biblioteca");
-			addLibraryBt_->centerX(consoleSize.x());
-			addLibraryBt_->setY(baseY + 15);
-			addLibraryBt_->setOnEnter([this] {
-				UserManager::instance().getCurrentLibrary().add(album_);
-				ScreenManager::instance().goBack();
+			deletePlalist_ = addElement<Button>();
+			deletePlalist_->setText("Eliminar Playlist");
+			deletePlalist_->centerX(consoleSize.x());
+			deletePlalist_->setY(baseY + 15);
+			deletePlalist_->setOnEnter([this] {
+				UserManager::instance().getCurrentLibrary().deletePlaylist(playlist_->getName());
+				ScreenManager::instance().navigateToRoot(ScreenNames::Library);
 				});
 
 			backBt_ = addElement<Button>();
@@ -92,10 +92,10 @@ namespace sb
 		}
 
 	private:
-		std::shared_ptr<Album> album_;
+		std::shared_ptr<Playlist> playlist_;
 		Button* playBt_{ nullptr };
 		Button* listSongsBt_{ nullptr };
-		Button* addLibraryBt_{ nullptr };
+		Button* deletePlalist_{ nullptr };
 		Button* backBt_{ nullptr };
 	};
 }

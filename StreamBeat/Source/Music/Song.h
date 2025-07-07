@@ -2,6 +2,8 @@
 
 #include "Credits.h"
 #include "List.h"
+#include "Console.h"
+#include "Color.h"
 
 #include <string>
 #include <iostream>
@@ -51,7 +53,6 @@ public:
     {
         genres_.clear();
     }
-
 
     std::string getName() const
     {

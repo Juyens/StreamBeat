@@ -87,6 +87,12 @@
     <ClCompile Include="Source\Screens\SearchScreen.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Music\Libray.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Manager\SongManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application\Application.h">
@@ -285,6 +291,15 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Source\SubScreen\SubListScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SubScreen\SubInfoScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SubScreen\SubPlaylistScreen.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Manager\SongManager.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

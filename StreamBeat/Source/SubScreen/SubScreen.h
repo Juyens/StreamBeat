@@ -14,6 +14,8 @@ namespace sb
 		SubScreen()
 			: Screen(ScreenNames::Temporary) {}
 
+		void update() override {};
+
 	protected:
 		Label* titleLb_{ nullptr };
 	};

@@ -99,6 +99,7 @@ namespace sb
                     std::stoi(values[7]) // edad
                 );
                 isLoggedIn_ = true;
+                currentLibrary_ = Library(currentUser_.getDni());
                 return true;
             }
         }

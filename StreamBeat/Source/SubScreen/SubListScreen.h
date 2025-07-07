@@ -3,13 +3,14 @@
 #include "SubScreen.h"
 #include "TableView.h"
 #include "Console.h"
+#include "ScreenManager.h"
 
 #include <memory>
 
 namespace sb
 {
 	template<class T>
-	class SubListScren : public SubScreen
+	class SubListScreen : public SubScreen
 	{
 	public:
 		using Action = std::function<void(std::shared_ptr<T>)>;
@@ -22,7 +23,7 @@ namespace sb
 		Button* previousPageBt_{ nullptr };
 
 	public:
-		SubListScren(const std::string title, List<std::shared_ptr<T>>& items, Action action)
+		SubListScreen(const std::string title, List<std::shared_ptr<T>>& items, Action action)
 			: title_(title), itemAction_(std::move(action))
 		{
 			tableView_ = addElement<TableView<T>>();

@@ -3,6 +3,7 @@
 #include "Screen.h"
 #include "UI.h"
 #include "Console.h"
+#include "TextBox.h"
 
 namespace sb
 {
@@ -18,5 +19,11 @@ namespace sb
 
 	private:
 		Label* titleLb_{ nullptr };
+		Button* listArtistBt_{ nullptr };
+		Button* listAlbumsBt_{ nullptr };
+		Button* listPlayListBt_{ nullptr };
+		TextBox* texBox_{ nullptr };
+		Button* addPlaylistBt_{ nullptr };
+		Button* backLb_{ nullptr };
 	};
 }

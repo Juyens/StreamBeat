@@ -10,11 +10,14 @@ class Playlist
 {
 private:
     std::string name_;
-    List<std::shared_ptr<Song>>& songs_;
+    List<std::shared_ptr<Song>> songs_;
 
 public:
+    explicit Playlist(const std::string& name)
+        : name_(name) {}
+
     Playlist(const std::string& name, List<std::shared_ptr<Song>>& songs)
-        : name_(name), songs_(songs) {}
+        : name_(name), songs_(std::move(songs)) {}
 
     ~Playlist() = default;
 
