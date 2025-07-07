@@ -93,7 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;$(ProjectDir)Source\SubScreen;$(ProjectDir)Source\Graph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;$(ProjectDir)Source\SubScreen;$(ProjectDir)Source\Graph;$(ProjectDir)Source\Algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,7 +109,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;$(ProjectDir)Source\SubScreen;$(ProjectDir)Source\Graph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;$(ProjectDir)Source\SubScreen;$(ProjectDir)Source\Graph;$(ProjectDir)Source\Algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -123,7 +123,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;$(ProjectDir)Source\SubScreen;$(ProjectDir)Source\Graph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;$(ProjectDir)Source\SubScreen;$(ProjectDir)Source\Graph;$(ProjectDir)Source\Algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +139,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;$(ProjectDir)Source\SubScreen;$(ProjectDir)Source\Graph;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)Source;$(ProjectDir)Source\Console;$(ProjectDir)Source\Application;$(ProjectDir)Source\UI;$(ProjectDir)Source\Utils;$(ProjectDir)Source\Drawing;$(ProjectDir)Source\Input;$(ProjectDir)Source\Manager;$(ProjectDir)Source\Screens;$(ProjectDir)Source\Structures;$(ProjectDir)Source\HashTable;$(ProjectDir)Source\Music;$(ProjectDir)Source\Tree;$(ProjectDir)Source\SubScreen;$(ProjectDir)Source\Graph;$(ProjectDir)Source\Algorithms;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -150,6 +150,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Source\Manager\DataManager.cpp" />
     <ClCompile Include="Source\Manager\FocusController.cpp" />
+    <ClCompile Include="Source\Manager\RecommendationManager.cpp" />
     <ClCompile Include="Source\Manager\ScreenManager.cpp" />
     <ClCompile Include="Source\Manager\SongManager.cpp" />
     <ClCompile Include="Source\Manager\UserManager.cpp" />
@@ -175,6 +176,8 @@
     <ClCompile Include="Source\UI\Cursor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Algorithms\MergeSort.h" />
+    <ClInclude Include="Source\Algorithms\QuickSort.h" />
     <ClInclude Include="Source\Drawing\Art.h" />
     <ClInclude Include="Source\Graph\Graph.h" />
     <ClInclude Include="Source\HashTable\HashEntry.h" />
@@ -182,6 +185,7 @@
     <ClInclude Include="Source\HashTable\HashTable.h" />
     <ClInclude Include="Source\Manager\DataManager.h" />
     <ClInclude Include="Source\Manager\FocusController.h" />
+    <ClInclude Include="Source\Manager\RecommendationManager.h" />
     <ClInclude Include="Source\Manager\ScreenManager.h" />
     <ClInclude Include="Source\Manager\SongManager.h" />
     <ClInclude Include="Source\Manager\User.h" />

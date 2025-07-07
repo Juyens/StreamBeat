@@ -103,6 +103,9 @@ namespace sb
 		List<std::shared_ptr<Song>> getSongsByAlbum(const std::string& albumName);
 		List<std::shared_ptr<Song>> getSongsByDuration(uint minSeconds, uint maxSeconds);
 
+		List<std::shared_ptr<Song>> getSongsByReproductionsDesc();
+		List<std::shared_ptr<Song>> getSongsByReproductionsAsc();
+
 		void loadAsync();
 		bool isLoadInProgress() const;
 		bool isLoadCompleted() const;

@@ -93,6 +93,9 @@
     <ClCompile Include="Source\Manager\SongManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Manager\RecommendationManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Application\Application.h">
@@ -300,6 +303,15 @@
       <Filter>Include</Filter>
     </ClInclude>
     <ClInclude Include="Source\Manager\SongManager.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Manager\RecommendationManager.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Algorithms\MergeSort.h">
+      <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Algorithms\QuickSort.h">
       <Filter>Include</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,4 +1,6 @@
 #include "DataManager.h"
+#include "MergeSort.h"
+#include "QuickSort.h"
 
 namespace sb
 {
@@ -190,6 +192,38 @@ namespace sb
                 }
             }
         }
+        return result;
+    }
+
+    List<std::shared_ptr<Song>> DataManager::getSongsByReproductionsDesc()
+    {
+        List<std::shared_ptr<Song>> result;
+        for (uint i = 0; i < songs_.size(); ++i)
+            result.push_back(songs_[i]);
+
+        QuickSort<std::shared_ptr<Song>, std::function<bool(const std::shared_ptr<Song>&, const std::shared_ptr<Song>&)>>::sort(
+            result,
+            [] (const std::shared_ptr<Song>& a, const std::shared_ptr<Song>& b)
+            {
+                return a->getReproductions() > b->getReproductions();
+            });
+
+        return result;
+    }
+
+    List<std::shared_ptr<Song>> DataManager::getSongsByReproductionsAsc()
+    {
+        List<std::shared_ptr<Song>> result;
+        for (uint i = 0; i < songs_.size(); ++i)
+            result.push_back(songs_[i]);
+
+        MergeSort<std::shared_ptr<Song>, std::function<bool(const std::shared_ptr<Song>&, const std::shared_ptr<Song>&)>>::sort(
+            result,
+            [] (const std::shared_ptr<Song>& a, const std::shared_ptr<Song>& b)
+            {
+                return a->getReproductions() < b->getReproductions();
+            });
+
         return result;
     }
 

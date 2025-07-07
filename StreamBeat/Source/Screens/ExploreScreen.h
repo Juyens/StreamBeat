@@ -3,6 +3,8 @@
 #include "Screen.h"
 #include "UI.h"
 #include "Console.h"
+#include "TableView.h"
+#include "RecommendationManager.h"
 
 namespace sb
 {
@@ -18,5 +20,7 @@ namespace sb
 
 	private:
 		Label* titleLb_{ nullptr };
+		TableView<Song>* tableView_{ nullptr };
+		void refreshRecommendations();
 	};
 }
