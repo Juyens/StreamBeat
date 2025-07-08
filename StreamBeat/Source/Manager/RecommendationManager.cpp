@@ -1,4 +1,6 @@
 #include "RecommendationManager.h"
+#include "QuickSort.h"
+#include "Comparators.h"
 
 namespace sb
 {
@@ -109,17 +111,7 @@ namespace sb
         }
 
         List<std::pair<std::string, int>> sorted = score.toList();
-
-        for (uint i = 0; i < sorted.size(); ++i)
-        {
-            for (uint j = i + 1; j < sorted.size(); ++j)
-            {
-                if (sorted[j].second > sorted[i].second)
-                {
-                    std::swap(sorted[i], sorted[j]);
-                }
-            }
-        }
+        QuickSort<std::pair<std::string, int>, sb::CompareByScoreDesc>::sort(sorted);
 
         size_t added = 0;
         for (uint i = 0; i < sorted.size(); ++i)
