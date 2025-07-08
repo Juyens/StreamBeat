@@ -186,7 +186,7 @@ inline List<std::pair<K, V>> HashTable<K, V, Hash>::toList() const
 		for (unsigned int j = 0; j < bucket.size(); ++j)
 		{
 			const HashEntry<K, V>& entry = bucket[j];
-			result.push_back(std::pair<K, V>(entry.key, entry.value));
+			result.push_back(std::make_pair(entry.key, entry.value));
 		}
 	}
 	return result;
