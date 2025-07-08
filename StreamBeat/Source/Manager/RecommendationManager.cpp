@@ -1,6 +1,7 @@
 #include "RecommendationManager.h"
 #include "QuickSort.h"
 #include "Comparators.h"
+#include "Stack.h"
 
 namespace sb
 {
@@ -15,22 +16,26 @@ namespace sb
         List<std::shared_ptr<Song>> result;
         List<std::shared_ptr<Song>> historySongs;
 
+        // Copy history without modifying the original stack
         auto& history = SongManager::instance().getHistory();
+        Stack<std::shared_ptr<Song>> tmp;
         while (!history.empty())
         {
-            historySongs.push_back(history.top());
+            auto song = history.top();
             history.pop();
+            historySongs.push_back(song);
+            tmp.push(song);
         }
-
-        for (int i = historySongs.size() - 1; i >= 0; --i)
+        while (!tmp.empty())
         {
-            history.push(historySongs[i]);
+            history.push(tmp.top());
+            tmp.pop();
         }
 
         if (historySongs.empty())
             return result;
 
-        Graph<std::string, int> graph;
+        graph_ = Graph<std::string, int>();
         HashTable<std::string, bool> vertices;
         HashTable<std::string, bool> seedNames;
         HashTable<std::string, HashTable<std::string, int>> weights;
@@ -42,7 +47,7 @@ namespace sb
             if (!vertices.find(name))
             {
                 vertices.insert(name, true);
-                graph.addVertex(name);
+                graph_.addVertex(name);
             }
             seedNames.insert(name, true);
         }
@@ -66,7 +71,7 @@ namespace sb
                     if (!vertices.find(toName))
                     {
                         vertices.insert(toName, true);
-                        graph.addVertex(toName);
+                        graph_.addVertex(toName);
                     }
 
                     if (!weights.find(fromName))
@@ -90,7 +95,7 @@ namespace sb
             {
                 const auto& to = destinations[j].first;
                 int w = destinations[j].second;
-                graph.addEdge(from, to, w);
+                graph_.addEdge(from, to, w);
             }
         }
 
@@ -98,7 +103,7 @@ namespace sb
         for (uint i = 0; i < historySongs.size(); ++i)
         {
             const std::string& seedName = historySongs[i]->getName();
-            graph.forEachEdge(seedName, [&] (const std::string& to, const int& weight)
+            graph_.forEachEdge(seedName, [&] (const std::string& to, const int& weight)
                 {
                     if (!seedNames.find(to))
                     {
