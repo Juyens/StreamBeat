@@ -27,7 +27,7 @@ namespace sb
 		emailBox_->setY(baseY + 5);
 
 		emailLb_ = addElement<Label>();
-		emailLb_->setText("Username:");
+		emailLb_->setText("Email:");
 		emailLb_->setX(emailBox_->getX() + 1);
 		emailLb_->setY(baseY + 4);
 

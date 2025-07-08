@@ -1,4 +1,5 @@
 #include "SongManager.h"
+#include "Utils.h"
 
 namespace sb
 {
@@ -50,7 +51,9 @@ namespace sb
         if (playQueue_.empty())
             return;
 
-        Drawing::drawText(0, 44, playQueue_.peek()->getName());
+        auto song = playQueue_.peek();
+        auto name = ">> Playing: " + song->getName() + " <<";
+        Drawing::drawText(utils::centered(Console::getViewportSize().x(), static_cast<int>(name.size())), 38, name);
     }
 
     void SongManager::enqueue(std::shared_ptr<Song> song)

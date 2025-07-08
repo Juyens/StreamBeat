@@ -6,6 +6,7 @@
 #include "Artist.h"
 #include "HashTable.h"
 #include "BSTree.h"
+#include "Comparators.h"
 
 #include <fstream>
 #include <sstream>
@@ -36,6 +37,7 @@ namespace sb
 		template <typename T>
 		List<std::shared_ptr<T>> findByNameContains(const std::string& namePart) const
 		{
+
 			std::string query = namePart;
 			std::transform(query.begin(), query.end(), query.begin(), ::tolower);
 
@@ -68,24 +70,6 @@ namespace sb
 			return result;
 		}
 
-		template<typename T>
-		std::shared_ptr<T> getByNameExact(const std::string& name) const
-		{
-			const HashTable<std::string, std::shared_ptr<T>>* table = nullptr;
-
-			if constexpr (std::is_same_v<T, Artist>)
-				table = &artistByName_;
-			else if constexpr (std::is_same_v<T, Album>)
-				table = &albumByName_;
-			else if constexpr (std::is_same_v<T, Song>)
-				table = &songByName_;
-			else
-				throw std::logic_error("Tipo no soportado en getByNameExact");
-
-			auto ptr = table->find(name);
-			return ptr ? *ptr : nullptr;
-		}
-
 		std::shared_ptr<Song> getSongByName(const std::string& name);
 		std::shared_ptr<Album> getAlbumByName(const std::string& name);
 		std::shared_ptr<Artist> getArtistByName(const std::string& name);
@@ -94,17 +78,13 @@ namespace sb
 		std::shared_ptr<Artist> getArtistForSong(const std::string& songName);
 
 		List<std::shared_ptr<Song>> getSongsByGenre(const std::string& genre);
-
-		std::shared_ptr<Song> getMostPlayedSong();
-
 		List<std::shared_ptr<Album>> getAlbumsByArtist(const std::string& artistName);
 
 		List<std::shared_ptr<Song>> getSongsByArtist(const std::string& artistName);
 		List<std::shared_ptr<Song>> getSongsByAlbum(const std::string& albumName);
-		List<std::shared_ptr<Song>> getSongsByDuration(uint minSeconds, uint maxSeconds);
 
-		List<std::shared_ptr<Song>> getSongsByReproductionsDesc();
-		List<std::shared_ptr<Song>> getSongsByReproductionsAsc();
+		List<std::shared_ptr<Song>> getSongsByReproductions(bool ascending);
+		List<std::shared_ptr<Song>> getSongsByDuration(bool ascending);
 
 		void loadAsync();
 		bool isLoadInProgress() const;
@@ -121,8 +101,9 @@ namespace sb
 		DataManager() = default;
 		~DataManager() = default;
 
-		void storeCurrentAlbum(std::shared_ptr<Artist>& currentArtist, std::shared_ptr<Album>& currentAlbum);
 		void storeCurrentArtist(std::shared_ptr<Artist>& currentArtist);
+		void storeCurrentAlbum(std::shared_ptr<Artist>& currentArtist, std::shared_ptr<Album>& currentAlbum);
+		void storeCurrentSong(std::shared_ptr<Album>& currentAlbum, std::shared_ptr<Song>& currentSong, std::shared_ptr<Credits>& currentCredits);
 
 		int countTabs(const std::string& line);
 		std::shared_ptr<List<std::string>> split(const std::string& input, char delimiter);

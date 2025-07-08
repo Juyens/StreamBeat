@@ -36,6 +36,8 @@ public:
 
 	void erase(const K& key);
 	V* find(const K& key);
+	V* find(const K& key) const;
+
 	V& operator[](const K& key);
 
 	void clear();
@@ -130,6 +132,21 @@ inline void HashTable<K, V, Hash>::erase(const K& key)
 
 template <typename K, typename V, typename Hash>
 inline V* HashTable<K, V, Hash>::find(const K& key)
+{
+	unsigned int index = getIndex(key);
+	List<HashEntry<K, V>>& bucket = buckets[index];
+
+	for (unsigned int i = 0; i < bucket.size(); ++i)
+	{
+		HashEntry<K, V>& entry = bucket[i];
+		if (entry.key == key)
+			return &entry.value;
+	}
+	return nullptr;
+}
+
+template<typename K, typename V, typename Hash>
+inline V* HashTable<K, V, Hash>::find(const K& key) const
 {
 	unsigned int index = getIndex(key);
 	List<HashEntry<K, V>>& bucket = buckets[index];

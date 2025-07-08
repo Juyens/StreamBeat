@@ -22,7 +22,7 @@ namespace sb
 	Application::Application()
 	{
 		configureConsole();
-		initializeScreens();
+		setup();
 	}
 
 	void Application::update()
@@ -56,7 +56,7 @@ namespace sb
 		Console::setIcon(L"Resource/streambeat.ico");
 	}
 
-	void Application::initializeScreens()
+	void Application::setup()
 	{
 		DataManager::instance().loadAsync();
 		// -------------------------------------------- //

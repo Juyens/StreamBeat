@@ -1,8 +1,9 @@
 #pragma once
 
-#include <vector>
+#include "List.h"
+#include "HashTable.h"
+
 #include <memory>
-#include <unordered_map>
 #include <functional>
 
 template <class T, class A = int>
@@ -14,7 +15,7 @@ private:
     struct Vertex
     {
         T data;
-        std::vector<std::shared_ptr<Edge>> adjacency;
+        List<std::shared_ptr<Edge>> adjacency;
 
         explicit Vertex(const T& data)
             : data(data) {}
@@ -29,67 +30,75 @@ private:
             : to(destination), weight(weight) {}
     };
 
-    std::vector<std::shared_ptr<Vertex>> vertices_;
-    std::unordered_map<T, std::shared_ptr<Vertex>> index_;
+    List<std::shared_ptr<Vertex>> vertices_;
+    HashTable<T, std::shared_ptr<Vertex>> index_;
 
 public:
     Graph() = default;
 
     bool addVertex(const T& data)
     {
-        if (index_.count(data)) return false;
+        if (index_.find(data))
+            return false;
+
         auto vertex = std::make_shared<Vertex>(data);
         vertices_.push_back(vertex);
-        index_[data] = vertex;
+        index_.insert(data, vertex);
         return true;
     }
 
     bool addEdge(const T& from, const T& to, const A& weight = A{})
     {
-        auto itFrom = index_.find(from);
-        auto itTo = index_.find(to);
-        if (itFrom == index_.end() || itTo == index_.end()) return false;
+        auto* fromPtr = index_.find(from);
+        auto* toPtr = index_.find(to);
 
-        itFrom->second->adjacency.push_back(std::make_shared<Edge>(itTo->second, weight));
+        if (!fromPtr || !toPtr)
+            return false;
+
+        fromPtr->get()->adjacency.push_back(std::make_shared<Edge>(*toPtr, weight));
         return true;
     }
 
-    const std::vector<std::shared_ptr<Vertex>>& getVertices() const
+    const List<std::shared_ptr<Vertex>>& getVertices() const
     {
         return vertices_;
     }
 
-    std::vector<T> getAdjacency(const T& from) const
+    List<T> getAdjacency(const T& from) const
     {
-        std::vector<T> result;
-        auto it = index_.find(from);
-        if (it == index_.end()) return result;
+        List<T> result;
+        auto* fromPtr = index_.find(from);
 
-        for (const auto& edge : it->second->adjacency)
+        if (!fromPtr)
+            return result;
+
+        for (const auto& edge : fromPtr->get()->adjacency)
         {
-            if (auto ptr = edge->to.lock())
-                result.push_back(ptr->data);
+            if (auto toVertex = edge->to.lock())
+                result.push_back(toVertex->data);
         }
+
         return result;
     }
 
     void forEachVertex(const std::function<void(const T&)>& visit) const
     {
-        for (const auto& vertex : vertices_)
-        {
-            visit(vertex->data);
-        }
+        for (uint i = 0; i < vertices_.size(); ++i)
+            visit(vertices_[i]->data);
     }
 
     void forEachEdge(const T& from, const std::function<void(const T&, const A&)>& visit) const
     {
-        auto it = index_.find(from);
-        if (it == index_.end()) return;
+        auto* fromPtr = index_.find(from);
 
-        for (const auto& edge : it->second->adjacency)
+        if (!fromPtr)
+            return;
+
+        for (uint i = 0; i < fromPtr->get()->adjacency.size(); ++i)
         {
-            if (auto ptr = edge->to.lock())
-                visit(ptr->data, edge->weight);
+            auto& edge = fromPtr->get()->adjacency[i];
+            if (auto toVertex = edge->to.lock())
+                visit(toVertex->data, edge->weight);
         }
     }
 };

@@ -64,12 +64,12 @@ public:
         name_ = name;
     }
 
-    std::uint32_t getDuration() const
+    std::uint32_t getDurationSeconds() const
     {
         return duration_;
     }
 
-    void setDuration(std::uint32_t duration)
+    void getDurationSeconds(std::uint32_t duration)
     {
         duration_ = duration;
     }

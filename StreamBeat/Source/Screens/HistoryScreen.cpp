@@ -1,6 +1,8 @@
 #include "HistoryScreen.h"
 #include "ScreenNames.h"
 #include "SongManager.h"
+#include "ScreenManager.h"
+#include "SubSongScreen.h"
 
 namespace sb
 {
@@ -14,17 +16,20 @@ namespace sb
     void HistoryScreen::onCreate()
     {
         const auto consoleSize = Console::getViewportSize();
-        const int baseY = 1;
+        const int baseY = 3;
 
         titleLb_ = addElement<Label>();
         titleLb_->setText("[ StreamBeat - History ]");
         titleLb_->centerX(consoleSize.x());
-        titleLb_->setY(baseY);
+        titleLb_->setY(1);
 
         tableView_ = addElement<TableView<Song>>();
-        tableView_->setGridSize({ 2, 25 });
+        tableView_->setGridSize({ 2, 30 });
         tableView_->centerX(consoleSize.x());
         tableView_->setY(baseY + 2);
+        tableView_->setItemAction([] (std::shared_ptr<Song> selectedSong) {
+            ScreenManager::instance().pushSubScreen(std::make_unique<SubSongScreen>(selectedSong));
+            });
 
         refreshHistory();
     }

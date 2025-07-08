@@ -19,7 +19,7 @@ namespace sb
 
 	private:
 		void configureConsole();
-		void initializeScreens();
+		void setup();
 
 	private:
 		bool isRunning_{ true };

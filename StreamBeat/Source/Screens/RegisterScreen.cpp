@@ -231,10 +231,6 @@ namespace sb
 
     void RegisterScreen::onKeyPress(Key key)
     {
-        if (key == Key::Escape)
-        {
-            ScreenManager::instance().navigateToRoot(ScreenNames::Login);
-        }
     }
 
     bool RegisterScreen::isValidEmail(const std::string& email)

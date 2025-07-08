@@ -81,7 +81,7 @@ namespace sb
 		addPlaylistBt_->setText("Agregar Playlist");
 		addPlaylistBt_->centerX(consoleSize.x());
 		addPlaylistBt_->setY(baseY + 23);
-		addPlaylistBt_->setOnEnter([this] { 
+		addPlaylistBt_->setOnEnter([this] {
 			if (!texBox_->getText().empty())
 			{
 				UserManager::instance().getCurrentLibrary().addPlaylist(texBox_->getText());

@@ -99,7 +99,7 @@ namespace sb
                 }
                 else if (key.find("Duration") != std::string::npos)
                 {
-                    currentSong->setDuration(std::stoul(value));
+                    currentSong->getDurationSeconds(std::stoul(value));
                 }
                 else if (key.find("Reproductions") != std::string::npos)
                 {
@@ -132,7 +132,6 @@ namespace sb
         storeCurrentAlbum(currentArtist, currentAlbum);
         storeCurrentArtist(currentArtist);
     }
-
 
     std::shared_ptr<Song> DataManager::getSongByName(const std::string& name)
     {
@@ -195,51 +194,6 @@ namespace sb
         return result;
     }
 
-    List<std::shared_ptr<Song>> DataManager::getSongsByReproductionsDesc()
-    {
-        List<std::shared_ptr<Song>> result;
-        for (uint i = 0; i < songs_.size(); ++i)
-            result.push_back(songs_[i]);
-
-        QuickSort<std::shared_ptr<Song>, std::function<bool(const std::shared_ptr<Song>&, const std::shared_ptr<Song>&)>>::sort(
-            result,
-            [] (const std::shared_ptr<Song>& a, const std::shared_ptr<Song>& b)
-            {
-                return a->getReproductions() > b->getReproductions();
-            });
-
-        return result;
-    }
-
-    List<std::shared_ptr<Song>> DataManager::getSongsByReproductionsAsc()
-    {
-        List<std::shared_ptr<Song>> result;
-        for (uint i = 0; i < songs_.size(); ++i)
-            result.push_back(songs_[i]);
-
-        MergeSort<std::shared_ptr<Song>, std::function<bool(const std::shared_ptr<Song>&, const std::shared_ptr<Song>&)>>::sort(
-            result,
-            [] (const std::shared_ptr<Song>& a, const std::shared_ptr<Song>& b)
-            {
-                return a->getReproductions() < b->getReproductions();
-            });
-
-        return result;
-    }
-
-    std::shared_ptr<Song> DataManager::getMostPlayedSong()
-    {
-        if (songs_.empty()) return nullptr;
-
-        std::shared_ptr<Song> mostPlayed = songs_[0];
-        for (uint i = 1; i < songs_.size(); ++i)
-        {
-            if (songs_[i]->getReproductions() > mostPlayed->getReproductions())
-                mostPlayed = songs_[i];
-        }
-        return mostPlayed;
-    }
-
     List<std::shared_ptr<Album>> DataManager::getAlbumsByArtist(const std::string& artistName)
     {
         auto artist = getArtistByName(artistName);
@@ -290,18 +244,32 @@ namespace sb
         return result;
     }
 
-    List<std::shared_ptr<Song>> DataManager::getSongsByDuration(uint minSeconds, uint maxSeconds)
+    List<std::shared_ptr<Song>> DataManager::getSongsByReproductions(bool ascending)
     {
         List<std::shared_ptr<Song>> result;
 
         for (uint i = 0; i < songs_.size(); ++i)
-        {
-            uint duration = songs_[i]->getDuration();
-            if (duration >= minSeconds && duration <= maxSeconds)
-            {
-                result.push_back(songs_[i]);
-            }
-        }
+            result.push_back(songs_[i]);
+
+        if (ascending)
+            MergeSort<std::shared_ptr<Song>, CompareByReproductionsAsc>::sort(result);
+        else
+            MergeSort<std::shared_ptr<Song>, CompareByReproductionsDesc>::sort(result);
+
+        return result;
+    }
+
+    List<std::shared_ptr<Song>> DataManager::getSongsByDuration(bool ascending)
+    {
+        List<std::shared_ptr<Song>> result;
+
+        for (uint i = 0; i < songs_.size(); ++i)
+            result.push_back(songs_[i]);
+
+        if (ascending)
+            QuickSort<std::shared_ptr<Song>, sb::CompareByDurationAsc>::sort(result);
+        else
+            QuickSort<std::shared_ptr<Song>, sb::CompareByDurationDesc>::sort(result);
 
         return result;
     }
@@ -333,6 +301,19 @@ namespace sb
         return loadFinished_;
     }
 
+    void DataManager::storeCurrentArtist(std::shared_ptr<Artist>& currentArtist)
+    {
+        if (currentArtist)
+        {
+            artists_.push_back(currentArtist);
+
+            artistByName_.insert(currentArtist->getName(), currentArtist);
+            artistPartialIndex_.insert(currentArtist);
+
+            currentArtist = nullptr;
+        }
+    }
+
     void DataManager::storeCurrentAlbum(std::shared_ptr<Artist>& currentArtist, std::shared_ptr<Album>& currentAlbum)
     {
         if (currentArtist && currentAlbum)
@@ -348,16 +329,21 @@ namespace sb
         }
     }
 
-    void DataManager::storeCurrentArtist(std::shared_ptr<Artist>& currentArtist)
+    void DataManager::storeCurrentSong(std::shared_ptr<Album>& currentAlbum, std::shared_ptr<Song>& currentSong, std::shared_ptr<Credits>& currentCredits)
     {
-        if (currentArtist)
+        if (currentAlbum && currentSong && currentCredits)
         {
-            artists_.push_back(currentArtist);
+            currentSong->setCredits(std::move(*currentCredits));
 
-            artistByName_.insert(currentArtist->getName(), currentArtist);
-            artistPartialIndex_.insert(currentArtist);
+            currentAlbum->addSong(currentSong);
+            songs_.push_back(currentSong);
 
-            currentArtist = nullptr;
+            songByName_.insert(currentSong->getName(), currentSong);
+            songToAlbum_.insert(currentSong->getName(), currentAlbum->getName());
+            songPartialIndex_.insert(currentSong);
+
+            currentSong = nullptr;
+            currentCredits = nullptr;
         }
     }
 

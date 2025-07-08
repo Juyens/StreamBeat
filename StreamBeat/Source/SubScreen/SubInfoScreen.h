@@ -40,7 +40,7 @@ namespace sb
 			addLabelPair(">> Nombre <<", song_->getName(), y, Background::LightYellow, consoleSize.x()); y += 4;
 
 			std::stringstream durationStream;
-			durationStream << song_->getDuration() / 60 << "m " << song_->getDuration() % 60 << "s";
+			durationStream << song_->getDurationSeconds() / 60 << "m " << song_->getDurationSeconds() % 60 << "s";
 			addLabelPair(">> Duracion <<", durationStream.str(), y, Background::LightCyan, consoleSize.x()); y += 4;
 
 			addLabelPair(">> Reproducciones <<", std::to_string(song_->getReproductions()), y, Background::LightGreen, consoleSize.x()); y += 4;

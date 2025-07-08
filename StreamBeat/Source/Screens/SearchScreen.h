@@ -24,5 +24,9 @@ namespace sb
 		Button* searchArtistBt_{ nullptr };
 		Button* searchAlbumBt_{ nullptr };
 		Button* searchSongBt_{ nullptr };
+		Button* searchMostDurationBtn_{ nullptr };
+		Button* searchLeastDurationBtn_{ nullptr };
+		Button* searchMostPlaysBtn_{ nullptr };
+		Button* searchLeastPlaysBtn_{ nullptr };
 	};
 }

@@ -314,6 +314,9 @@
     <ClInclude Include="Source\Algorithms\QuickSort.h">
       <Filter>Include</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Algorithms\Comparators.h">
+      <Filter>Include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Resource\streambeat.ico">

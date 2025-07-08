@@ -176,6 +176,7 @@
     <ClCompile Include="Source\UI\Cursor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Algorithms\Comparators.h" />
     <ClInclude Include="Source\Algorithms\MergeSort.h" />
     <ClInclude Include="Source\Algorithms\QuickSort.h" />
     <ClInclude Include="Source\Drawing\Art.h" />

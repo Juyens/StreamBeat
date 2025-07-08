@@ -8,6 +8,8 @@
 #include "SubInfoScreen.h"
 #include "UserManager.h"
 #include "SongManager.h"
+#include "SubListScreen.h"
+#include "Playlist.h"
 
 #include <memory>
 
@@ -50,8 +52,17 @@ namespace sb
 			addLibraryBt_->centerX(consoleSize.x());
 			addLibraryBt_->setY(baseY + 10);
 			addLibraryBt_->setOnEnter([this] {
-				UserManager::instance().getCurrentLibrary().add(song_);
-				ScreenManager::instance().goBack();
+				auto playlists = UserManager::instance().getCurrentLibrary().getPlaylists();
+				ScreenManager::instance().pushSubScreen(
+					std::make_unique<SubListScreen<Playlist>>(
+						"[ Library >> Playlist ]",
+						playlists,
+						[this] (std::shared_ptr<Playlist> selectedPlaylist) {
+							UserManager::instance().getCurrentLibrary().add(song_, selectedPlaylist->getName());
+							ScreenManager::instance().goBack();
+						}
+					)
+				);
 				});
 
 			viewInfoBt_ = addElement<Button>();
