@@ -124,7 +124,7 @@ template<class T>
 template<typename U>
 inline void List<T>::push_back(U&& value)
 {
-	auto* node = new Node<T>(T(std::forward<U>(value)));
+	auto* node = new Node<T>(std::forward<U>(value));
 	if (!head_)
 		head_ = tail_ = node;
 	else

@@ -5,9 +5,8 @@
 #include "DataManager.h"
 #include "SongManager.h"
 #include "List.h"
+#include "HashTable.h"
 
-#include <unordered_map>
-#include <vector>
 #include <memory>
 
 namespace sb

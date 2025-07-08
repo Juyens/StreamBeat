@@ -1,6 +1,7 @@
 #pragma once
 
-#include "User.h"
+#include "IndexedUser.h"
+#include "AVLTree.h"
 #include "Library.h"
 
 namespace sb
@@ -19,11 +20,16 @@ namespace sb
         bool isUserLoggedIn() const;
 
     private:
-        UserManager() = default;
-        bool userExists(const std::string& email);
+        UserManager();
+
         static std::string getFilePath();
+        void loadUsersFromFile();
+        bool userExists(const std::string& email);
+
         bool isLoggedIn_{ false };
         User currentUser_;
         Library currentLibrary_;
+
+        AVLTree<IndexedUser> userIndex_;
     };
 }

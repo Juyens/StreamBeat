@@ -40,6 +40,8 @@ public:
 
 	V& operator[](const K& key);
 
+	List<std::pair<K, V>> toList() const;
+
 	void clear();
 
 	inline unsigned int size() const { return count; }
@@ -172,6 +174,22 @@ inline V& HashTable<K, V, Hash>::operator[](const K& key)
 
 	insert(key, V{});
 	return *find(key);
+}
+
+template<typename K, typename V, typename Hash>
+inline List<std::pair<K, V>> HashTable<K, V, Hash>::toList() const
+{
+	List<std::pair<K, V>> result;
+	for (unsigned int i = 0; i < capacity; ++i)
+	{
+		const List<HashEntry<K, V>>& bucket = buckets[i];
+		for (unsigned int j = 0; j < bucket.size(); ++j)
+		{
+			const HashEntry<K, V>& entry = bucket[j];
+			result.push_back(std::pair<K, V>(entry.key, entry.value));
+		}
+	}
+	return result;
 }
 
 template <typename K, typename V, typename Hash>

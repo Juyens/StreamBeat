@@ -1,8 +1,10 @@
 #pragma once
 
 #include "NodoAVL.h"
-
+#include <iostream>
 #include <stdexcept>
+#include <functional>
+#include <algorithm>
 
 template <typename T>
 class AVLTree
@@ -10,18 +12,21 @@ class AVLTree
 public:
     AVLTree();
     ~AVLTree();
+
     void insert(const T& value);
     void erase(const T& value);
     bool contains(const T& value) const;
+    const T* find(const T& value) const;
     void clear();
-    void inOrderTraversal() const;
 
-private:
-    void clear(NodoAVL<T>* node);
-    void inOrderTraversal(NodoAVL<T>* node) const;
+    void inOrderTraversal() const;
+    void inOrderTraversal(const std::function<void(const T&)>& callback) const;
 
 private:
     NodoAVL<T>* root;
+
+    void clear(NodoAVL<T>* node);
+    void inOrderTraversal(NodoAVL<T>* node) const;
 
     int height(NodoAVL<T>* node) const;
     int balanceFactor(NodoAVL<T>* node) const;
@@ -29,8 +34,8 @@ private:
     NodoAVL<T>* rotateLeft(NodoAVL<T>* x);
     NodoAVL<T>* balance(NodoAVL<T>* node);
     NodoAVL<T>* insert(NodoAVL<T>* node, const T& value);
-    NodoAVL<T>* minValueNode(NodoAVL<T>* node) const;
     NodoAVL<T>* erase(NodoAVL<T>* node, const T& value);
+    NodoAVL<T>* minValueNode(NodoAVL<T>* node) const;
 };
 
 template <typename T>
@@ -116,7 +121,6 @@ NodoAVL<T>* AVLTree<T>::insert(NodoAVL<T>* node, const T& value)
         return node;
 
     node->height = std::max(height(node->left), height(node->right)) + 1;
-
     return balance(node);
 }
 
@@ -197,6 +201,22 @@ bool AVLTree<T>::contains(const T& value) const
 }
 
 template <typename T>
+const T* AVLTree<T>::find(const T& value) const
+{
+    NodoAVL<T>* current = root;
+    while (current)
+    {
+        if (value < current->data)
+            current = current->left;
+        else if (value > current->data)
+            current = current->right;
+        else
+            return &(current->data);
+    }
+    return nullptr;
+}
+
+template <typename T>
 void AVLTree<T>::clear()
 {
     clear(root);
@@ -221,10 +241,22 @@ void AVLTree<T>::inOrderTraversal() const
 template <typename T>
 void AVLTree<T>::inOrderTraversal(NodoAVL<T>* node) const
 {
-    if (node)
-    {
-        inOrderTraversal(node->left);
-        std::cout << node->data << " ";
-        inOrderTraversal(node->right);
-    }
+    if (!node) return;
+    inOrderTraversal(node->left);
+    std::cout << node->data << " ";
+    inOrderTraversal(node->right);
+}
+
+template <typename T>
+void AVLTree<T>::inOrderTraversal(const std::function<void(const T&)>& callback) const
+{
+    std::function<void(NodoAVL<T>*)> traverse = [&] (NodoAVL<T>* node)
+        {
+            if (!node) return;
+            traverse(node->left);
+            callback(node->data);
+            traverse(node->right);
+        };
+
+    traverse(root);
 }

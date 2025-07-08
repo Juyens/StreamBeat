@@ -1,7 +1,4 @@
 #include "RecommendationManager.h"
-#include <algorithm>
-#include <unordered_set>
-#include <unordered_map>
 
 namespace sb
 {
@@ -14,7 +11,7 @@ namespace sb
     List<std::shared_ptr<Song>> RecommendationManager::getRecommendations(size_t count)
     {
         List<std::shared_ptr<Song>> result;
-        std::vector<std::shared_ptr<Song>> historySongs;
+        List<std::shared_ptr<Song>> historySongs;
 
         auto& history = SongManager::instance().getHistory();
         while (!history.empty())
@@ -22,70 +19,112 @@ namespace sb
             historySongs.push_back(history.top());
             history.pop();
         }
-        for (auto it = historySongs.rbegin(); it != historySongs.rend(); ++it)
+
+        for (int i = historySongs.size() - 1; i >= 0; --i)
         {
-            history.push(*it);
+            history.push(historySongs[i]);
         }
 
         if (historySongs.empty())
             return result;
 
         Graph<std::string, int> graph;
-        std::unordered_set<std::string> vertices;
-        std::unordered_set<std::string> seedNames;
-        std::unordered_map<std::string, std::unordered_map<std::string, int>> weights;
+        HashTable<std::string, bool> vertices;
+        HashTable<std::string, bool> seedNames;
+        HashTable<std::string, HashTable<std::string, int>> weights;
 
-        for (const auto& song : historySongs)
+        for (uint i = 0; i < historySongs.size(); ++i)
         {
+            const auto& song = historySongs[i];
             const auto& name = song->getName();
-            if (vertices.insert(name).second)
+            if (!vertices.find(name))
+            {
+                vertices.insert(name, true);
                 graph.addVertex(name);
-            seedNames.insert(name);
+            }
+            seedNames.insert(name, true);
         }
 
-        for (const auto& seed : historySongs)
+        for (uint i = 0; i < historySongs.size(); ++i)
         {
+            const auto& seed = historySongs[i];
             auto& genres = seed->getGenres();
-            for (uint i = 0; i < genres.size(); ++i)
+            for (uint j = 0; j < genres.size(); ++j)
             {
-                auto songsByGenre = DataManager::instance().getSongsByGenre(genres[i]);
-                for (uint j = 0; j < songsByGenre.size(); ++j)
+                auto songsByGenre = DataManager::instance().getSongsByGenre(genres[j]);
+                for (uint k = 0; k < songsByGenre.size(); ++k)
                 {
-                    auto candidate = songsByGenre[j];
+                    auto candidate = songsByGenre[k];
                     const auto& toName = candidate->getName();
                     const auto& fromName = seed->getName();
 
                     if (toName == fromName)
                         continue;
 
-                    if (vertices.insert(toName).second)
+                    if (!vertices.find(toName))
+                    {
+                        vertices.insert(toName, true);
                         graph.addVertex(toName);
+                    }
 
-                    ++weights[fromName][toName];
+                    if (!weights.find(fromName))
+                        weights.insert(fromName, HashTable<std::string, int>());
+
+                    auto* table = weights.find(fromName);
+                    if (!table->find(toName))
+                        table->insert(toName, 1);
+                    else
+                        (*table)[toName]++;
                 }
             }
         }
 
-        for (const auto& [from, dests] : weights)
-            for (const auto& [to, w] : dests)
-                graph.addEdge(from, to, w);
-
-        std::unordered_map<std::string, int> score;
-
-        for (const auto& seed : historySongs)
+        List<std::pair<std::string, HashTable<std::string, int>>> weightList = weights.toList();
+        for (uint i = 0; i < weightList.size(); ++i)
         {
-            graph.forEachEdge(seed->getName(), [&] (const std::string& to, const int& weight) {
-                if (seedNames.count(to) == 0)
-                    score[to] += weight;
+            const auto& from = weightList[i].first;
+            const auto& destinations = weightList[i].second.toList();
+            for (uint j = 0; j < destinations.size(); ++j)
+            {
+                const auto& to = destinations[j].first;
+                int w = destinations[j].second;
+                graph.addEdge(from, to, w);
+            }
+        }
+
+        HashTable<std::string, int> score;
+        for (uint i = 0; i < historySongs.size(); ++i)
+        {
+            const std::string& seedName = historySongs[i]->getName();
+            graph.forEachEdge(seedName, [&] (const std::string& to, const int& weight)
+                {
+                    if (!seedNames.find(to))
+                    {
+                        if (!score.find(to))
+                            score.insert(to, weight);
+                        else
+                            score[to] += weight;
+                    }
                 });
         }
 
-        std::vector<std::pair<std::string, int>> sorted(score.begin(), score.end());
-        std::sort(sorted.begin(), sorted.end(), [] (auto& a, auto& b) { return a.second > b.second; });
+        List<std::pair<std::string, int>> sorted = score.toList();
+
+        for (uint i = 0; i < sorted.size(); ++i)
+        {
+            for (uint j = i + 1; j < sorted.size(); ++j)
+            {
+                if (sorted[j].second > sorted[i].second)
+                {
+                    std::swap(sorted[i], sorted[j]);
+                }
+            }
+        }
 
         size_t added = 0;
-        for (const auto& [name, s] : sorted)
+        for (uint i = 0; i < sorted.size(); ++i)
         {
+            const auto& name = sorted[i].first;
             auto song = DataManager::instance().getSongByName(name);
             if (song)
             {
