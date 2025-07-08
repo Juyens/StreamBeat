@@ -25,8 +25,8 @@ public:
 	explicit HashTable(unsigned int initialCapacity = 16);
 	~HashTable();
 
-	HashTable(const HashTable&) = delete;
-	HashTable& operator=(const HashTable&) = delete;
+        HashTable(const HashTable& other);
+        HashTable& operator=(const HashTable& other);
 
 	HashTable(HashTable&& other) noexcept;
 	HashTable& operator=(HashTable&& other) noexcept;
@@ -58,8 +58,25 @@ inline HashTable<K, V, Hash>::HashTable(unsigned int initialCapacity)
 template <typename K, typename V, typename Hash>
 inline HashTable<K, V, Hash>::~HashTable()
 {
-	clear();
-	delete[] buckets;
+        clear();
+        delete[] buckets;
+}
+
+template <typename K, typename V, typename Hash>
+inline HashTable<K, V, Hash>::HashTable(const HashTable& other)
+        : capacity(other.capacity)
+        , count(other.count)
+        , hashFunction(other.hashFunction)
+{
+        buckets = new List<HashEntry<K, V>>[capacity];
+        for (unsigned int i = 0; i < capacity; ++i)
+        {
+                const List<HashEntry<K, V>>& bucket = other.buckets[i];
+                for (unsigned int j = 0; j < bucket.size(); ++j)
+                {
+                        buckets[i].push_back(bucket[j]);
+                }
+        }
 }
 
 template <typename K, typename V, typename Hash>
@@ -77,10 +94,10 @@ inline HashTable<K, V, Hash>::HashTable(HashTable&& other) noexcept
 template <typename K, typename V, typename Hash>
 inline HashTable<K, V, Hash>& HashTable<K, V, Hash>::operator=(HashTable&& other) noexcept
 {
-	if (this != &other)
-	{
-		clear();
-		delete[] buckets;
+        if (this != &other)
+        {
+                clear();
+                delete[] buckets;
 
 		buckets = other.buckets;
 		capacity = other.capacity;
@@ -91,7 +108,32 @@ inline HashTable<K, V, Hash>& HashTable<K, V, Hash>::operator=(HashTable&& other
 		other.capacity = 0;
 		other.count = 0;
 	}
-	return *this;
+        return *this;
+}
+
+template <typename K, typename V, typename Hash>
+inline HashTable<K, V, Hash>& HashTable<K, V, Hash>::operator=(const HashTable& other)
+{
+        if (this != &other)
+        {
+                clear();
+                delete[] buckets;
+
+                capacity = other.capacity;
+                count = other.count;
+                hashFunction = other.hashFunction;
+                buckets = new List<HashEntry<K, V>>[capacity];
+
+                for (unsigned int i = 0; i < capacity; ++i)
+                {
+                        const List<HashEntry<K, V>>& bucket = other.buckets[i];
+                        for (unsigned int j = 0; j < bucket.size(); ++j)
+                        {
+                                buckets[i].push_back(bucket[j]);
+                        }
+                }
+        }
+        return *this;
 }
 
 template <typename K, typename V, typename Hash>
