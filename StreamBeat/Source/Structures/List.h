@@ -16,8 +16,8 @@ public:
 	List() = default;
 	explicit List(Compare compare);
 
-	List(const List& other) = delete;
-	List& operator=(const List& other) = delete;
+        List(const List& other);
+        List& operator=(const List& other);
 
 	List(List&& other) noexcept;
 	List& operator=(List&& other) noexcept;
@@ -70,8 +70,20 @@ private:
 
 template<class T>
 inline List<T>::List(Compare compare)
-	: compare_(std::move(compare))
+        : compare_(std::move(compare))
 {
+}
+
+template<class T>
+inline List<T>::List(const List& other)
+        : compare_(other.compare_)
+{
+        Node<T>* current = other.head_;
+        while (current)
+        {
+                push_back(current->data);
+                current = current->next;
+        }
 }
 
 template<class T>
@@ -89,19 +101,36 @@ inline List<T>::List(List&& other) noexcept
 template<class T>
 inline List<T>& List<T>::operator=(List<T>&& other) noexcept
 {
-	if (this != &other)
-	{
-		clear();
-		compare_ = std::move(other.compare_);
-		head_ = other.head_;
-		tail_ = other.tail_;
-		length_ = other.length_;
+        if (this != &other)
+        {
+                clear();
+                compare_ = std::move(other.compare_);
+                head_ = other.head_;
+                tail_ = other.tail_;
+                length_ = other.length_;
 
-		other.head_ = nullptr;
-		other.tail_ = nullptr;
-		other.length_ = 0;
-	}
-	return *this;
+                other.head_ = nullptr;
+                other.tail_ = nullptr;
+                other.length_ = 0;
+        }
+        return *this;
+}
+
+template<class T>
+inline List<T>& List<T>::operator=(const List<T>& other)
+{
+        if (this != &other)
+        {
+                clear();
+                compare_ = other.compare_;
+                Node<T>* current = other.head_;
+                while (current)
+                {
+                        push_back(current->data);
+                        current = current->next;
+                }
+        }
+        return *this;
 }
 
 template<class T>
