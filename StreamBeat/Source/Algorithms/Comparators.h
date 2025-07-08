@@ -40,4 +40,13 @@ namespace sb
             return a->getDurationSeconds() > b->getDurationSeconds();
         }
     };
+
+    class CompareByScoreDesc
+    {
+    public:
+        bool operator()(const std::pair<std::string, int>& a, const std::pair<std::string, int>& b) const
+        {
+            return a.second > b.second;
+        }
+    };
 }

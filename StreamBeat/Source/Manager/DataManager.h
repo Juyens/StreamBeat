@@ -122,7 +122,8 @@ namespace sb
 		HashTable<std::string, std::shared_ptr<Album>> albumByName_;
 		HashTable<std::string, std::shared_ptr<Song>> songByName_;
 
-		HashTable<std::string, std::string> songToAlbum_;
-		HashTable<std::string, std::string> albumToArtist_;
-	};
+                HashTable<std::string, std::string> songToAlbum_;
+                HashTable<std::string, std::string> albumToArtist_;
+                HashTable<std::string, List<std::shared_ptr<Song>>> songsByGenre_;
+        };
 }

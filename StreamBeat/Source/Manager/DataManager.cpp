@@ -176,21 +176,13 @@ namespace sb
         std::string query = genre;
         std::transform(query.begin(), query.end(), query.begin(), ::tolower);
 
-        for (uint i = 0; i < songs_.size(); ++i)
-        {
-            const auto& song = songs_[i];
-            const auto& genres = song->getGenres();
-            for (uint j = 0; j < genres.size(); ++j)
-            {
-                std::string lowered = genres[j];
-                std::transform(lowered.begin(), lowered.end(), lowered.begin(), ::tolower);
-                if (lowered == query)
-                {
-                    result.push_back(song);
-                    break;
-                }
-            }
-        }
+        auto listPtr = songsByGenre_.find(query);
+        if (!listPtr)
+            return result;
+
+        for (uint i = 0; i < listPtr->size(); ++i)
+            result.push_back((*listPtr)[i]);
+
         return result;
     }
 
@@ -341,6 +333,17 @@ namespace sb
             songByName_.insert(currentSong->getName(), currentSong);
             songToAlbum_.insert(currentSong->getName(), currentAlbum->getName());
             songPartialIndex_.insert(currentSong);
+
+            const auto& genres = currentSong->getGenres();
+            for (uint i = 0; i < genres.size(); ++i)
+            {
+                std::string lowered = genres[i];
+                std::transform(lowered.begin(), lowered.end(), lowered.begin(), ::tolower);
+                if (!songsByGenre_.find(lowered))
+                    songsByGenre_.insert(lowered, List<std::shared_ptr<Song>>());
+
+                songsByGenre_[lowered].push_back(currentSong);
+            }
 
             currentSong = nullptr;
             currentCredits = nullptr;
